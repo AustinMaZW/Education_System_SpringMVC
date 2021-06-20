@@ -1,4 +1,4 @@
-package sg.edu.iss.caps.Model;
+package sg.edu.iss.caps.model;
 
 public class test {
 	//can you see the changes?
