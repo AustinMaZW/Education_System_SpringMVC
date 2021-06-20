@@ -12,6 +12,8 @@ target/
 .settings
 .springBeans
 .sts4-cache
+.dbeaver
+application.properties
 
 ### IntelliJ IDEA ###
 .idea
