@@ -2,7 +2,6 @@ package sg.edu.iss.caps.model;
 
 import java.util.List;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -20,7 +19,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@DiscriminatorValue("Lecturer")
 public class Lecturer extends User {
 	private Level jobLevel;
 	private String description;

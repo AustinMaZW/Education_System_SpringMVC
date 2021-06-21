@@ -6,9 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
@@ -30,13 +27,14 @@ public class Course {
 	private String Name;
 	private String description;
 	private String category;
-	@ManyToMany
-	@JoinTable(name = "lecturer_course", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "lecturer_id"))
-	private List<Lecturer> lecturers;
-	@ManyToMany
-	@JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-	private List<Student> students;
 	@OneToMany(mappedBy = "course")
-	private List<CourseEnrolment> detail;
+	private List<CourseEnrolment> enrols;
 
 }
+
+//@ManyToMany
+//@JoinTable(name = "lecturer_course", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "lecturer_id"))
+//private List<Lecturer> lecturers;
+//@ManyToMany
+//@JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+//private List<Student> students;

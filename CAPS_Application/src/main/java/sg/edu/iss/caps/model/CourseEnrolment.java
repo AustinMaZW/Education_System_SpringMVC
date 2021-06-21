@@ -34,4 +34,7 @@ public class CourseEnrolment {
 	private LocalDate endDate;
 	private String capacity;
 	private Status status;
+//	@ManyToMany
+//	@JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "enrolment_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+//	private List<Student> studentList;
 }
