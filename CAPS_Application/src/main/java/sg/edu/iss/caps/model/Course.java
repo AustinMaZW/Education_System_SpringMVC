@@ -29,7 +29,15 @@ public class Course {
 	private String category;
 	@OneToMany(mappedBy = "course")
 	private List<CourseEnrolment> enrols;
+	public Course(String name, String description, String category) {
+		super();
+		Name = name;
+		this.description = description;
+		this.category = category;
+	}
 
+	
+	
 }
 
 //@ManyToMany
