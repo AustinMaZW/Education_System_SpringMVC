@@ -19,6 +19,14 @@ import lombok.ToString;
 @AllArgsConstructor
 @MappedSuperclass
 public class User {
+	public User(String username, String password, String firstName, String lastName) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false)
@@ -31,5 +39,14 @@ public class User {
 	@Column(nullable = false)
 	private String firstName;
 	@Column(nullable = false)
-	private String secondName;
+	private String lastName;
+
+	public User(String username, String password, String sessionId, String firstName, String lastName) {
+		this.username = username;
+		this.password = password;
+		this.sessionId = sessionId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
 }
