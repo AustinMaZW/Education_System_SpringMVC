@@ -3,6 +3,8 @@ package sg.edu.iss.caps.login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sg.edu.iss.caps.model.Admin;
+
 @Service
 public class AdminImplementation implements AdminInterface{
 	@Autowired

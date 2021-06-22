@@ -14,8 +14,8 @@ public class LoginController {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	@RequestMapping(path ="/login")
+
+	@RequestMapping("/login")
 	public String login(Model model) {
 		return "login";
 	}
