@@ -21,8 +21,7 @@ public class AdminImplementation implements AdminInterface{
 	}
 	public boolean authenticate(Admin admin) {
 		Admin fromDB = arepo.findAdminByUsernameAndPassword(admin.getUsername(), admin.getPassword());
-		if (fromDB.getUsername().equals(admin.getUsername()) && 
-				fromDB.getPassword().equals(admin.getPassword())){
+		if (fromDB!=null){
 			return true;
 		}
 		return false;
