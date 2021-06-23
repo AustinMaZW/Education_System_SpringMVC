@@ -31,29 +31,23 @@ public class Course {
 	private String category;
 	@OneToMany(mappedBy = "course")
 	private List<CourseEnrolment> enrols;
-<<<<<<< HEAD
 	@ManyToMany(mappedBy = "courses")
 	private List<Lecturer> lectures;
 
 	public Course(String name, String description, String category) {
 		super();
 		this.name = name;
-=======
-	public Course(String name, String description, String category) {
-		super();
-		Name = name;
->>>>>>> refs/heads/main
 		this.description = description;
 		this.category = category;
 	}
 
-	
-	
 }
 
-//@ManyToMany
-//@JoinTable(name = "lecturer_course", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "lecturer_id"))
-//private List<Lecturer> lecturers;
-//@ManyToMany
-//@JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-//private List<Student> students;
+// @ManyToMany
+// @JoinTable(name = "lecturer_course", joinColumns = @JoinColumn(name =
+// "course_id"), inverseJoinColumns = @JoinColumn(name = "lecturer_id"))
+// private List<Lecturer> lecturers;
+// @ManyToMany
+// @JoinTable(name = "student_course", joinColumns = @JoinColumn(name =
+// "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+// private List<Student> students;
