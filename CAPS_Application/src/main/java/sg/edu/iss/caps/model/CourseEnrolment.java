@@ -25,7 +25,7 @@ import lombok.ToString;
 public class CourseEnrolment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Id;
+	private int id;
 	@ManyToOne
 	private Course course;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

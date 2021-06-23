@@ -31,7 +31,7 @@ public class Course {
 	private List<CourseEnrolment> enrols;
 	public Course(String name, String description, String category) {
 		super();
-		name = name;
+		this.name = name;
 		this.description = description;
 		this.category = category;
 	}
