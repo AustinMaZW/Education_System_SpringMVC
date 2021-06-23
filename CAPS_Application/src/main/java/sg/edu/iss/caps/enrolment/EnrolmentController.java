@@ -47,13 +47,13 @@ public class EnrolmentController {
             return "Enrolment-form";
         if (enrol.getId() != 0) {
             eservice.UpdateEnrolment(enrol);
-            return "forward:/enrolment/list";
+            return "redirect:/enrolment/list";
         }
         System.out.println(enrol.getId());
         Course course = crepo.findCourseByName(enrol.getCourse().getName());
         if (eservice.CreateEnrolment(new CourseEnrolment(course, enrol.getStartDate(), enrol.getEndDate(),
                 enrol.getCapacity(), enrol.getStatus())))
-            return "forward:/enrolment/list";
+            return "redirect:/enrolment/list";
         return "forward:/enrolment/list";
     }
 
@@ -70,7 +70,7 @@ public class EnrolmentController {
     @RequestMapping("/remove/{id}")
     public String removeEnrol(@PathVariable("id") int id) {
         eservice.DeleteEnrolment(id);
-        return "forward:/enrolment/list";
+        return "redirect:/enrolment/list";
     }
 
     @RequestMapping("/edit/{id}")
