@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/tableedit.css">
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit/Add Course</title>
+</head>
+<body>
+<header th:insert="layout/layout.html :: header"></header>
+
+<div class="container-xl">
+	<div class="row">
+		<div class="col-md-8 mx-auto">
+			<div class="contact-form">
+				<h1>Edit Course</h1>
+				<p class="hint-text">Please fill up all the below fields</p>
+				<form th:action="@{/admin/course/save}" th:object="${course}" method="post">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label for="inputFirstName">Name</label>
+								<input th:field="*{name}" type="text" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label for="inputLastName">Category</label>
+								<input th:field="*{category}" type="text" class="form-control" required>
+							</div>
+						</div>
+					</div>            
+					<div class="form-group">
+						<label for="inputEmail">description</label>
+						<input th:field="*{description}" type="text" class="form-control" required>
+					</div>
+					<input type="hidden" th:field="*{id}">  
+					<input type="submit" class="btn btn-primary" value="Submit">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
