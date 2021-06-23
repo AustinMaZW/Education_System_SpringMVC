@@ -31,24 +31,16 @@ public class Course {
 	private String category;
 	@OneToMany(mappedBy = "course")
 	private List<CourseEnrolment> enrols;
-<<<<<<< HEAD
 	@ManyToMany(mappedBy = "courses")
 	private List<Lecturer> lectures;
 
 	public Course(String name, String description, String category) {
 		super();
 		this.name = name;
-=======
-	public Course(String name, String description, String category) {
-		super();
-		Name = name;
->>>>>>> refs/heads/main
 		this.description = description;
 		this.category = category;
 	}
 
-	
-	
 }
 
 //@ManyToMany
