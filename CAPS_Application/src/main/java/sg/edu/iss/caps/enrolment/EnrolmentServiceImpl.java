@@ -14,6 +14,7 @@ import sg.edu.iss.caps.model.Student;
 import sg.edu.iss.caps.student.StudentRepository;
 import sg.edu.iss.caps.viewcourse.CourseRepository;
 
+@Service
 public class EnrolmentServiceImpl implements EnrolmentService {
     @Autowired
     EnrolRepository erepo;
