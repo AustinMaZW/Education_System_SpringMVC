@@ -20,10 +20,14 @@ public interface EnrolmentService {
 
 	List<CourseEnrolment> findEnrolmentByStudent(Student student);
 
+	CourseEnrolment findEnrolmentById(int id);
+
+	boolean cancelEnrol(int id);
+
 	boolean UpdateEnrolment(CourseEnrolment enrol);
 
 	boolean CreateEnrolment(CourseEnrolment enrol);
 
-	void DeleteEnrolment(CourseEnrolment enrol);
+	void DeleteEnrolment(int id);
 
 }

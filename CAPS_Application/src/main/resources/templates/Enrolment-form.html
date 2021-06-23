@@ -22,8 +22,11 @@
                 <tr>
                     <td>Course Name</td>
                     <td>
-                        <input type="hidden" th:field="*{Id}">
+                        <input type="hidden" th:field="*{Id}" th:value="${enrol.Id}">
                         <select th:field="*{course.name}">
+                            <option th:if="${enrol.course.name} != null" th:text="${enrol.course.name}"
+                                th:value="${enrol.course.name}" selected>
+                            </option>
                             <option th:each="course:${courses}" th:text="${course.name}" th:value="${course.name}">
                             </option>
                         </select>
@@ -48,7 +51,7 @@
                     <td>Start Date :</td>
                     <td>
                         <input type="text" th:field="*{startDate}" placeholder="yyyy-MM-dd"
-                            th:text="${#dates.format(enrol.startDate, 'yyyy-MM-dd')}" />
+                            th:text="${#temporals.format(enrol.startDate, 'yyyy-MM-dd')}" />
                         <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
                     </td>
                 </tr>
@@ -56,7 +59,7 @@
                     <td>End Date :</td>
                     <td>
                         <input type="text" th:field="*{endDate}" placeholder="yyyy-MM-dd"
-                            th:text="${#dates.format(enrol.endDate, 'yyyy-MM-dd')}" />
+                            th:text="${#temporals.format(enrol.endDate, 'yyyy-MM-dd')}" />
                         <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
                     </td>
                 </tr>
@@ -64,8 +67,8 @@
                     <td>Status :</td>
                     <td>
                         <select th:field="*{status}">
-                            <option value="Available">Available</option>
-                            <option value="NotAvailable">NotAvailable</option>
+                            <option th:value="Available">Available</option>
+                            <option th:value="NotAvailable">NotAvailable</option>
                         </select>
                     </td>
                 </tr>

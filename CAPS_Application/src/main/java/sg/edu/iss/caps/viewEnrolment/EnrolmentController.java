@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.model.Course;
@@ -43,10 +44,41 @@ public class EnrolmentController {
 			Model model) {
 		if (bindingResult.hasErrors())
 			return "Enrolment-form";
+		if (enrol.getId() != 0) {
+			eservice.UpdateEnrolment(enrol);
+			return "forward:/enrolment/list";
+		}
+		System.out.println(enrol.getId());
 		Course course = crepo.findCourseByName(enrol.getCourse().getName());
 		if (eservice.CreateEnrolment(new CourseEnrolment(course, enrol.getStartDate(), enrol.getEndDate(),
 				enrol.getCapacity(), enrol.getStatus())))
 			return "forward:/enrolment/list";
 		return "forward:/enrolment/list";
+	}
+
+	@RequestMapping("/cancel/{id}")
+	public String cancel(@PathVariable("id") int id) {
+		if (!eservice.cancelEnrol(id)) {
+			System.out.println("cannot cancel");
+			return "forward:/enrolment/list";
+		}
+		System.out.println("Successfully canceled");
+		return "forward:/enrolment/list";
+	}
+
+	@RequestMapping("/remove/{id}")
+	public String removeEnrol(@PathVariable("id") int id) {
+		eservice.DeleteEnrolment(id);
+		return "forward:/enrolment/list";
+	}
+
+	@RequestMapping("/edit/{id}")
+	public String edit(@PathVariable("id") int id, Model model) {
+		CourseEnrolment enrol = eservice.findEnrolmentById(id);
+		model.addAttribute("enrol", enrol);
+		ArrayList<Course> courses = (ArrayList<Course>) crepo.findAll();
+		model.addAttribute("courses", courses);
+		return "Enrolment-form";
+
 	}
 }

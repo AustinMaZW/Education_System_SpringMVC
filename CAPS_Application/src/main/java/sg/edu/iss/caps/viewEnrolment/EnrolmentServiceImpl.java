@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.CourseEnrolment;
+import sg.edu.iss.caps.model.Status;
 import sg.edu.iss.caps.model.Student;
 
 @Service
@@ -80,7 +81,7 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		if (curr == null)
 			return false;
 		curr.setCapacity(enrol.getCapacity());
-		curr.setCourse(enrol.getCourse());
+		curr.setCourse(crepo.findCourseByName(enrol.getCourse().getName()));
 		curr.setEndDate(enrol.getEndDate());
 		curr.setStartDate(enrol.getStartDate());
 		curr.setStatus(enrol.getStatus());
@@ -101,7 +102,24 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 
 	@Override
 	@Transactional
-	public void DeleteEnrolment(CourseEnrolment enrol) {
+	public void DeleteEnrolment(int id) {
+		CourseEnrolment enrol = erepo.findById(id).get();
 		erepo.delete(enrol);
+	}
+
+	@Override
+	public CourseEnrolment findEnrolmentById(int id) {
+		return erepo.findById(id).get();
+	}
+
+	@Override
+	public boolean cancelEnrol(int id) {
+		CourseEnrolment enrol = erepo.findById(id).get();
+		if (enrol.getStatus() == Status.Available)
+			return false;
+		enrol.setStatus(Status.NotAvailable);
+		erepo.save(enrol);
+		return true;
+
 	}
 }

@@ -4,16 +4,17 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Home Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
 
 <body>
     <header th:insert="layout/layout.html::header"></header>
-    <a th:href="@{/enrolment/add}">New Enrollment</a>
+    <a th:href="@{/enrolment/add}"><input type="button" value="New Enrolment" /></a>
     <table>
         <thead>
             <tr>
-                <th>Enrollment Id</th>
+                <th>Enrolment Id</th>
                 <th>Course Name</th>
                 <th>Capacity</th>
                 <th>Status</th>
@@ -29,6 +30,8 @@
                 <td th:text="${enrol.status}"></td>
                 <td th:text="${enrol.startDate}"></td>
                 <td th:text="${enrol.endDate}"></td>
+                <td><a th:href="@{/enrolment/edit/}+${enrol.Id}"><input type="button" value="Edit" /></a></td>
+                <td><a th:href="@{/enrolment/remove/}+${enrol.Id}"><input type="button" value="Delete" /></a></td>
             </tr>
         </tbody>
     </table>
