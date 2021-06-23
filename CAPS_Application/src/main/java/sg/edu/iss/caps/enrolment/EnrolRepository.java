@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 import sg.edu.iss.caps.model.CourseEnrolment;
 
 public interface EnrolRepository extends JpaRepository<CourseEnrolment, Integer> {
-    @Query("select e from CourseEnrolment e where e.course.Id = :id")
+    @Query("select e from CourseEnrolment e where e.course.id = :id")
     List<CourseEnrolment> findEnrolmentByCourse(@Param("id") int course_id);
 }
