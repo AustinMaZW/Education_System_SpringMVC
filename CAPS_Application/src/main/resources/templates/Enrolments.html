@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Home Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+
+<body>
+    <header th:insert="layout/layout.html::header"></header>
+    <a th:href="@{/enrolment/add}"><input type="button" value="New Enrolment" /></a>
+    <table>
+        <thead>
+            <tr>
+                <th>Enrolment Id</th>
+                <th>Course Name</th>
+                <th>Capacity</th>
+                <th>Status</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="enrol:${enrols}">
+                <td th:text="${enrol.Id}"></td>
+                <td th:text="${enrol.course.name}"></td>
+                <td th:text="${enrol.capacity}"></td>
+                <td th:text="${enrol.status}"></td>
+                <td th:text="${enrol.startDate}"></td>
+                <td th:text="${enrol.endDate}"></td>
+                <td><a th:href="@{/enrolment/edit/}+${enrol.Id}"><input type="button" value="Edit" /></a></td>
+                <td><a th:href="@{/enrolment/remove/}+${enrol.Id}"><input type="button" value="Delete" /></a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
