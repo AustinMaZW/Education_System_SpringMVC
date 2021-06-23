@@ -9,6 +9,5 @@ public interface CourseInterface {
 	public List<Course> listAllCourses();
 	public void updateCourse(Course course);
 	public void deleteCourse(Course course);
-	public void findCourseByName(String name);
-	
+	public Course findCourseByName(String name);	
 }
