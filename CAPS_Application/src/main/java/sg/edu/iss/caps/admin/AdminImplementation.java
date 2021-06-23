@@ -1,4 +1,4 @@
-package sg.edu.iss.caps.login;
+package sg.edu.iss.caps.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +19,13 @@ public class AdminImplementation implements AdminInterface{
 	public void deleteAdmin(Admin admin) {
 		arepo.delete(admin);
 	}
-	public boolean authenticate(Admin admin) {
-		Admin fromDB = arepo.findAdminByUsernameAndPassword(admin.getUsername(), admin.getPassword());
-		if (fromDB!=null){
-			return true;
-		}
-		return false;
-	}
+	
+	//old code
+//	public boolean authenticate(Admin admin) {
+//		Admin fromDB = arepo.findAdminByUsernameAndPassword(admin.getUsername(), admin.getPassword());
+//		if (fromDB!=null){
+//			return true;
+//		}
+//		return false;
+//	}
 }

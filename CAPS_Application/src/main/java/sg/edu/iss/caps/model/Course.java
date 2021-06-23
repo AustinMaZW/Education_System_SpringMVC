@@ -23,15 +23,15 @@ import lombok.ToString;
 public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Id;
-	private String Name;
+	private int id;
+	private String name;
 	private String description;
 	private String category;
 	@OneToMany(mappedBy = "course")
 	private List<CourseEnrolment> enrols;
 	public Course(String name, String description, String category) {
 		super();
-		Name = name;
+		name = name;
 		this.description = description;
 		this.category = category;
 	}
