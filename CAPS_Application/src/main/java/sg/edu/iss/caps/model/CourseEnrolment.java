@@ -25,7 +25,7 @@ import lombok.ToString;
 public class CourseEnrolment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int Id;
 	@ManyToOne
 	private Course course;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -34,7 +34,17 @@ public class CourseEnrolment {
 	private LocalDate endDate;
 	private String capacity;
 	private Status status;
-//	@ManyToMany
-//	@JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "enrolment_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-//	private List<Student> studentList;
+
+	// @ManyToMany
+	// @JoinTable(name = "student_course", joinColumns = @JoinColumn(name =
+	// "enrolment_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+	// private List<Student> studentList;
+	public CourseEnrolment(Course course, LocalDate startDate, LocalDate endDate, String capacity, Status status) {
+		super();
+		this.course = course;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.capacity = capacity;
+		this.status = status;
+	}
 }
