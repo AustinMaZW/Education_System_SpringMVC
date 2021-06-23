@@ -20,9 +20,10 @@ public class LecturerImplementation implements LecturerInterface {
 	}
 
 	@Override
-	public Lecturer findLecturerByName(String name) {
+	public Lecturer findLecturerByFirstName(String firstName) {
 		// TODO Auto-generated method stub
-		return lrepo.findLecturerByName(name);
+		return lrepo.findLecturerByFirstName(firstName);
+
 	}
 
 	@Override
