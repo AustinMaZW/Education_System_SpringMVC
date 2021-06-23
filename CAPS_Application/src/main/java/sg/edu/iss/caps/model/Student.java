@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.MapKeyJoinColumn;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,6 +39,14 @@ public class Student extends User {
 		super(username, password, firstName, lastName);
 		this.matriculation_date = matriculation_date;
 		this.gpa = gpa;
+	}
+
+	public Student(LocalDate matric_date, double gpa, @NotEmpty String username, @NotEmpty String password,
+			String sessionId, String firstName, String secondName) {
+		super(username, password, sessionId, firstName, secondName);
+		this.matriculation_date = matric_date;
+		this.gpa = gpa;
+		// TODO Auto-generated constructor stub
 	}
 
 }
