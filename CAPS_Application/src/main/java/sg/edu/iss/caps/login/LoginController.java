@@ -58,6 +58,7 @@ public class LoginController {
 		return ("admin");
 	}
 	
+	
 	//use @PreAuthorize to set access, below is just test example
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/testmodule")
