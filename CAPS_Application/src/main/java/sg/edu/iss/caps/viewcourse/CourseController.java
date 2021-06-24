@@ -28,31 +28,34 @@ public class CourseController {
 	@GetMapping(value="")
 	public String listCourse(Model model) {
 		List<Course> clist = cservice.listAllCourses();
+		Course course = new Course();
 		model.addAttribute("clist", clist);
+		model.addAttribute("course", course); //used for add course modal in view
 		return "course/course";
 	
 	}
 	
-	@GetMapping(value="/edit/{id}")
-	public String editCourse(Model model, @PathVariable("id") int id) {
-		Course course = cservice.findCourseById(id);
-		model.addAttribute(course);
-		return "course/editcourse";
-	}
-	
 	@PostMapping(value="/save")
-	public String saveEditCourse(@Valid Course course, BindingResult result) {
-		if (result.hasErrors()) { return "course/editcourse";}
+	public String saveCourse(@Valid Course course, BindingResult result, Model model) {
+		if (result.hasErrors()) { return "course/course";}
 		cservice.updateCourse(course);
 		return "redirect:/admin/course";
+		
 	}
 	
-	@GetMapping(value="/new")
-	public String addCourse (Model model) {
-		Course course = new Course();
-		model.addAttribute("course", course);
-		return "course/editcourse";
-	}
+//	@PostMapping(value="/save")
+//	public String saveEditCourse(@Valid Course course, BindingResult result) {
+//		if (result.hasErrors()) { return "course/editcourse";}
+//		cservice.updateCourse(course);
+//		return "redirect:/admin/course";
+//	}
+	
+//	@GetMapping(value="/new")
+//	public String addCourse (Model model) {
+//		Course course = new Course();
+//		model.addAttribute("course", course);
+//		return "course/editcourse";
+//	}
 		
 	@GetMapping("/delete/{id}")
 	public String deleteMethod(@PathVariable("id") Integer id) {
