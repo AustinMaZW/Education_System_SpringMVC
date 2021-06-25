@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.MapKeyJoinColumn;
@@ -27,21 +28,27 @@ public class Student extends User {
 	private LocalDate matriculation_date;
 	private double gpa;
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id"))
 	@MapKeyJoinColumn(name = "enrolment_id")
 	@Column(name = "grade")
 	private Map<CourseEnrolment, Double> grades;
 
-	public Student(LocalDate matric_date, double gpa, @NotEmpty String username, @NotEmpty String password, String sessionId, String firstName,
-			String secondName) {
+	public Student(String username, String password, String firstName, String lastName, LocalDate matriculation_date,
+			double gpa) {
+		super(username, password, firstName, lastName);
+		this.matriculation_date = matriculation_date;
+		this.gpa = gpa;
+	}
+
+	public Student(LocalDate matric_date, double gpa, @NotEmpty String username, @NotEmpty String password,
+			String sessionId, String firstName, String secondName) {
 		super(username, password, sessionId, firstName, secondName);
 		this.matriculation_date = matric_date;
 		this.gpa = gpa;
 		// TODO Auto-generated constructor stub
 	}
 
-	
 }
 
 // @ManyToMany
@@ -49,4 +56,4 @@ public class Student extends User {
 // "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
 // @JoinTable(name = "student_course", joinColumns = @JoinColumn(name =
 // "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
-//private List<Course> courses_st;
+// private List<Course> courses_st;
