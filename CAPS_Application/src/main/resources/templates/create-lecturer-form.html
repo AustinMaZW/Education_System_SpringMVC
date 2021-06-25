@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<title>New Lecturer</title>
+</head>
+<body>
+ 
+ 	<header th:insert="layout/layout.html :: header"></header>
+ 	<h1>Add Lecturer</h1>
+	<form th:object="${lecturer}" th:action="@{lecturer/save}"  class="form-horizontal" method="post">
+		<div>
+
+		
+		<fieldset>First Name: <input type="text" th:field="*{firstName}"/></fieldset>		
+		<fieldset>Last Name: <input type="text" th:field="*{lastName}"/></fieldset>
+		<fieldset>Username: <input type="text" th:field="*{username}"/></fieldset>
+		<fieldset>Password: <input type="text" th:field="*{password}"/></fieldset>
+		<fieldset>Title: <input type="text" th:field="*{jobLevel}"/></fieldset>
+		<fieldset>Description: <input type="text" th:field="*{description}"/></fieldset>
+		<fieldset>Employment Status: <input type="text" th:field="*{status}"/></fieldset>
+		<fieldset>
+			<!--
+			<button th:with="text=${Lecturer['new-lecturer']}? 'Add Lecturer' : 'Update Lecturer'">Add Lecturer</button> 
+			<button type="submit">Save</button>
+			 -->
+			 <button type="submit">Save</button>
+		</fieldset>
+		
+		</div>	
+	</form>
+
+</body>
+</html>
