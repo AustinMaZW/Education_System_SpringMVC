@@ -11,9 +11,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import sg.edu.iss.caps.admin.Admin;
 import sg.edu.iss.caps.admin.AdminRepository;
 import sg.edu.iss.caps.lecturer.LecturerRepository;
+import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.Lecturer;
 import sg.edu.iss.caps.model.Student;
 import sg.edu.iss.caps.student.StudentRepository;
+import sg.edu.iss.caps.viewcourse.CourseRepository;
 
 @SpringBootApplication
 public class CapsApplication {
@@ -24,6 +26,9 @@ public class CapsApplication {
 	StudentRepository srepo;
 	@Autowired
 	LecturerRepository lrepo;
+
+	@Autowired
+	CourseRepository crepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CapsApplication.class, args);
@@ -45,6 +50,13 @@ public class CapsApplication {
 			Lecturer l = new Lecturer(null, null, null, "Suria", PasswordEncoder().encode("Suria"), null, "Suria",
 					"forgot");
 			lrepo.save(l);
+			
+			//add course demo data
+			Course fopcs = new Course("FOPCS", "fundamental of C#", "Programming");
+			Course oop = new Course("OOP", "Object Oriented Programming", "Programming");
+			Course adlc1 = new Course("ADLC1", "design part 1", "System Analysis");
+			Course adlc2 = new Course("ADLC2", "design part 2", "System Analysis");
+			crepo.save(fopcs); crepo.save(oop); crepo.save(adlc1); crepo.save(adlc2); 
 
 		};
 	}
