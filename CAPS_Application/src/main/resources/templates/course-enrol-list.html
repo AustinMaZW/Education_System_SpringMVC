@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="enrol:${enrols}">
+            <tr th:each="enrol:${validEnrols}">
                 <td th:text="${enrol.Id}"></td>
                 <td th:text="${enrol.course.name}"></td>
                 <td th:text="${enrol.capacity}"></td>

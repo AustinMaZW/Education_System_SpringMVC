@@ -10,4 +10,5 @@ public interface CourseInterface {
 	public void updateCourse(Course course);
 	public void deleteCourse(Course course);
 	public Course findCourseByName(String name);	
+	public Course findCourseById(int id);
 }
