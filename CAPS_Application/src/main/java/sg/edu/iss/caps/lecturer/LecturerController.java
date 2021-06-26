@@ -17,6 +17,7 @@ import sg.edu.iss.caps.model.Lecturer;
 
 @Controller
 @RequestMapping("/admin")
+
 // maybe this should go under Admin controller.
 // public class AdminController {
 public class LecturerController {
@@ -29,15 +30,18 @@ public class LecturerController {
 	
 	@Autowired
 	public void setLecturer(LecturerImplementation ls) {
+
 		this.lservice= ls;
 	}
 	
 	
+
 	@GetMapping("/list")
 	public String listAllLecturer(Model model){
 		List<Lecturer> lecList = lservice.findAllLecturer();
 		model.addAttribute("lecList",lecList);
 		return LECTURER_LIST;
+
 	}	
 	
 	@GetMapping("/new-lecturer")
@@ -55,14 +59,18 @@ public class LecturerController {
 		}
 		else {
 			lservice.createLecturer(lecturer);
+
 			return "redirect:/admin/list";
 		}
+
 	}
 
 	
 	@GetMapping("/delete")
 	public void deleteLecturer(Lecturer lecturer) {
+
 		lservice.deleteLecturer(lecturer);
+
 
 	}
 	

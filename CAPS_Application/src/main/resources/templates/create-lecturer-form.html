@@ -8,6 +8,7 @@
  
  	<header th:insert="layout/layout.html :: header"></header>
  	<h1>Add Lecturer</h1>
+
 	<form th:object="${lecturer}" th:action="@{/admin/new-lecturer}" method="post">
 		<table>
 			<tr>
@@ -58,3 +59,4 @@
 
 </body>
 </html>
+
