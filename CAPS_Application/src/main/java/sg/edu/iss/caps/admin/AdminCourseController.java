@@ -1,4 +1,4 @@
-package sg.edu.iss.caps.viewcourse;
+package sg.edu.iss.caps.admin;
 
 import java.util.List;
 
@@ -9,19 +9,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.viewcourse.CourseInterface;
 
 @Controller
 @RequestMapping("/admin/course")
-public class CourseController {
+public class AdminCourseController {
 	@Autowired
 	CourseInterface cservice;
 	
-	public CourseController() {
+	public AdminCourseController() {
 		//empty constructor
 	}
 	
@@ -36,7 +38,7 @@ public class CourseController {
 	}
 	
 	@PostMapping(value="/save")
-	public String saveCourse(@Valid Course course, BindingResult result, Model model) {
+	public String saveCourse(@ModelAttribute @Valid Course course, BindingResult result) {
 		if (result.hasErrors()) { return "course/course";}
 		cservice.updateCourse(course);
 		return "redirect:/admin/course";
