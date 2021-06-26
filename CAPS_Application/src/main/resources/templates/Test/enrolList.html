@@ -11,6 +11,10 @@
 <body>
     <header th:insert="layout/layout.html::header"></header>
     <a th:href="@{/courseview/list}"><input type="button" value="Back" /></a>
+    <form action="/courseview/search" method="POST">
+    	<input type="text" name="queryString"/>
+    	<input type="submit" value="Search"/>
+    </form>
     <table class="table">
         <thead>
             <tr>

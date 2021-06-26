@@ -11,10 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.CourseEnrolment;
 import sg.edu.iss.caps.model.Student;
 import sg.edu.iss.caps.student.StudentService;
+import sg.edu.iss.caps.viewcourse.CourseInterface;
 
 @Controller
 @RequestMapping("/courseview")
@@ -23,6 +27,8 @@ public class ViewCourseEnrolController {
 	EnrolmentService eservice;
 	@Autowired
 	StudentService sservice;
+	@Autowired
+	CourseInterface cservice;
 	private Student stu;
 
 	@RequestMapping("/list")
@@ -30,21 +36,20 @@ public class ViewCourseEnrolController {
 		userName();
 		Map<CourseEnrolment, Double> grades = stu.getGrades();
 		model.addAttribute("grades", grades);
-		return "course-enrol-list";
+		model.addAttribute("func", "viewList");
+//		return "course-enrol-list";
+		return "CourseViewEnrolmentList";
 	}
 
 	@RequestMapping("/list/enrol")
 	public String enrolList(Model model) {
 		userName();
-		List<CourseEnrolment> enrols = new ArrayList<CourseEnrolment>(stu.getGrades().keySet());
 		List<CourseEnrolment> allEnrols = eservice.findAllEnrolment();
-		enrols.stream().forEach(x -> {
-			if (allEnrols.contains(x)) {
-				allEnrols.remove(x);
-			}
-		});
+		allEnrols = validList(allEnrols, this.stu);
 		model.addAttribute("validEnrol", allEnrols);
-		return "enrolList";
+		model.addAttribute("func", "enrolList");
+//		return "enrolList";
+		return "CourseViewEnrolmentList";
 	}
 
 	@RequestMapping("/add/{id}")
@@ -56,7 +61,7 @@ public class ViewCourseEnrolController {
 	}
 
 	@RequestMapping("/cancel/{id}")
-	private String cancel(@PathVariable("id") int id) {
+	public String cancel(@PathVariable("id") int id) {
 		userName();
 		CourseEnrolment enrol = eservice.findEnrolmentById(id);
 		sservice.cancel(stu, enrol);
@@ -64,9 +69,54 @@ public class ViewCourseEnrolController {
 
 	}
 
-	public void userName() {
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public String search(@RequestParam(value = "queryString") String queryString, Model model) {
+		userName();
+		System.out.println(queryString);
+		List<CourseEnrolment> list = eservice.findEnrolmentByCourseName(queryString);
+		list = validList(list, this.stu);
+		model.addAttribute("validEnrol", list);
+		model.addAttribute("func", "search");
+//		return "enrolList";
+		return "CourseViewEnrolmentList";
+	}
+
+	@RequestMapping("/courselist")
+	public String courseList(Model model) {
+		userName();
+		List<Course> cList = cservice.listAllCourses();
+		model.addAttribute("courseList", cList);
+		model.addAttribute("func", "courseList");
+//		return "course-list";
+		return "CourseViewEnrolmentList";
+	}
+
+	@RequestMapping(value = "/courselist/enrolss/{id}", method = RequestMethod.GET)
+	public String courseLists(@PathVariable("id") int id, Model model) {
+		userName();
+		System.out.println(id);
+		Course course = cservice.findCourseById(id);
+		ArrayList<CourseEnrolment> eList = (ArrayList<CourseEnrolment>) eservice.findEnrolmentByCourse(course);
+		eList = (ArrayList<CourseEnrolment>) validList(eList, this.stu);
+		model.addAttribute("validEnrol", eList);
+		model.addAttribute("func", "courseLists");
+//		return "enrolList";
+		return "CourseViewEnrolmentList";
+	}
+
+	private void userName() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
 		this.stu = sservice.findStudentByUsername(name);
+	}
+
+	private List<CourseEnrolment> validList(List<CourseEnrolment> list, Student _stu) {
+		List<CourseEnrolment> enrols = new ArrayList<CourseEnrolment>(stu.getGrades().keySet());
+		enrols.stream().forEach(x -> {
+			if (list.contains(x)) {
+				list.remove(x);
+			}
+		});
+		return list;
 	}
 }
