@@ -2,6 +2,7 @@ package sg.edu.iss.caps.enrolment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,7 @@ public class ViewCourseEnrolController {
 	public String viewList(Model model) {
 		String name = userName();
 		Student stu = sservice.findStudentByUsername(name);
+		Map<CourseEnrolment, Double> grades = stu.getGrades();
 		List<CourseEnrolment> enrols = new ArrayList<CourseEnrolment>(stu.getGrades().keySet());
 		List<CourseEnrolment> allEnrols = eservice.findAllEnrolment();
 		List<CourseEnrolment> validEnrols = new ArrayList<>();
@@ -36,6 +38,7 @@ public class ViewCourseEnrolController {
 			});
 		});
 		model.addAttribute("validEnrols", validEnrols);
+		model.addAttribute("grades", grades);
 		return "course-enrol-list";
 	}
 
