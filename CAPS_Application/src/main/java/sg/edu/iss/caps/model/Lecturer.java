@@ -25,10 +25,19 @@ public class Lecturer extends User {
 	private String description;
 	private Status status;
 	@ManyToMany
-	@JoinTable(name = "lecturer_course", joinColumns = @JoinColumn(name = "lecturer_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
+	@JoinTable(name = "course_lecturer", joinColumns = @JoinColumn(name = "lecturer_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
 	private List<Course> courses;
-	public Lecturer(Level jobLevel, String description, Status status, @NotEmpty String username, @NotEmpty String password, String sessionId, String firstName,
-			String secondName) {
+
+	public Lecturer(String username, String password, String firstName, String lastName, Level jobLevel,
+			String description, Status status) {
+		super(username, password, firstName, lastName);
+		this.jobLevel = jobLevel;
+		this.description = description;
+		this.status = status;
+	}
+
+	public Lecturer(Level jobLevel, String description, Status status, @NotEmpty String username,
+			@NotEmpty String password, String sessionId, String firstName, String secondName) {
 		super(username, password, sessionId, firstName, secondName);
 		this.jobLevel = jobLevel;
 		this.status = status;
