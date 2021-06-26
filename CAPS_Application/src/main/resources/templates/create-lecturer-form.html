@@ -3,32 +3,57 @@
 <head>
 <meta charset="ISO-8859-1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-<title>New Lecturer</title>
 </head>
 <body>
  
  	<header th:insert="layout/layout.html :: header"></header>
  	<h1>Add Lecturer</h1>
-	<form th:object="${lecturer}" th:action="@{lecturer/save}"  class="form-horizontal" method="post">
-		<div>
-
-		
-		<fieldset>First Name: <input type="text" th:field="*{firstName}"/></fieldset>		
-		<fieldset>Last Name: <input type="text" th:field="*{lastName}"/></fieldset>
-		<fieldset>Username: <input type="text" th:field="*{username}"/></fieldset>
-		<fieldset>Password: <input type="text" th:field="*{password}"/></fieldset>
-		<fieldset>Title: <input type="text" th:field="*{jobLevel}"/></fieldset>
-		<fieldset>Description: <input type="text" th:field="*{description}"/></fieldset>
-		<fieldset>Employment Status: <input type="text" th:field="*{status}"/></fieldset>
-		<fieldset>
-			<!--
-			<button th:with="text=${Lecturer['new-lecturer']}? 'Add Lecturer' : 'Update Lecturer'">Add Lecturer</button> 
-			<button type="submit">Save</button>
-			 -->
-			 <button type="submit">Save</button>
-		</fieldset>
-		
-		</div>	
+	<form th:object="${lecturer}" th:action="@{/admin/new-lecturer}" method="post">
+		<table>
+			<tr>
+			<td>First Name:</td>
+			<td><input type="text" th:field="*{firstName}"/></td>
+			</tr>
+			<tr>
+			<td>Last Name: </td>
+			<td><input type="text" th:field="*{lastName}"/></td>
+			</tr>
+			<tr>
+			<td>Username: </td>
+			<td><input type="text" th:field="*{username}"/></td>
+			</tr>
+			<tr>
+			<td>Password: </td>
+			<td><input type="text" th:field="*{password}"/></td>
+			</tr>
+			<tr>
+			<td>Title: </td>
+			<td>
+				<select th:field="*{jobLevel}">
+					<option th:each="level: ${T(sg.edu.iss.caps.model.Level).values()}" 
+					th:value="${level}" th:text="${level.displayLevel}">
+					</option>
+				</select>
+			</td>
+			</tr>
+			<tr>
+			<td>Description: </td>
+			<td><input type="text" th:field="*{description}"/></td>
+			</tr>
+			<tr>
+			<td>Employment Status: </td>
+			<td>
+				<select th:field="*{status}">
+					<option th:each="stat: ${T(sg.edu.iss.caps.model.Status).values()}" 
+					th:value="${stat}" th:text="${stat.displayStatus}"></option>
+				</select>
+			</td>
+			</tr>
+			<tr>
+			<td><input type="submit" value="Save"/></td>
+			</tr>
+			
+		</table>
 	</form>
 
 </body>

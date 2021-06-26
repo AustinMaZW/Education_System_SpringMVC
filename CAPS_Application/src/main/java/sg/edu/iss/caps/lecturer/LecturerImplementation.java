@@ -15,7 +15,7 @@ public class LecturerImplementation implements LecturerInterface {
 	LecturerRepository lrepo;
 	
 	@Override
-	@Transactional
+//	@Transactional
 	public void createLecturer(Lecturer lecturer) {
 		// TODO Auto-generated method stub
 		String lfn = lecturer.getFirstName();
