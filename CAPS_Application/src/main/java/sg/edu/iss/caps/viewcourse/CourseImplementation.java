@@ -41,5 +41,10 @@ public class CourseImplementation implements CourseInterface {
 		// TODO Auto-generated method stub
 		return crepo.findCourseByName(name);
 	}
+	
+	@Override
+	public Course findCourseById(int id) {
+		return crepo.findCourseById(id);
+	}
 
 }
