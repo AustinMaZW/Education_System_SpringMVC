@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
 <body>
-	<h1>Manage Lecturers</h1>
 	<header th:insert="layout/layout.html :: header"></header>
-	<a class="btn btn-default" th:href="@{/admin/new-lecturer}"/>Add Lecturer</a>
+	<h1>Manage Lecturers</h1>
+	
+	<div>
+		<a class="btn btn-default" th:href="@{/admin/new-lecturer}"/>Add Lecturer</a>
+	</div>
+	
+
 </body>
 </html>
