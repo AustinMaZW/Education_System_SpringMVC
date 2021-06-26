@@ -20,20 +20,17 @@
                 <th scope="col">Status</th>
                 <th scope="col">Start Date</th>
                 <th scope="col">End Date</th>
-                <th scope="col">Grade</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="enrol:${grades.keySet()}">
+            <tr th:each="enrol:${validEnrol}">
                 <td th:text="${enrol.Id}"></td>
                 <td th:text="${enrol.course.name}"></td>
                 <td th:text="${enrol.capacity}"></td>
                 <td th:text="${enrol.status}"></td>
                 <td th:text="${enrol.startDate}"></td>
-                <td th:text="${enrol.endDate}"></td>
-                <td th:if="${grades.get(enrol)} <= 100.0" th:text="${grades.get(enrol)}"></td> 
-                <td th:if="${grades.get(enrol)} == 101.0" th:text="Null"></td>     
-                <td><a th:href="@{/courseview/cancel/}+${enrol.Id}"><input type="button" value="Cancel" /></a></td>           
+                <td th:text="${enrol.endDate}"></td>    
+                <td><a th:href="@{/courseview/add/}+${enrol.Id}"><input type="button" value="Enrol" /></a></td>        
             </tr>
         </tbody>
     </table>
