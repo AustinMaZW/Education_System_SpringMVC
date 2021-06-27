@@ -68,7 +68,7 @@ public class LecturerController {
 	}
 
 	
-	@GetMapping("/remove/{id}")
+	@GetMapping("/change-status/{id}")
 	public String removeLecturer(@PathVariable("id") int id) {
 		lservice.removeLecturerById(id);
 		return ("redirect:/admin/"+ LECTURER_LIST);
