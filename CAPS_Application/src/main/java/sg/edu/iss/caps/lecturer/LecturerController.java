@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -36,7 +37,7 @@ public class LecturerController {
 	
 	
 
-	@GetMapping("/list")
+	@GetMapping("/lecturer-list")
 	public String listAllLecturer(Model model){
 		List<Lecturer> lecList = lservice.findAllLecturer();
 		model.addAttribute("lecList",lecList);
@@ -57,26 +58,27 @@ public class LecturerController {
 		if(result.hasErrors()) {
 			return NEW_LECTURER_FORM;
 		}
-		else {
-			lservice.createLecturer(lecturer);
-
-			return "redirect:/admin/list";
+		if(lservice.isNew(lecturer.getId())) {
+			lservice.createLecturer(lecturer);			
 		}
-
+		else {
+			lservice.updateLecturer(lecturer);
+		}
+		return ("redirect:/admin/"+ LECTURER_LIST);
 	}
 
 	
-	@GetMapping("/delete")
-	public void deleteLecturer(Lecturer lecturer) {
-
-		lservice.deleteLecturer(lecturer);
-
-
+	@GetMapping("/remove/{id}")
+	public String removeLecturer(@PathVariable("id") int id) {
+		lservice.removeLecturerById(id);
+		return ("redirect:/admin/"+ LECTURER_LIST);
 	}
 	
-	@GetMapping("/edit")
-	public void updateLecturer(Lecturer lecturer) {
-
+	@RequestMapping("/edit/{id}")
+	public String updateLecturer(@PathVariable("id") int id, Model model) {
+		Lecturer lecturer = lservice.findLecturerById(id); // possible lecturer return null
+		model.addAttribute("lecturer",lecturer);		
+		return NEW_LECTURER_FORM;
 	}
 	
 	

@@ -2,7 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" 
+rel="stylesheet" 
+integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" 
+crossorigin="anonymous">
 </head>
 <body>
  
@@ -25,7 +28,7 @@
 			</tr>
 			<tr>
 			<td>Password: </td>
-			<td><input type="text" th:field="*{password}"/></td>
+			<td><input type="password" th:field="*{password}"/></td>
 			</tr>
 			<tr>
 			<td>Title: </td>
@@ -51,11 +54,13 @@
 			</td>
 			</tr>
 			<tr>
-			<td><input type="submit" value="Save"/></td>
+			<td ><input type="submit" value="Save"/></td>
 			</tr>
-			
-		</table>
+		</table>		
 	</form>
+	<div>
+		<a th:href="@{/admin/lecturer-list}"><input type="button" class="btn btn-default" value="back"></a>
+	</div>
 
 </body>
 </html>
