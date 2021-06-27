@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import sg.edu.iss.caps.model.Course;
-import sg.edu.iss.caps.model.CourseEnrolment;
-import sg.edu.iss.caps.model.Status;
-import sg.edu.iss.caps.model.Student;
+import sg.edu.iss.caps.model.*;
 import sg.edu.iss.caps.student.StudentRepository;
 import sg.edu.iss.caps.viewcourse.CourseRepository;
 
@@ -23,6 +20,17 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	StudentRepository srepo;
 	@Autowired
 	CourseRepository crepo;
+
+	@Transactional
+	public void openEnrolment(CourseEnrolment enrolment) {erepo.save(enrolment);}
+
+	@Transactional
+	public void closeEnrolment(CourseEnrolment enrolment) {
+		enrolment.setStatus(Status.NOTAVAILABLE);
+		erepo.save(enrolment);
+	}
+
+
 
 	@Override
 	@Transactional
@@ -111,7 +119,7 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 
 	@Override
 	public CourseEnrolment findEnrolmentById(int id) {
-		return erepo.findById(id).get();
+		return erepo.findCourseEnrolmentById(id);
 	}
 
 	@Override

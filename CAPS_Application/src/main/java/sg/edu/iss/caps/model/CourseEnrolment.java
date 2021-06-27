@@ -28,9 +28,9 @@ public class CourseEnrolment {
 	private int id;
 	@ManyToOne
 	private Course course;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private LocalDate startDate;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private LocalDate endDate;
 	private String capacity;
 	private Status status;

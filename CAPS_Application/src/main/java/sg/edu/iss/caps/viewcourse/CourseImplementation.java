@@ -1,5 +1,7 @@
 package sg.edu.iss.caps.viewcourse;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +48,16 @@ public class CourseImplementation implements CourseInterface {
 	public Course findCourseById(int id) {
 		return crepo.findCourseById(id);
 	}
+
+	@Override
+	public ArrayList<String> findAllCourseNames() {
+		List<Course> courses = crepo.findAll();
+		ArrayList<String> names = new ArrayList<String>();
+		for(Iterator<Course> iterator = courses.iterator(); iterator.hasNext();) {
+			Course course = (Course) iterator.next();
+			names.add(course.getName());
+		}
+		return names;
+ 	}
 
 }
