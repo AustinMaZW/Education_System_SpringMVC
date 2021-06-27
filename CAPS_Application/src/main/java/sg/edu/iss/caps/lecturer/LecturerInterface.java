@@ -11,6 +11,7 @@ public interface LecturerInterface {
 	public List<Lecturer> findAllAvailableLecturer();
 	public void updateLecturer(Lecturer lecturer);
 	public Lecturer findLecturerById(int id);
-	public Boolean isNew(int id);
+	public Boolean isNewLecturer(int id);
 	public void removeLecturerById(int id);	
+	public void deleteLecturerById(int id);
 }

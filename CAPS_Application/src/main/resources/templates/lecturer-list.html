@@ -10,28 +10,34 @@
 	<h1>Manage Lecturers</h1>
 	
 	<div>
-		<a th:href="@{/admin/new-lecturer}"><input type="button" class="btn btn-default" value="Add Lecturer"></a>
+		<a th:href="@{/admin/new-lecturer}"><input type="button" class="btn btn-outline-primary btn-lg" value="Add Lecturer"></a>
 	</div>
-	<table>
-	<tr>
-		<td>ID</td>
-		<td>Name</td>
-		<td>Job Level</td>
-		<td>Description</td>
-		<td>Employment Status</td>
-	</tr>
-		
-	<tr th:each="lec : ${lecList}">	
-		<td th:text="${lec.id}">id</td>
-		<td th:text="${lec.firstName} + ' ' + ${lec.lastName}">firstName lastName</td>
-		<td th:text="${lec.jobLevel}">jobLevel</td>
-		<td th:text="${lec.description}">description</td>
-		<td th:text="${lec.status}">status</td>
-		<td><a th:href="@{/admin/edit/}+${lec.id}"><input type="button" value="Edit"/></a></td>
-		<td><a th:href="@{/admin/change-status/}+${lec.id}"><input type="button" value="Remove"/></a></td>
-	</tr>
-	
+	<table class="table">
+		<thead>
+			<tr>
+				<td>ID</td>
+				<td>Name</td>
+				<td>Job Level</td>
+				<td>Description</td>
+				<td>Employment Status</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="lec : ${lecList}">	
+				<td th:text="${lec.id}">id</td>
+				<td th:text="${lec.firstName} + ' ' + ${lec.lastName}">firstName lastName</td>
+				<td th:text="${lec.jobLevel}">jobLevel</td>
+				<td th:text="${lec.description}">description</td>
+				<td th:text="${lec.status}">status</td>
+				<td><a th:href="@{/admin/edit/}+${lec.id}"><input type="button" class="btn btn-info" value="Edit"/></a></td>
+				<td><a th:href="@{/admin/delete-lecturer/}+${lec.id}"><input type="button" class="btn btn-danger" value="Delete"/></a></td>
+			</tr>	
+		</tbody>	
 	</table>
+
+	<div>
+		<a th:href="@{/admin}"><input type="button" class="btn btn-secondary" value="back"></a>
+	</div>
 
 </body>
 </html>

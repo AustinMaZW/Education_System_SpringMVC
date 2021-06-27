@@ -48,5 +48,9 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
+	
+	public boolean isNew() {
+		return (Integer)this.id==null;
+	}
 
 }
