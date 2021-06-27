@@ -17,6 +17,7 @@ public class UserDetailsImpl implements UserDetails{
 	private String password;
 	private boolean active;
 	private String firstName;
+	private int id;
 	private Collection<GrantedAuthority> authorities = new HashSet<>();
 	
 	public UserDetailsImpl(User user, String role) {
@@ -25,6 +26,7 @@ public class UserDetailsImpl implements UserDetails{
 		//hard coding this for now, but can add into attribute later
 		this.active = true;
 		this.firstName = user.getFirstName();
+		this.id = user.getId();
 		this.authorities.add(new SimpleGrantedAuthority(role));
 		//assuming only one role per account, so hard coding it for now..
 //		this.authorities = Arrays.stream(user.getRoles())
@@ -70,5 +72,9 @@ public class UserDetailsImpl implements UserDetails{
 
 	public String getFirstName() {
 		return firstName;
+	}
+	
+	public int getId() {
+		return id;
 	}
 }
