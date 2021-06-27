@@ -1,4 +1,4 @@
-package sg.edu.iss.caps.lecturer;
+package sg.edu.iss.caps.admin;
 
 import java.util.List;
 import java.util.Map;
@@ -21,16 +21,16 @@ import sg.edu.iss.caps.model.Lecturer;
 
 // maybe this should go under Admin controller.
 // public class AdminController {
-public class LecturerController {
+public class ManageLecturerController {
 	
 	private static final String NEW_LECTURER_FORM = "create-lecturer-form";
 	private static final String LECTURER_LIST ="lecturer-list";
 	
 	@Autowired
-	private LecturerImplementation lservice;
+	private ManageLecturerImplementation lservice;
 	
 	@Autowired
-	public void setLecturer(LecturerImplementation ls) {
+	public void setLecturer(ManageLecturerImplementation ls) {
 
 		this.lservice= ls;
 	}
