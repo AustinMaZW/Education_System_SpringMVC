@@ -10,9 +10,9 @@ crossorigin="anonymous">
 <body>
  
  	<header th:insert="layout/layout.html :: header"></header>
- 	<h1>Add Lecturer</h1>
+ 	<h1>Lecturer Information</h1>
 
-	<form th:object="${lecturer}" th:action="@{/admin/new-lecturer}" method="post">
+	<form th:object="${lecturer}" method="post">
 		<table>
 			<tr>
 			<td>First Name:</td>
@@ -54,13 +54,11 @@ crossorigin="anonymous">
 			</td>
 			</tr>
 			<tr>
-			<td ><input type="submit" value="Save"/></td>
+			<td ><input type="submit" class="btn btn-primary float-start" value="Save"/></td>
+			<td><a th:href="@{/admin/lecturer-list}"><input type="button" class="btn btn-secondary float-end" value="back"></a></td>
 			</tr>
 		</table>		
 	</form>
-	<div>
-		<a th:href="@{/admin/lecturer-list}"><input type="button" class="btn btn-default" value="back"></a>
-	</div>
 
 </body>
 </html>
