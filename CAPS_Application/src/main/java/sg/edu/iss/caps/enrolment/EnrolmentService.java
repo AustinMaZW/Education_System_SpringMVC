@@ -8,25 +8,27 @@ import sg.edu.iss.caps.model.CourseEnrolment;
 import sg.edu.iss.caps.model.Student;
 
 public interface EnrolmentService {
-    List<CourseEnrolment> findAllEnrolment();
+	List<CourseEnrolment> findAllEnrolment();
 
-    List<CourseEnrolment> findEnrolmentByStartDate(LocalDate start);
+	List<CourseEnrolment> findEnrolmentByStartDate(LocalDate start);
 
-    List<CourseEnrolment> findEnrolmentByEndDate(LocalDate end);
+	List<CourseEnrolment> findEnrolmentByEndDate(LocalDate end);
 
-    List<CourseEnrolment> findEnrolmentByDuration(LocalDate start, LocalDate end);
+	List<CourseEnrolment> findEnrolmentByDuration(LocalDate start, LocalDate end);
 
-    List<CourseEnrolment> findEnrolmentByCourse(Course course);
+	List<CourseEnrolment> findEnrolmentByCourse(Course course);
 
-    List<CourseEnrolment> findEnrolmentByStudent(Student student);
+	List<CourseEnrolment> findEnrolmentByStudent(Student student);
 
-    CourseEnrolment findEnrolmentById(int id);
+	CourseEnrolment findEnrolmentById(int id);
 
-    boolean cancelEnrol(int id);
+	boolean cancelEnrol(int id);
 
-    boolean UpdateEnrolment(CourseEnrolment enrol);
+	boolean UpdateEnrolment(CourseEnrolment enrol);
 
-    boolean CreateEnrolment(CourseEnrolment enrol);
+	boolean CreateEnrolment(CourseEnrolment enrol);
 
-    void DeleteEnrolment(int id);
+	void DeleteEnrolment(int id);
+
+	List<CourseEnrolment> findEnrolmentByCourseName(String queryString);
 }

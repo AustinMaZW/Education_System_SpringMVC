@@ -50,13 +50,16 @@ public class CapsApplication {
 			Lecturer l = new Lecturer(null, null, null, "Suria", PasswordEncoder().encode("Suria"), null, "Suria",
 					"forgot");
 			lrepo.save(l);
-			
-			//add course demo data
+
+			// add course demo data
 			Course fopcs = new Course("FOPCS", "fundamental of C#", "Programming");
 			Course oop = new Course("OOP", "Object Oriented Programming", "Programming");
 			Course adlc1 = new Course("ADLC1", "design part 1", "System Analysis");
 			Course adlc2 = new Course("ADLC2", "design part 2", "System Analysis");
-			crepo.save(fopcs); crepo.save(oop); crepo.save(adlc1); crepo.save(adlc2); 
+			crepo.save(fopcs);
+			crepo.save(oop);
+			crepo.save(adlc1);
+			crepo.save(adlc2);
 
 		};
 	}
