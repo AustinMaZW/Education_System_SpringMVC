@@ -9,12 +9,26 @@
 <body>
 	<header th:insert="layout/layout.html :: header"></header>
 	<h1>Admin module here only</h1>
-	
-	<a class="btn btn-lg btn-$blue:100" th:href="@{/admin/lecturer-list}">Manage Lecturers</a>
-	<br>
-	<a class="btn btn-lg btn-$blue:100" href="#">Manage Students</a>
-	<br>
-	<a class="btn btn-lg btn-$blue:100" href="#">Manage Courses</a>
+
+<table class="p-3">
+<tr>
+<td>
+<a class="btn btn-lg btn-outline-primary container-fluid" th:href="@{/admin/lecturer-list}">Manage Lecturers</a>
+</td>
+</tr>
+<tr>
+<td>
+<a class="btn btn-lg btn-outline-primary container-fluid" href="#">Manage Students</a>
+</td>
+</tr>
+<tr>
+<td>
+<a class="btn btn-lg btn-outline-primary container-fluid" href="#">Manage Courses</a>
+</td>
+</tr>
+</table>
+
+
 
 </body>
 </html>
