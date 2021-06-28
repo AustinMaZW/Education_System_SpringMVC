@@ -17,10 +17,17 @@
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+          <li><a href="" class="nav-link px-2 text-secondary">Home</a></li>
+          <li><a sec:authorize="hasRole('ADMIN')" href="/admin/course" class="nav-link px-2 text-white">Manage Course</a></li>
+          <li><a sec:authorize="hasRole('ADMIN')" href="/admin/lecturer-list" class="nav-link px-2 text-white">Manage Lecturer</a></li>
+          <li><a sec:authorize="hasRole('ADMIN')" href="#" class="nav-link px-2 text-white">Manage Student</a></li>
+          <li><a sec:authorize="hasRole('ADMIN')" href="/enrol" class="nav-link px-2 text-white">Manage Enrolment</a></li>
+          <li><a sec:authorize="hasRole('LECTURER')" href="#" class="nav-link px-2 text-white">Courses Taught</a></li>
+          <li><a sec:authorize="hasRole('LECTURER')" href="#" class="nav-link px-2 text-white">Course Enrolment</a></li>
+          <li><a sec:authorize="hasRole('LECTURER')" href="#" class="nav-link px-2 text-white">Manage Grade</a></li>
+          <li><a sec:authorize="hasRole('STUDENT')" href="#" class="nav-link px-2 text-white">My Courses</a></li>
+          <li><a sec:authorize="hasRole('STUDENT')" href="#" class="nav-link px-2 text-white">Enrol Course</a></li>
+          <li><a sec:authorize="hasRole('STUDENT')" href="#" class="nav-link px-2 text-white">Grades</a></li>
           <li><a href="#" class="nav-link px-2 text-white">About</a></li>
         </ul>
 
