@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import sg.edu.iss.caps.enrolment.ComPa;
 
 @Getter
 @Setter
@@ -20,7 +21,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Lecturer extends User {
+public class Lecturer extends User implements ComPa {
 	private Level jobLevel;
 	private String description;
 	private Status status;
