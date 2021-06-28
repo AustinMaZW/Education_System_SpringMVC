@@ -5,6 +5,7 @@ import java.util.List;
 
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.CourseEnrolment;
+import sg.edu.iss.caps.model.Status;
 import sg.edu.iss.caps.model.Student;
 
 public interface EnrolmentService {
@@ -31,6 +32,8 @@ public interface EnrolmentService {
 	void DeleteEnrolment(int id);
 
 	void updateEnrolment(CourseEnrolment enrol);
+
+	void cancelEnrol(CourseEnrolment enrol);
 
 	List<CourseEnrolment> findEnrolmentByCourseName(String queryString);
 }

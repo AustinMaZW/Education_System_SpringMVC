@@ -143,4 +143,10 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		List<CourseEnrolment> list = erepo.findEnrolmentByCourseName(queryString);
 		return list;
 	}
+
+	@Override
+	public void cancelEnrol(CourseEnrolment enrol) {
+		enrol.setStatus(Status.NOTAVAILABLE);
+		erepo.save(enrol);
+	}
 }

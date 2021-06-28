@@ -24,7 +24,7 @@ public class Course {
 	private String name;
 	private String description;
 	private String category;
-	@OneToMany(mappedBy = "course",cascade = {CascadeType.ALL})
+	@OneToMany(mappedBy = "course")
 	private List<CourseEnrolment> enrols;
 	@ManyToMany(mappedBy = "courses")
 	private List<Lecturer> lectures;

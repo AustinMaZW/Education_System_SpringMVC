@@ -32,72 +32,52 @@ public class ManageEnrolmentController {
     @Autowired
     public void setEnrolmentService(EnrolmentServiceImpl eserviceImpl) {this.eservice = eserviceImpl; }
 
-    public ManageEnrolmentController() {
-        //empty constructor
-    }
 
     @GetMapping(value="")
     public String listCourseEnrol(Model model) {
     List<CourseEnrolment> elist = eservice.findAllEnrolment();
     model.addAttribute("elist", elist);
-    ArrayList<Course> courses = (ArrayList<Course>) crepo.findAll();
-    model.addAttribute("courses", courses);
-    model.addAttribute("enrol", new CourseEnrolment()); //used for add course enrol modal in view
     return "course-enrol";
     }
 
+    @GetMapping(value = "/add")
+    public String addCourseEnrol(Model model) {
+        model.addAttribute("enrol", new CourseEnrolment());
+        ArrayList<String> clist = cservice.findAllCourseNames();
+        model.addAttribute("cnames", clist);
+        model.addAttribute("func", "add");
+        return "open-course";
+    }
+
     @PostMapping(value="/save")
-    public String saveCourse(@ModelAttribute @Valid CourseEnrolment enrol, BindingResult result) {
-        if(result.hasErrors()) {return "course-enrol";}
-        eservice.updateEnrolment(enrol);
-//        if (result.hasErrors()) {
-//            return "course-enrol";
-//        }
-//        Course course = crepo.findCourseByName(enrol.getCourse().getName());
-//        eservice.CreateEnrolment(new CourseEnrolment(course, enrol.getStartDate(), enrol.getEndDate(),
-//                enrol.getCapacity(), enrol.getStatus()));
-        return "redirect:/enrol";
+    public String saveCourseEnrol(@ModelAttribute @Valid CourseEnrolment enrol, BindingResult result) {
+        if (result.hasErrors())
+            return "open-course";
+        if (enrol.getId() != 0) {
+            eservice.UpdateEnrolment(enrol);
+            return "redirect:/enrol";
+        }
+        System.out.println(enrol.getId());
+        Course course = crepo.findCourseByName(enrol.getCourse().getName());
+        if (eservice.CreateEnrolment(new CourseEnrolment(course, enrol.getStartDate(), enrol.getEndDate(),
+                enrol.getCapacity(), Status.AVAILABLE)))
+            return "redirect:/enrol";
+        return "forward:/enrol";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteMethod(@PathVariable("id") Integer id) {
-        eservice.cancelEnrol(id);
-        return "redirect:/admin/course";
+        eservice.cancelEnrol(eservice.findEnrolmentById(id));
+        return "redirect:/enrol";
     }
 
-//    @RequestMapping(value = "")
-//    public String list(Model model) {
-//        List<CourseEnrolment> courseenrol = eservice.findAllEnrolment();
-//        model.addAttribute("courseenrol", courseenrol);
-//        return "course-enrol";
-//    }
-
-//    @RequestMapping(value = "/open")
-//    public String openEnrolment(Model model) {
-//        model.addAttribute("enrolment", new CourseEnrolment());
-//        ArrayList<String> clist = cservice.findAllCourseNames();
-//        model.addAttribute("cnames", clist);
-//        return "open-course";
-//    }
-//
-//    @RequestMapping(value = "/save")
-//    public String saveEnrolCourse(@ModelAttribute("enrolment") @Valid CourseEnrolment enrolment, BindingResult bindingResult, Model model) {
-//        if(bindingResult.hasErrors()) {
-//            return "open-course";
-//        }
-//        Course course = cservice.findCourseByName(enrolment.getCourse().getName());
-//        course = cservice.findCourseById(course.getId());
-//        enrolment.setCourse(course);
-//        enrolment.setStatus(Status.AVAILABLE);
-//        eservice.CreateEnrolment(enrolment);
-//        return "redirect:/admin/course/enrol/";
-//    }
-
-//    @RequestMapping(value = "/close/{id}")
-//    public String closeEnrolment(@PathVariable("id") Integer id) {
-//        eservice.cancelEnrol(eservice.findCourseEnrolmentById(id));
-//        return "redirect:/admin/course/enrol";
-//    }
-
-
+    @RequestMapping("/edit/{id}")
+    public String edit(@PathVariable("id") int id, Model model) {
+        CourseEnrolment enrol = eservice.findEnrolmentById(id);
+        model.addAttribute("enrol", enrol);
+        ArrayList<Course> courses = (ArrayList<Course>) crepo.findAll();
+        model.addAttribute("courses", courses);
+        model.addAttribute("func", "edit");
+        return "open-course";
+    }
 }
