@@ -16,19 +16,27 @@ crossorigin="anonymous">
 		<table>
 			<tr>
 			<td>First Name:</td>
-			<td><input type="text" th:field="*{firstName}"/></td>
+			<td>
+				<input type="text" th:field="*{firstName}"/>
+			</td>
 			</tr>
 			<tr>
 			<td>Last Name: </td>
-			<td><input type="text" th:field="*{lastName}"/></td>
+			<td>
+				<input type="text" th:field="*{lastName}"/>
+			</td>
 			</tr>
 			<tr>
 			<td>Username: </td>
-			<td><input type="text" th:field="*{username}"/></td>
+			<td>
+				<input type="text" th:field="*{username}"/>
+			</td>
 			</tr>
 			<tr>
 			<td>Password: </td>
-			<td><input type="password" th:field="*{password}"/></td>
+			<td>
+				<input type="password" th:field="*{password}"/>
+			</td>
 			</tr>
 			<tr>
 			<td>Title: </td>
@@ -42,7 +50,9 @@ crossorigin="anonymous">
 			</tr>
 			<tr>
 			<td>Description: </td>
-			<td><input type="text" th:field="*{description}"/></td>
+			<td>
+				<input type="text" th:field="*{description}"/>
+			</td>
 			</tr>
 			<tr>
 			<td>Employment Status: </td>
@@ -54,8 +64,12 @@ crossorigin="anonymous">
 			</td>
 			</tr>
 			<tr>
-			<td ><input type="submit" class="btn btn-primary float-start" value="Save"/></td>
-			<td><a th:href="@{/admin/lecturer-list}"><input type="button" class="btn btn-secondary float-end" value="back"></a></td>
+			<td >
+				<input type="submit" class="btn btn-primary float-start" value="Save"/>
+			</td>
+			<td>
+				<a th:href="@{/admin/lecturer/list}"><input type="button" class="btn btn-secondary float-end" value="back"></a>
+			</td>
 			</tr>
 		</table>		
 	</form>
