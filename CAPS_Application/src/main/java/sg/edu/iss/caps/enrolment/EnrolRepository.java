@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.CourseEnrolment;
 
 public interface EnrolRepository extends JpaRepository<CourseEnrolment, Integer> {
@@ -14,4 +15,6 @@ public interface EnrolRepository extends JpaRepository<CourseEnrolment, Integer>
 
 	@Query(value = "select e from CourseEnrolment e where e.course.name like %?1%")
 	List<CourseEnrolment> findEnrolmentByCourseName(String querySting);
+
+	public CourseEnrolment findCourseEnrolmentById(int id);
 }
