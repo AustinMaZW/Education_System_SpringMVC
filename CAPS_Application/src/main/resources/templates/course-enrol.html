@@ -22,54 +22,7 @@
             <h2>Manage Enrolment of Courses</h2>
           </div>
           <div class="col-sm-6">
-            <a href="#addEnrolModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Open Enrolment</span></a>
-            <div id="addEnrolModal" class="modal fade">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <form th:action="@{/enrol/save}" th:object="${enrol}" method="post">
-                    <div class="modal-header">
-                      <h4 class="modal-title">Open Course Enrolment</h4>
-                      <button type="button" class="close" data-dismiss="modal"
-                              aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="form-group">
-                        <label>Course Name</label>
-                        <select th:field="*{course.name}">
-                          <option th:each="course:${courses}" th:text="${course.name}" th:value="${course.name}">
-                          </option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label>Start Date</label>
-                        <input type="text" class="form-control" th:field="*{startDate}" required/>
-                      </div>
-                      <div class="form-group">
-                        <label>End Date</label>
-                        <input class="form-control" th:field="*{endDate}" required/>
-                      </div>
-                      <div class="form-group">
-                        <label>Capacity</label>
-                        <input class="form-control" th:field="*{capacity}" required/>
-                      </div>
-                      <div class="form-group">
-                        <label>Status</label>
-                        <select th:field="*{status}">
-                          <option th:value="AVAILABLE">Available</option>
-                          <option th:value="NOTAVAILABLE">Not Available</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <input type="button" class="btn btn-secondary"
-                             data-dismiss="modal" value="Cancel">
-                      <input
-                              type="submit" class="btn btn-success" value="Add">
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
+            <a th:href="@{/enrol/add}" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Open Enrolment</span></a>
           </div>
         </div>
       </div>
@@ -82,6 +35,7 @@
           <th>Status</th>
           <th>Start Date</th>
           <th>End Date</th>
+          <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -92,51 +46,11 @@
           <td th:text="${enrol.status}">status</td>
           <td th:text="${enrol.startDate}">startDate</td>
           <td th:text="${enrol.endDate}">endDate</td>
+
           <td>
-            <a href="#editCourseModal" class="edit" th:attrappend="href=${enrol.id}" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-            <!-- Edit Modal th:attrappend here just adds that attribute to the tag. Used to reference the data in modal-->
-            <div id="editCourseModal" class="modal fade" th:attrappend="id=${enrol.id}">>
-              <div class="modal-dialog">
-<!--                &lt;!&ndash; Modal Content starts here &ndash;&gt;-->
-<!--                <div class="modal-content">-->
-<!--                  <form th:action="@{/enrol/save}" method="post">-->
-<!--                    <div class="modal-header">-->
-<!--                      <h4 class="modal-title">Edit Course Enrolment</h4>-->
-<!--                      <button type="button" class="close" data-dismiss="modal"-->
-<!--                              aria-hidden="true">&times;</button>-->
-<!--                    </div>-->
-<!--                    <div class="modal-body">-->
-<!--                      <input id="id" path="id" name="id" type="hidden"-->
-<!--                             placeholder="id" class="form-control input-md"-->
-<!--                             th:value="${enrol.id}"/>-->
-<!--                      <div class="form-group">-->
-<!--                        <label>Name</label>-->
-<!--                        <input id="name" path="name" name="name" type="text"-->
-<!--                               placeholder="name" class="form-control input-md"-->
-<!--                               th:value="${enrol.course.name}" required/>-->
-<!--                      </div>-->
-<!--                      <div class="form-group">-->
-<!--                        <label>Category</label>-->
-<!--                        <input id="category" path="category" name="category" type="text"-->
-<!--                               placeholder="category" class="form-control input-md"-->
-<!--                               th:value="${enrol.capacity}" required/>-->
-<!--                      </div>-->
-<!--                      <div class="form-group">-->
-<!--                        <label>Description</label>-->
-<!--                        <input id="description" path="description" name="description" type="text"-->
-<!--                               placeholder="description" class="form-control input-md"-->
-<!--                               th:value="${course.description}" required>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="modal-footer">-->
-<!--                      <input type="button" class="btn btn-secondary"-->
-<!--                             data-dismiss="modal" value="Cancel"> <input-->
-<!--                            type="submit" class="btn btn-info" value="Save">-->
-<!--                    </div>-->
-<!--                  </form>-->
-<!--                </div>-->
-              </div>
-            </div>
+            <a th:href="@{/enrol/edit/}+${enrol.id}" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+            <a th:href="@{/enrol/delete/}+${enrol.id}" class="delete" onclick="return confirm('Are you sure you want to close course enrolment?');">
+            <i class="material-icons" title="Delete">&#xE872;</i></a>
           </td>
         </tr>
         </tbody>

@@ -102,6 +102,11 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	}
 
 	@Override
+	public void updateEnrolment(CourseEnrolment enrol) {
+		erepo.save(enrol);
+	}
+
+	@Override
 	@Transactional
 	public boolean CreateEnrolment(CourseEnrolment enrol) {
 		if (erepo.save(enrol) == null)
@@ -137,5 +142,11 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	public List<CourseEnrolment> findEnrolmentByCourseName(String queryString) {
 		List<CourseEnrolment> list = erepo.findEnrolmentByCourseName(queryString);
 		return list;
+	}
+
+	@Override
+	public void cancelEnrol(CourseEnrolment enrol) {
+		enrol.setStatus(Status.NOTAVAILABLE);
+		erepo.save(enrol);
 	}
 }

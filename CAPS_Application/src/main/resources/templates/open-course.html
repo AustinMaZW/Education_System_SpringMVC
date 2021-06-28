@@ -2,48 +2,144 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/tableedit.css">
     <title>Open Course for Enrolment</title>
 </head>
 <body>
 <header th:insert="layout/layout.html :: header"></header>
-<h1>Course Enrolment Details</h1>
 
-<form action = "#" th:object="${enrolment}" th:action="@{/admin/course/enrol/save}" method="post">
-    <fieldset>
-        <input type = "hidden" th:field = "*{id}">
-    </fieldset>
-    <fieldset>
-        Course Name <select th:field="*{course.name}">
-        <option th:each="cname:${cnames}" th:value="${cname}"
-                th:text="${cname}"></option>
-    </select>
-    </fieldset>
-    <fieldset>
-        Start Date: <input type="text" th:field="*{startDate}"
-                           placeholder="dd-MM-yyyy"
-                           th:text="${#dates.format(enrolment.startDate, 'dd-MM-yyyy')}" />
-        <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
-    </fieldset>
-    <fieldset>
-        End Date: <input type="text" th:field="*{endDate}"
-                         placeholder="dd-MM-yyyy"
-                         th:text="${#dates.format(enrolment.endDate, 'dd-MM-yyyy')}" />
-        <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
-    </fieldset>
-    <fieldset>
-        Capacity: <input type="text" th:field="*{capacity}" />
-    </fieldset>
-    <fieldset>
-        <input type="submit" value="Save"/>
-        &nbsp;&nbsp;
-        <input type="reset" value="Reset"/>
-    </fieldset>
+<div class="container-xl">
+    <div class="row" th:if="${func} eq 'add'">
+        <div class="col-md-8 mx-auto">
+            <div class="contact-form">
+                <h1>Course Enrolment Details</h1>
+                <p class="hint-text">Please fill up all the below fields</p>
+                <form th:action="@{/enrol/save}" th:object="${enrol}" method="post">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div>
+                                <input type = "hidden" th:field = "*{id}">
+                            </div>
+                            <div class="form-group">
+                                Course Name
+                                <select th:field="*{course.name}">
+                                <option th:each="cname:${cnames}" th:value="${cname}"
+                                        th:text="${cname}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                Start Date: <input type="date" th:field="*{startDate}" placeholder="yyyy-MM-dd"
+                                                   th:text="${#temporals.format(enrol.startDate, 'yyyy-MM-dd')}" />
+                                <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
+                            </div>
+                            <div class="form-group">
+                                End Date: <input type="date" th:field="*{endDate}" placeholder="yyyy-MM-dd"
+                                                 th:text="${#temporals.format(enrol.endDate, 'yyyy-MM-dd')}" />
+                                <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
+                            </div>
+                            <div class="form-group">
+                                Capacity: <input type="text" th:field="*{capacity}" required/>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-</form>
+
+    <div class="row" th:if="${func} eq 'edit'">
+        <div class="col-md-8 mx-auto">
+            <div class="contact-form">
+                <h1>Course Enrolment Details</h1>
+                <p class="hint-text">Please fill up all the below fields</p>
+                <form th:action="@{/enrol/save}" th:object="${enrol}" method="post">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div>
+                                <input type = "hidden" th:field = "*{id}" th:value="${enrol.Id}">
+                            </div>
+                            <div class="form-group">
+                                Course Name
+                                <select th:field="*{course.name}">
+                                    <option th:if="${enrol.course.name} != null" th:text="${enrol.course.name}"
+                                            th:value="${enrol.course.name}" selected>
+                                    </option>
+                                    <option th:each="course:${courses}" th:text="${course.name}" th:value="${course.name}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                Start Date:
+                                <input type="date" th:field="*{startDate}" placeholder="yyyy-MM-dd"
+                                       th:text="${#temporals.format(enrol.startDate, 'yyyy-MM-dd')}" hidden/>
+                                <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
+                            </div>
+                            <div class="form-group">
+                                End Date:
+                                <input type="date" th:field="*{endDate}" placeholder="yyyy-MM-dd"
+                                       th:text="${#temporals.format(enrol.endDate, 'yyyy-MM-dd')}" hidden />
+                                <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
+                            </div>
+                            <div class="form-group">
+                                Capacity: <input type="text" th:field="*{capacity}" required/>
+                            </div>
+                            <div class="form-group">
+                                <select th:field="*{status}">
+                                    <option th:value="AVAILABLE">Available</option>
+                                    <option th:value="NOTAVAILABLE">NotAvailable</option>
+                                </select>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+<!--<form action = "#" th:object="${enrol}" th:action="@{/enrol/save}" method="post">-->
+<!--    <fieldset>-->
+<!--        <input type = "hidden" th:field = "*{id}">-->
+<!--    </fieldset>-->
+<!--    <fieldset>-->
+<!--        Course Name <select th:field="*{course.name}">-->
+<!--        <option th:each="cname:${cnames}" th:value="${cname}"-->
+<!--                th:text="${cname}"></option>-->
+<!--    </select>-->
+<!--    </fieldset>-->
+<!--    <fieldset>-->
+<!--        Start Date: <input type="text" th:field="*{startDate}"-->
+<!--                           placeholder="dd-MM-yyyy"-->
+<!--                           th:text="${#dates.format(enrol.startDate, 'dd-MM-yyyy')}" />-->
+<!--        <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>-->
+<!--    </fieldset>-->
+<!--    <fieldset>-->
+<!--        End Date: <input type="text" th:field="*{endDate}"-->
+<!--                         placeholder="dd-MM-yyyy"-->
+<!--                         th:text="${#dates.format(enrol.endDate, 'dd-MM-yyyy')}" />-->
+<!--        <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>-->
+<!--    </fieldset>-->
+<!--    <fieldset>-->
+<!--        Capacity: <input type="text" th:field="*{capacity}" />-->
+<!--    </fieldset>-->
+<!--    <fieldset>-->
+<!--        <input type="submit" value="Save"/>-->
+<!--        &nbsp;&nbsp;-->
+<!--        <input type="reset" value="Reset"/>-->
+<!--    </fieldset>-->
+
+<!--</form>-->
 
 </body>
 </html>

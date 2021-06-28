@@ -241,3 +241,10 @@ table.table .avatar {
 	font-weight: normal;
 }	
 
+.modal select {
+	width: 100%;
+	border-radius: 2px;
+	box-shadow: none;
+	border-color: #dddddd;
+	padding: 10px 10px;
+}
