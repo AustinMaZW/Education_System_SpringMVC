@@ -48,8 +48,11 @@ public class EnrolmentController {
 	@RequestMapping("/save")
 	public String save(@ModelAttribute("enrol") @Valid CourseEnrolment enrol, BindingResult bindingResult,
 			Model model) {
-		if (bindingResult.hasErrors())
-			return "Enrolment-form";
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("func", "addEnrolment");
+			return "CourseViewEnrolmentList";
+		}
+
 		if (enrol.getId() != 0) {
 			eservice.UpdateEnrolment(enrol);
 			return "redirect:/enrolment/list";
