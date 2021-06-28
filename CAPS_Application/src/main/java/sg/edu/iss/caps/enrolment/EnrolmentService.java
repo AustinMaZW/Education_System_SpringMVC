@@ -30,5 +30,7 @@ public interface EnrolmentService {
 
 	void DeleteEnrolment(int id);
 
+	void updateEnrolment(CourseEnrolment enrol);
+
 	List<CourseEnrolment> findEnrolmentByCourseName(String queryString);
 }

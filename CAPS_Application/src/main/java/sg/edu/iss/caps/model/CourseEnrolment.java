@@ -2,11 +2,7 @@ package sg.edu.iss.caps.model;
 
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,7 +22,7 @@ public class CourseEnrolment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	private Course course;
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private LocalDate startDate;

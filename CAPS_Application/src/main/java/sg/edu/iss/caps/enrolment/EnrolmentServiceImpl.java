@@ -102,6 +102,11 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	}
 
 	@Override
+	public void updateEnrolment(CourseEnrolment enrol) {
+		erepo.save(enrol);
+	}
+
+	@Override
 	@Transactional
 	public boolean CreateEnrolment(CourseEnrolment enrol) {
 		if (erepo.save(enrol) == null)

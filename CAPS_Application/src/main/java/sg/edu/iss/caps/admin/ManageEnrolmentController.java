@@ -39,22 +39,30 @@ public class ManageEnrolmentController {
     @GetMapping(value="")
     public String listCourseEnrol(Model model) {
     List<CourseEnrolment> elist = eservice.findAllEnrolment();
-    CourseEnrolment enrol = new CourseEnrolment();
     model.addAttribute("elist", elist);
     ArrayList<Course> courses = (ArrayList<Course>) crepo.findAll();
     model.addAttribute("courses", courses);
-    model.addAttribute("enrol", enrol); //used for add course modal in view
+    model.addAttribute("enrol", new CourseEnrolment()); //used for add course enrol modal in view
     return "course-enrol";
     }
 
     @PostMapping(value="/save")
     public String saveCourse(@ModelAttribute @Valid CourseEnrolment enrol, BindingResult result) {
-        if (result.hasErrors()) { return "course-enrol";}
-        Course course = crepo.findCourseByName(enrol.getCourse().getName());
-        eservice.CreateEnrolment(new CourseEnrolment(course, enrol.getStartDate(), enrol.getEndDate(),
-                enrol.getCapacity(), enrol.getStatus()));
+        if(result.hasErrors()) {return "course-enrol";}
+        eservice.updateEnrolment(enrol);
+//        if (result.hasErrors()) {
+//            return "course-enrol";
+//        }
+//        Course course = crepo.findCourseByName(enrol.getCourse().getName());
+//        eservice.CreateEnrolment(new CourseEnrolment(course, enrol.getStartDate(), enrol.getEndDate(),
+//                enrol.getCapacity(), enrol.getStatus()));
         return "redirect:/enrol";
+    }
 
+    @GetMapping("/delete/{id}")
+    public String deleteMethod(@PathVariable("id") Integer id) {
+        eservice.cancelEnrol(id);
+        return "redirect:/admin/course";
     }
 
 //    @RequestMapping(value = "")

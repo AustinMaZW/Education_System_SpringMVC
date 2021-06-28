@@ -82,6 +82,7 @@
           <th>Status</th>
           <th>Start Date</th>
           <th>End Date</th>
+          <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -97,44 +98,57 @@
             <!-- Edit Modal th:attrappend here just adds that attribute to the tag. Used to reference the data in modal-->
             <div id="editCourseModal" class="modal fade" th:attrappend="id=${enrol.id}">>
               <div class="modal-dialog">
-<!--                &lt;!&ndash; Modal Content starts here &ndash;&gt;-->
-<!--                <div class="modal-content">-->
-<!--                  <form th:action="@{/enrol/save}" method="post">-->
-<!--                    <div class="modal-header">-->
-<!--                      <h4 class="modal-title">Edit Course Enrolment</h4>-->
-<!--                      <button type="button" class="close" data-dismiss="modal"-->
-<!--                              aria-hidden="true">&times;</button>-->
-<!--                    </div>-->
-<!--                    <div class="modal-body">-->
-<!--                      <input id="id" path="id" name="id" type="hidden"-->
-<!--                             placeholder="id" class="form-control input-md"-->
-<!--                             th:value="${enrol.id}"/>-->
-<!--                      <div class="form-group">-->
-<!--                        <label>Name</label>-->
-<!--                        <input id="name" path="name" name="name" type="text"-->
-<!--                               placeholder="name" class="form-control input-md"-->
-<!--                               th:value="${enrol.course.name}" required/>-->
-<!--                      </div>-->
-<!--                      <div class="form-group">-->
-<!--                        <label>Category</label>-->
-<!--                        <input id="category" path="category" name="category" type="text"-->
-<!--                               placeholder="category" class="form-control input-md"-->
-<!--                               th:value="${enrol.capacity}" required/>-->
-<!--                      </div>-->
-<!--                      <div class="form-group">-->
-<!--                        <label>Description</label>-->
-<!--                        <input id="description" path="description" name="description" type="text"-->
-<!--                               placeholder="description" class="form-control input-md"-->
-<!--                               th:value="${course.description}" required>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="modal-footer">-->
-<!--                      <input type="button" class="btn btn-secondary"-->
-<!--                             data-dismiss="modal" value="Cancel"> <input-->
-<!--                            type="submit" class="btn btn-info" value="Save">-->
-<!--                    </div>-->
-<!--                  </form>-->
-<!--                </div>-->
+                <!-- Modal Content starts here -->
+                <div class="modal-content">
+                  <form th:action="@{/enrol/save}" method="post">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Edit Course Enrolment</h4>
+                      <button type="button" class="close" data-dismiss="modal"
+                              aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                      <input id="id" path="id" name="id" type="hidden"
+                             placeholder="id" class="form-control input-md"
+                             th:value="${enrol.id}"/>
+                      <div class="form-group">
+                        <label>Course Name</label>
+                        <input id="name" path="name" name="name" type="text"
+                               placeholder="name" class="form-control input-md"
+                               th:value="${enrol.course.name}" required/>
+                      </div>
+                      <div class="form-group">
+                        <label>Capacity</label>
+                        <input id="capacity" path="capacity" name="capacity" type="text"
+                               placeholder="capacity" class="form-control input-md"
+                               th:value="${enrol.capacity}" required/>
+                      </div>
+                      <div class="form-group">
+                        <label>Status</label>
+                        <select th:field="*{enrol.status}">
+                          <option th:value="AVAILABLE">Available</option>
+                          <option th:value="NOTAVAILABLE">Not Available</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Start Date</label>
+                        <input id="startDate" path="startDate" name="startDate" type="text"
+                               placeholder="startDate" class="form-control input-md"
+                               th:value="${enrol.startDate}" required/>
+                      </div>
+                      <div class="form-group">
+                        <label>End Date</label>
+                        <input id="endDate" path="endDate" name="endDate" type="text"
+                               placeholder="endDate" class="form-control input-md"
+                               th:value="${enrol.endDate}" required/>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <input type="button" class="btn btn-secondary"
+                             data-dismiss="modal" value="Cancel"> <input
+                            type="submit" class="btn btn-info" value="Save">
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </td>

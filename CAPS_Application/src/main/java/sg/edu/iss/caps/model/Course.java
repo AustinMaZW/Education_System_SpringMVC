@@ -2,12 +2,7 @@ package sg.edu.iss.caps.model;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +24,7 @@ public class Course {
 	private String name;
 	private String description;
 	private String category;
-	@OneToMany(mappedBy = "course")
+	@OneToMany(mappedBy = "course",cascade = {CascadeType.ALL})
 	private List<CourseEnrolment> enrols;
 	@ManyToMany(mappedBy = "courses")
 	private List<Lecturer> lectures;
