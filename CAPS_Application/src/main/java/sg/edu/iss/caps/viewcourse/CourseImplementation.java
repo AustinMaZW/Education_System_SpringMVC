@@ -14,6 +14,7 @@ public class CourseImplementation implements CourseInterface {
 
 	@Autowired
 	CourseRepository crepo;
+
 	@Override
 	public void createCourse(Course course) {
 		// TODO Auto-generated method stub
@@ -43,7 +44,7 @@ public class CourseImplementation implements CourseInterface {
 		// TODO Auto-generated method stub
 		return crepo.findCourseByName(name);
 	}
-	
+
 	@Override
 	public Course findCourseById(int id) {
 		return crepo.findCourseById(id);
@@ -53,11 +54,17 @@ public class CourseImplementation implements CourseInterface {
 	public ArrayList<String> findAllCourseNames() {
 		List<Course> courses = crepo.findAll();
 		ArrayList<String> names = new ArrayList<String>();
-		for(Iterator<Course> iterator = courses.iterator(); iterator.hasNext();) {
+		for (Iterator<Course> iterator = courses.iterator(); iterator.hasNext();) {
 			Course course = (Course) iterator.next();
 			names.add(course.getName());
 		}
 		return names;
- 	}
+	}
+
+	@Override
+	public List<Course> findCoursesByName(String name) {
+
+		return crepo.findCoursesByName(name);
+	}
 
 }

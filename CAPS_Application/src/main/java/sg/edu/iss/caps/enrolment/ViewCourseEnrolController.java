@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.CourseEnrolment;
+import sg.edu.iss.caps.model.Status;
 import sg.edu.iss.caps.model.Student;
 import sg.edu.iss.caps.student.StudentService;
 import sg.edu.iss.caps.viewcourse.CourseInterface;
@@ -30,6 +31,7 @@ public class ViewCourseEnrolController {
 	@Autowired
 	CourseInterface cservice;
 	private Student stu;
+	private int courseId;
 
 	@RequestMapping("/list")
 	public String viewList(Model model) {
@@ -38,7 +40,8 @@ public class ViewCourseEnrolController {
 		model.addAttribute("grades", grades);
 		model.addAttribute("func", "viewList");
 //		return "course-enrol-list";
-		return "CourseViewEnrolmentList";
+//		return "CourseViewEnrolmentList";
+		return "MyCourse";
 	}
 
 	@RequestMapping("/list/enrol")
@@ -57,7 +60,12 @@ public class ViewCourseEnrolController {
 		userName();
 		CourseEnrolment newEnrol = eservice.findEnrolmentById(id);
 		sservice.setEnrol(newEnrol, stu);
-		return "redirect:/courseview/list/enrol";
+		Course course = cservice.findCourseById(this.courseId);
+		ArrayList<CourseEnrolment> eList = (ArrayList<CourseEnrolment>) eservice.findEnrolmentByCourse(course);
+		eList = (ArrayList<CourseEnrolment>) validList(eList, this.stu);
+		model.addAttribute("validEnrol", eList);
+//		return "redirect:/courseview/list/enrol";
+		return "EnrolmentOfCourse";
 	}
 
 	@RequestMapping("/cancel/{id}")
@@ -85,23 +93,40 @@ public class ViewCourseEnrolController {
 	public String courseList(Model model) {
 		userName();
 		List<Course> cList = cservice.listAllCourses();
+
 		model.addAttribute("courseList", cList);
 		model.addAttribute("func", "courseList");
+		model.addAttribute("keyword", "");
 //		return "course-list";
-		return "CourseViewEnrolmentList";
+//		return "CourseViewEnrolmentList";
+		return "CourseEnrol";
 	}
 
 	@RequestMapping(value = "/courselist/enrolss/{id}", method = RequestMethod.GET)
 	public String courseLists(@PathVariable("id") int id, Model model) {
 		userName();
+		this.courseId = id;
 		System.out.println(id);
 		Course course = cservice.findCourseById(id);
 		ArrayList<CourseEnrolment> eList = (ArrayList<CourseEnrolment>) eservice.findEnrolmentByCourse(course);
 		eList = (ArrayList<CourseEnrolment>) validList(eList, this.stu);
+		eList = (ArrayList<CourseEnrolment>) isAvailable(eList);
 		model.addAttribute("validEnrol", eList);
 		model.addAttribute("func", "courseLists");
 //		return "enrolList";
-		return "CourseViewEnrolmentList";
+		return "EnrolmentOfCourse";
+//		return "CourseEnrol";
+	}
+
+	@RequestMapping(value = "/course/search", method = RequestMethod.POST)
+	public String courseSearch(@RequestParam(value = "queryString") String queryString, Model model) {
+		userName();
+		System.out.println(queryString);
+		List<Course> list = cservice.findCoursesByName(queryString);
+		model.addAttribute("courseList", list);
+		model.addAttribute("keyword", queryString);
+//		return "enrolList";
+		return "CourseEnrol";
 	}
 
 	private void userName() {
@@ -118,5 +143,11 @@ public class ViewCourseEnrolController {
 			}
 		});
 		return list;
+	}
+
+	public <T extends ComPa> List<T> isAvailable(List<T> list) {
+		List<T> newList = new ArrayList<>();
+		list.stream().filter(x -> x.getStatus().compareTo(Status.AVAILABLE) == 0).forEach(x -> newList.add(x));
+		return newList;
 	}
 }
