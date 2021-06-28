@@ -1,65 +1,325 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="ISO-8859-1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" 
-rel="stylesheet" 
-integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" 
-crossorigin="anonymous">
+    <meta charset="ISO-8859-1">
+    <title>Home Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
+
 <body>
- 
- 	<header th:insert="layout/layout.html :: header"></header>
- 	<h1>Lecturer Information</h1>
-
-	<form th:object="${lecturer}" method="post">
-		<table>
-			<tr>
-			<td>First Name:</td>
-			<td><input type="text" th:field="*{firstName}"/></td>
-			</tr>
-			<tr>
-			<td>Last Name: </td>
-			<td><input type="text" th:field="*{lastName}"/></td>
-			</tr>
-			<tr>
-			<td>Username: </td>
-			<td><input type="text" th:field="*{username}"/></td>
-			</tr>
-			<tr>
-			<td>Password: </td>
-			<td><input type="password" th:field="*{password}"/></td>
-			</tr>
-			<tr>
-			<td>Title: </td>
-			<td>
-				<select th:field="*{jobLevel}">
-					<option th:each="level: ${T(sg.edu.iss.caps.model.Level).values()}" 
-					th:value="${level}" th:text="${level.displayLevel}">
-					</option>
-				</select>
-			</td>
-			</tr>
-			<tr>
-			<td>Description: </td>
-			<td><input type="text" th:field="*{description}"/></td>
-			</tr>
-			<tr>
-			<td>Employment Status: </td>
-			<td>
-				<select th:field="*{status}">
-					<option th:each="stat: ${T(sg.edu.iss.caps.model.Status).values()}" 
-					th:value="${stat}" th:text="${stat.displayStatus}"></option>
-				</select>
-			</td>
-			</tr>
-			<tr>
-			<td ><input type="submit" class="btn btn-primary float-start" value="Save"/></td>
-			<td><a th:href="@{/admin/lecturer-list}"><input type="button" class="btn btn-secondary float-end" value="back"></a></td>
-			</tr>
-		</table>		
-	</form>
-
+    <header th:insert="layout/layout.html::header"></header>
+    <div th:if="${func} eq 'Enrolments'">
+        <a th:href="@{/enrolment/add}"><input type="button" value="New Enrolment" /></a>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="col table-primary">Enrolment Id</th>
+                    <th class="col table-primary">Course Name</th>
+                    <th class="col table-primary">Capacity</th>
+                    <th class="col table-primary">Status</th>
+                    <th class="col table-primary">Start Date</th>
+                    <th class="col table-primary">End Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="enrol:${enrols}">
+                    <td th:text="${enrol.Id}"></td>
+                    <td th:text="${enrol.course.name}"></td>
+                    <td th:text="${enrol.capacity}"></td>
+                    <td th:text="${enrol.status}"></td>
+                    <td th:text="${enrol.startDate}"></td>
+                    <td th:text="${enrol.endDate}"></td>
+                    <td><a th:href="@{/enrolment/edit/}+${enrol.Id}"><input type="button" value="Edit" /></a></td>
+                    <td><a th:href="@{/enrolment/remove/}+${enrol.Id}"><input type="button" value="Delete" /></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${func} eq 'viewList'">
+        <a th:href="@{/courseview/list/enrol}"><input type="button" value="View Enrolment List" /></a>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="col table-primary">Enrolment Id</th>
+                    <th class="col table-primary">Course Name</th>
+                    <th class="col table-primary">Capacity</th>
+                    <th class="col table-primary">Status</th>
+                    <th class="col table-primary">Start Date</th>
+                    <th class="col table-primary">End Date</th>
+                    <th class="col table-primary">Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="enrol:${grades.keySet()}">
+                    <td th:text="${enrol.Id}"></td>
+                    <td th:text="${enrol.course.name}"></td>
+                    <td th:text="${enrol.capacity}"></td>
+                    <td th:text="${enrol.status}"></td>
+                    <td th:text="${enrol.startDate}"></td>
+                    <td th:text="${enrol.endDate}"></td>
+                    <td th:if="${grades.get(enrol)} <= 100.0" th:text="${grades.get(enrol)}"></td>
+                    <td th:if="${grades.get(enrol)} == 101.0" th:text="Null"></td>
+                    <td><a th:href="@{/courseview/cancel/}+${enrol.Id}"><input type="button" value="Cancel" /></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${func} eq 'enrolList'">
+        <a th:href="@{/courseview/list}"><input type="button" value="Back" /></a>
+        <form action="/courseview/search" method="POST">
+            <input type="text" name="queryString" />
+            <input type="submit" value="Search" />
+        </form>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="col table-primary">Enrolment Id</th>
+                    <th class="col table-primary">Course Name</th>
+                    <th class="col table-primary">Capacity</th>
+                    <th class="col table-primary">Status</th>
+                    <th class="col table-primary">Start Date</th>
+                    <th class="col table-primary">End Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="enrol:${validEnrol}">
+                    <td th:text="${enrol.Id}"></td>
+                    <td th:text="${enrol.course.name}"></td>
+                    <td th:text="${enrol.capacity}"></td>
+                    <td th:text="${enrol.status}"></td>
+                    <td th:text="${enrol.startDate}"></td>
+                    <td th:text="${enrol.endDate}"></td>
+                    <td><a th:href="@{/courseview/add/}+${enrol.Id}"><input type="button" value="Enrol" /></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${func} eq 'search'">
+        <a th:href="@{/courseview/list}"><input type="button" value="Back" /></a>
+        <form action="/courseview/search" method="POST">
+            <input type="text" name="queryString" />
+            <input type="submit" value="Search" />
+        </form>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="col table-primary">Enrolment Id</th>
+                    <th class="col table-primary">Course Name</th>
+                    <th class="col table-primary">Capacity</th>
+                    <th class="col table-primary">Status</th>
+                    <th class="col table-primary">Start Date</th>
+                    <th class="col table-primary">End Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="enrol:${validEnrol}">
+                    <td th:text="${enrol.Id}"></td>
+                    <td th:text="${enrol.course.name}"></td>
+                    <td th:text="${enrol.capacity}"></td>
+                    <td th:text="${enrol.status}"></td>
+                    <td th:text="${enrol.startDate}"></td>
+                    <td th:text="${enrol.endDate}"></td>
+                    <td><a th:href="@{/courseview/add/}+${enrol.Id}"><input type="button" value="Enrol" /></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${func} eq 'courseList'">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="col table-primary">Course Name</th>
+                    <th class="col table-primary">Course Description</th>
+                    <th class="col table-primary">Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="enrol:${courseList}">
+                    <td th:text="${enrol.name}"></td>
+                    <td th:text="${enrol.description}"></td>
+                    <td th:text="${enrol.category}"></td>
+                    <td><a th:href="@{/courseview/courselist/enrolss/}+${enrol.Id}"><input type="button"
+                                value="Enrolmenrs" /></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${func} eq 'courseLists'">
+        <a th:href="@{/courseview/courselist}"><input type="button" value="Back" /></a>
+        <form action="/courseview/search" method="POST">
+            <input type="text" name="queryString" />
+            <input type="submit" value="Search" />
+        </form>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="col table-primary">Enrolment Id</th>
+                    <th class="col table-primary">Course Name</th>
+                    <th class="col table-primary">Capacity</th>
+                    <th class="col table-primary">Status</th>
+                    <th class="col table-primary">Start Date</th>
+                    <th class="col table-primary">End Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="enrol:${validEnrol}">
+                    <td th:text="${enrol.Id}"></td>
+                    <td th:text="${enrol.course.name}"></td>
+                    <td th:text="${enrol.capacity}"></td>
+                    <td th:text="${enrol.status}"></td>
+                    <td th:text="${enrol.startDate}"></td>
+                    <td th:text="${enrol.endDate}"></td>
+                    <td><a th:href="@{/courseview/add/}+${enrol.Id}"><input type="button" value="Enrol" /></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${func} eq 'addEnrolment'">
+        <form action="#" th:object="${enrol}" th:action="@{/enrolment/save}" method="POST">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="col table-primary">Info</th>
+                        <th class="col table-primary">Content</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col">Course Name</td>
+                        <td class="col">
+                            <input type="hidden" th:field="*{Id}" th:value="${enrol.Id}">
+                            <select th:field="*{course.name}">
+                                <option th:if="${enrol.course.name} != null" th:text="${enrol.course.name}"
+                                    th:value="${enrol.course.name}" selected>
+                                </option>
+                                <option th:each="course:${courses}" th:text="${course.name}" th:value="${course.name}">
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col">Course Category</td>
+                        <td class="col">
+                            <select th:field="*{course.category}">
+                                <option th:each="course:${courses}" th:text="${course.category}"
+                                    th:value="${course.category}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col">Course Capacity</td>
+                        <td class="col">
+                            <input type="text" th:field="*{capacity}" class="form-control form-control-lg"
+                                aria-label=".form-control-lg example" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col">Start Date :</td>
+                        <td class="col">
+                            <input type="date" th:field="*{startDate}" placeholder="yyyy-MM-dd"
+                                th:text="${#temporals.format(enrol.startDate, 'yyyy-MM-dd')}" />
+                            <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col">End Date :</td>
+                        <td class="col">
+                            <input type="date" th:field="*{endDate}" placeholder="yyyy-MM-dd"
+                                th:text="${#temporals.format(enrol.endDate, 'yyyy-MM-dd')}" />
+                            <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col">Status :</td>
+                        <td class="col">
+                            <select th:field="*{status}">
+                                <option th:each="status: ${T(sg.edu.iss.caps.model.Status).values()}"
+                                    th:value="${status}" th:text="${status.getDisplayStatus}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col"><input type="submit" value="Save" /></td>
+                        <td class="col"><input type="reset" value="Reset" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div th:if="${func} eq 'edit'">
+        <form action="#" th:object="${enrol}" th:action="@{/enrolment/save}" method="POST">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="col table-primary">Info</th>
+                        <th class="col table-primary">Content</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col">Course Name</td>
+                        <td class="col">
+                            <input type="hidden" th:field="*{Id}" th:value="${enrol.Id}">
+                            <select th:field="*{course.name}">
+                                <option th:if="${enrol.course.name} != null" th:text="${enrol.course.name}"
+                                    th:value="${enrol.course.name}" selected>
+                                </option>
+                                <option th:each="course:${courses}" th:text="${course.name}" th:value="${course.name}">
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col">Course Category</td>
+                        <td class="col">
+                            <select th:field="*{course.category}">
+                                <option th:each="course:${courses}" th:text="${course.category}"
+                                    th:value="${course.category}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col">Course Capacity</td>
+                        <td class="col">
+                            <input type="text" th:field="*{capacity}" class="form-control form-control-lg"
+                                aria-label=".form-control-lg example" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col">Start Date :</td>
+                        <td class="col">
+                            <input type="date" th:field="*{startDate}" placeholder="yyyy-MM-dd"
+                                th:text="${#temporals.format(enrol.startDate, 'yyyy-MM-dd')}" />
+                            <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col">End Date :</td>
+                        <td class="col">
+                            <input type="date" th:field="*{endDate}" placeholder="yyyy-MM-dd"
+                                th:text="${#temporals.format(enrol.endDate, 'yyyy-MM-dd')}" />
+                            <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col">Status :</td>
+                        <td class="col">
+                            <select th:field="*{status}">
+                                <option th:each="status: ${T(sg.edu.iss.caps.model.Status).values()}"
+                                    th:value="${status}" th:text="${status.getDisplayStatus}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col"><input type="submit" value="Save" /></td>
+                        <td class="col"><input type="reset" value="Reset" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
 </body>
-</html>
 
+</html>
