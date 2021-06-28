@@ -30,6 +30,7 @@ public class EnrolmentController {
 		List<CourseEnrolment> list = eservice.findAllEnrolment();
 		model.addAttribute("enrols", list);
 		model.addAttribute("func", "Enrolments");
+		model.addAttribute("enrol", new CourseEnrolment());
 //		return "enrolments";
 		return "CourseViewEnrolmentList";
 	}
@@ -84,7 +85,8 @@ public class EnrolmentController {
 		ArrayList<Course> courses = (ArrayList<Course>) crepo.findAll();
 		model.addAttribute("courses", courses);
 		model.addAttribute("func", "edit");
-		return "Enrolment-form";
+//		return "Enrolment-form";
+		return "CourseViewEnrolmentList";
 
 	}
 }
