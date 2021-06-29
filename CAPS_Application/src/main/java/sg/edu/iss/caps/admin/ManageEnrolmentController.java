@@ -41,8 +41,12 @@ public class ManageEnrolmentController {
     @GetMapping(value="")
     public String listCourseEnrol(Model model) {
     List<CourseEnrolment> elist = eservice.findAllEnrolment();
+    elist.stream().forEach(x -> {
+        if(eservice.findStudentsByEnrol(x).size() == x.getCapacity()) {
+            x.setStatus(Status.FULL);
+        }
+    });
     model.addAttribute("elist", elist);
-
     Map<CourseEnrolment, Integer> list = new HashMap<CourseEnrolment, Integer>();
     elist.stream().forEach(x -> {
         List<Student> students = eservice.findStudentsByEnrol(x);
@@ -75,7 +79,7 @@ public class ManageEnrolmentController {
 
         if(enrol.getCapacity() == 0) {
             eservice.CreateEnrolment(new CourseEnrolment(course, enrol.getStartDate(), enrol.getEndDate(),
-                    enrol.getCapacity(), Status.NOTAVAILABLE));
+                    enrol.getCapacity(), Status.FULL));
         }
 
         if(enrol.getCapacity() > 0) {
@@ -94,7 +98,9 @@ public class ManageEnrolmentController {
 
     @GetMapping("/delete/{id}")
 	public String removeEnrol(@PathVariable("id") int id) {
-		eservice.DeleteEnrolment(id);
+		if(eservice.findStudentsByEnrol(eservice.findEnrolmentById(id)).size()==0) {
+            eservice.DeleteEnrolment(id);
+        }
 		return "redirect:/admin/enrol";
 	}
 
