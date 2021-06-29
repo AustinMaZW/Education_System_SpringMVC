@@ -1,4 +1,4 @@
-package sg.edu.iss.caps.enrolment;
+package sg.edu.iss.caps.student;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import sg.edu.iss.caps.model.Course;
-import sg.edu.iss.caps.model.CourseEnrolment;
+import sg.edu.iss.caps.course.Course;
+import sg.edu.iss.caps.course.CourseInterface;
+import sg.edu.iss.caps.enrolment.ComPa;
+import sg.edu.iss.caps.enrolment.CourseEnrolment;
+import sg.edu.iss.caps.enrolment.EnrolmentService;
 import sg.edu.iss.caps.model.Status;
-import sg.edu.iss.caps.model.Student;
-import sg.edu.iss.caps.student.StudentService;
-import sg.edu.iss.caps.viewcourse.CourseInterface;
 
+//add authorization path
 @Controller
 @RequestMapping("/courseview")
 public class ViewCourseEnrolController {

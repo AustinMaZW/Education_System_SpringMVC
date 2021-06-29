@@ -1,4 +1,4 @@
-package sg.edu.iss.caps.model;
+package sg.edu.iss.caps.student;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,6 +21,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import sg.edu.iss.caps.course.Course;
+import sg.edu.iss.caps.enrolment.CourseEnrolment;
+import sg.edu.iss.caps.model.User;
 
 @Getter
 @Setter

@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.enrolment.EnrolmentService;
-import sg.edu.iss.caps.model.Course;
-import sg.edu.iss.caps.model.Student;
-import sg.edu.iss.caps.viewcourse.CourseInterface;
+import sg.edu.iss.caps.course.CourseInterface;
 
 @Controller
 @RequestMapping("/lecturer")

@@ -5,13 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import sg.edu.iss.caps.course.Course;
+import sg.edu.iss.caps.course.CourseInterface;
+import sg.edu.iss.caps.course.CourseRepository;
+import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolmentService;
 import sg.edu.iss.caps.enrolment.EnrolmentServiceImpl;
-import sg.edu.iss.caps.model.Course;
-import sg.edu.iss.caps.model.CourseEnrolment;
 import sg.edu.iss.caps.model.Status;
-import sg.edu.iss.caps.viewcourse.CourseInterface;
-import sg.edu.iss.caps.viewcourse.CourseRepository;
 
 import javax.validation.Valid;
 import java.util.ArrayList;

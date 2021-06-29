@@ -10,8 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.NoArgsConstructor;
-import sg.edu.iss.caps.model.CourseEnrolment;
-import sg.edu.iss.caps.model.Student;
+import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.security.UserDetailsImpl;
 
 @Controller

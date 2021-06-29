@@ -3,8 +3,7 @@ package sg.edu.iss.caps.student;
 import java.util.ArrayList;
 import java.util.Map;
 
-import sg.edu.iss.caps.model.CourseEnrolment;
-import sg.edu.iss.caps.model.Student;
+import sg.edu.iss.caps.enrolment.CourseEnrolment;
 
 public interface StudentService {
 	public ArrayList<Student> findAllStudent();

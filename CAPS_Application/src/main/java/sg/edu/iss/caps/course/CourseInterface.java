@@ -1,9 +1,7 @@
-package sg.edu.iss.caps.viewcourse;
+package sg.edu.iss.caps.course;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import sg.edu.iss.caps.model.Course;
 
 public interface CourseInterface {
 	public void createCourse(Course course);

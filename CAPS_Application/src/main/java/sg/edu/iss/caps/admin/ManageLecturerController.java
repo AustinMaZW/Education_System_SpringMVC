@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import sg.edu.iss.caps.lecturer.Lecturer;
 import sg.edu.iss.caps.lecturer.LecturerInterface;
-import sg.edu.iss.caps.model.Lecturer;
 
 @Controller
 //@RequestMapping("/admin")
@@ -35,7 +35,7 @@ public class ManageLecturerController {
 	LecturerInterface lservice;
 	
 
-	@GetMapping("/admin/lecturer/list")
+	@GetMapping("/admin/lecturer-list")
 	public String listAllLecturer(Model model){
 		List<Lecturer> lecList = lservice.findAllLecturer();
 		Lecturer lecturer = new Lecturer();

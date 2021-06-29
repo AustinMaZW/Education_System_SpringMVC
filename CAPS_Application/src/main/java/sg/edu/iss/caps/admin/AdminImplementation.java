@@ -7,9 +7,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import sg.edu.iss.caps.model.Course;
-import sg.edu.iss.caps.model.Student;
+import sg.edu.iss.caps.course.Course;
 import sg.edu.iss.caps.security.SecurityConfig;
+import sg.edu.iss.caps.student.Student;
 import sg.edu.iss.caps.student.StudentRepository;
 
 @Service

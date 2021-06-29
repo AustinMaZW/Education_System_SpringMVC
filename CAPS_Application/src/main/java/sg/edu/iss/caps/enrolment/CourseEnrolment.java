@@ -1,8 +1,12 @@
-package sg.edu.iss.caps.model;
+package sg.edu.iss.caps.enrolment;
 
 import java.time.LocalDate;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,7 +15,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import sg.edu.iss.caps.enrolment.ComPa;
+import sg.edu.iss.caps.course.Course;
+import sg.edu.iss.caps.model.Status;
 
 @Getter
 @Setter
