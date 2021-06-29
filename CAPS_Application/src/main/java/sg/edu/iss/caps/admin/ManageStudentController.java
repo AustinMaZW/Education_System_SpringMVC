@@ -26,44 +26,25 @@ public class ManageStudentController {
 	@GetMapping(value="/std/list")
 	public String listStudent(Model model) {
 		List<Student> stdlist = (ArrayList<Student>) aservice.listAllStudents();
+		Student student = new Student();
 		model.addAttribute("stdlist", stdlist);
+		model.addAttribute("student", student);
 		return "students";
 	
-	}
-	
-	@GetMapping(value="/std/form")
-	public String studentForm(Model model) {
-		Student student = new Student();
-		model.addAttribute("student", student);
-		return "student-form";
 	}
 	
 	@PostMapping(value="/std/save")
 	public String saveStudent(@Valid Student student, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
-			if (student.getId() != 0)
-				model.addAttribute("mode", "edit");
-			return "student-form";
+			return "students";
 		}
-		System.out.println("save student");
-		System.out.println(student);
-		Student savedStudent = aservice.saveStudent(student);
-		System.out.println(savedStudent);
+
+		aservice.saveStudent(student);
 		return "redirect:/admin/std/list";
-	}
-	
-	@GetMapping(value="/std/edit/{id}")
-	public String editStudentForm(Model model, @PathVariable("id") Integer id) {
-		System.out.println("edit student " + id);
-		System.out.println(aservice.getStudentById(id));
-		model.addAttribute("student", aservice.getStudentById(id));
-		model.addAttribute("mode", "edit");
-		return "student-form";
 	}
 
 	@GetMapping(value="/std/delete/{id}")
 	public String deleteStudent(@PathVariable("id") Integer id) {
-		System.out.println("delete student " + id);
 		Student student = aservice.getStudentById(id);
 		aservice.deleteStudent(student);
 		return "redirect:/admin/std/list";

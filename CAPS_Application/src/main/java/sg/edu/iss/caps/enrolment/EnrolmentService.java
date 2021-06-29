@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import sg.edu.iss.caps.course.Course;
+import sg.edu.iss.caps.model.StudentEnrolmentDTO;
 import sg.edu.iss.caps.student.Student;
 
 //check all the methods to remove unnecessary ones
@@ -36,4 +37,6 @@ public interface EnrolmentService {
 
 	List<Student> findStudentsByEnrol(CourseEnrolment enrol);
 
+	public List<StudentEnrolmentDTO> getStudentsByCourse(int courseId);
+	
 }
