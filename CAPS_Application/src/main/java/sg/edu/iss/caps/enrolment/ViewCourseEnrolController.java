@@ -48,7 +48,7 @@ public class ViewCourseEnrolController {
 	public String enrolList(Model model) {
 		userName();
 		List<CourseEnrolment> allEnrols = eservice.findAllEnrolment();
-		allEnrols = validList(allEnrols, this.stu);
+		allEnrols = validList(allEnrols);
 		model.addAttribute("validEnrol", allEnrols);
 		model.addAttribute("func", "enrolList");
 //		return "enrolList";
@@ -62,7 +62,7 @@ public class ViewCourseEnrolController {
 		sservice.setEnrol(newEnrol, stu);
 		Course course = cservice.findCourseById(this.courseId);
 		ArrayList<CourseEnrolment> eList = (ArrayList<CourseEnrolment>) eservice.findEnrolmentByCourse(course);
-		eList = (ArrayList<CourseEnrolment>) validList(eList, this.stu);
+		eList = (ArrayList<CourseEnrolment>) validList(eList);
 		model.addAttribute("validEnrol", eList);
 //		return "redirect:/courseview/list/enrol";
 		return "EnrolmentOfCourse";
@@ -82,7 +82,7 @@ public class ViewCourseEnrolController {
 		userName();
 		System.out.println(queryString);
 		List<CourseEnrolment> list = eservice.findEnrolmentByCourseName(queryString);
-		list = validList(list, this.stu);
+		list = validList(list);
 		model.addAttribute("validEnrol", list);
 		model.addAttribute("func", "search");
 //		return "enrolList";
@@ -93,7 +93,8 @@ public class ViewCourseEnrolController {
 	public String courseList(Model model) {
 		userName();
 		List<Course> cList = cservice.listAllCourses();
-
+		cList = RestCourse(cList); // I don't know whether the course should be filtered or enrolment should be
+									// filtered.
 		model.addAttribute("courseList", cList);
 		model.addAttribute("func", "courseList");
 		model.addAttribute("keyword", "");
@@ -109,7 +110,7 @@ public class ViewCourseEnrolController {
 		System.out.println(id);
 		Course course = cservice.findCourseById(id);
 		ArrayList<CourseEnrolment> eList = (ArrayList<CourseEnrolment>) eservice.findEnrolmentByCourse(course);
-		eList = (ArrayList<CourseEnrolment>) validList(eList, this.stu);
+		eList = (ArrayList<CourseEnrolment>) validList(eList);
 		eList = (ArrayList<CourseEnrolment>) isAvailable(eList);
 		model.addAttribute("validEnrol", eList);
 		model.addAttribute("func", "courseLists");
@@ -135,8 +136,8 @@ public class ViewCourseEnrolController {
 		this.stu = sservice.findStudentByUsername(name);
 	}
 
-	private List<CourseEnrolment> validList(List<CourseEnrolment> list, Student _stu) {
-		List<CourseEnrolment> enrols = new ArrayList<CourseEnrolment>(stu.getGrades().keySet());
+	private List<CourseEnrolment> validList(List<CourseEnrolment> list) {
+		List<CourseEnrolment> enrols = new ArrayList<CourseEnrolment>(this.stu.getGrades().keySet());
 		enrols.stream().forEach(x -> {
 			if (list.contains(x)) {
 				list.remove(x);
@@ -145,9 +146,20 @@ public class ViewCourseEnrolController {
 		return list;
 	}
 
-	public <T extends ComPa> List<T> isAvailable(List<T> list) {
+	private <T extends ComPa> List<T> isAvailable(List<T> list) {
 		List<T> newList = new ArrayList<>();
 		list.stream().filter(x -> x.getStatus().compareTo(Status.AVAILABLE) == 0).forEach(x -> newList.add(x));
 		return newList;
+	}
+
+	private List<Course> RestCourse(List<Course> list) {
+		List<Course> stu_course = this.stu.courseList();
+		List<Course> courses = new ArrayList<>();
+		list.stream().forEach(x -> {
+			if (!stu_course.contains(x)) {
+				courses.add(x);
+			}
+		});
+		return courses;
 	}
 }
