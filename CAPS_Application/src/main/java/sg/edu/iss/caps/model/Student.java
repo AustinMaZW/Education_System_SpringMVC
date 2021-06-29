@@ -1,6 +1,8 @@
 package sg.edu.iss.caps.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -47,6 +49,13 @@ public class Student extends User {
 		this.matriculation_date = matric_date;
 		this.gpa = gpa;
 		// TODO Auto-generated constructor stub
+	}
+
+	public List<Course> courseList() {
+		List<Course> courses = new ArrayList<>();
+		List<CourseEnrolment> enrols = new ArrayList<>(this.grades.keySet());
+		enrols.stream().forEach(x -> courses.add(x.getCourse()));
+		return courses;
 	}
 
 }
