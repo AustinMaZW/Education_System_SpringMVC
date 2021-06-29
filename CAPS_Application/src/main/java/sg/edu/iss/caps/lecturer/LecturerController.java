@@ -1,7 +1,10 @@
 package sg.edu.iss.caps.lecturer;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,28 +14,41 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.enrolment.EnrolmentService;
+import sg.edu.iss.caps.model.StudentEnrolmentDTO;
+import sg.edu.iss.caps.student.Student;
+import sg.edu.iss.caps.course.Course;
 import sg.edu.iss.caps.course.CourseInterface;
 
 @Controller
-@RequestMapping("/lecturer")
+@RequestMapping("/lecturer/courses")
 public class LecturerController {
 
 	@Autowired
 	EnrolmentService eservice;
+	
 	@Autowired
 	CourseInterface cservice;
 
-	@GetMapping(value="/course/stdlist/{id}")
+	@GetMapping(value="/stdlist/{id}")
 	public String listStudentsByCourse(@PathVariable("id") Integer id, Model model) {
-		List<Integer> stdlist = (ArrayList<Integer>) eservice.getStudentsByCourse(id);
-		for (Integer sid : stdlist) {
-			System.out.println(sid);
-		}
-//		Course course = cservice.findCourseById(id);
-//		model.addAttribute("course", course);
-//		model.addAttribute("stdlist", stdlist);
-		return "students-of-course";
+		// retrieve students information and enrolment start date
+		List<StudentEnrolmentDTO> list = eservice.getStudentsByCourse(id);
+
+		// group students by enrolment start date
+		Map<LocalDate, List<Student>> map = list.stream()
+				.collect(Collectors.groupingBy(x->x.getEnrolmentStartDate(), Collectors.mapping(StudentEnrolmentDTO::getStudent, Collectors.toList())));
+		
+		// sort map by the key(enrolment start date)
+		Map<LocalDate, List<Student>> sortedMap = new LinkedHashMap<>();
+		map.entrySet().stream().sorted(Map.Entry.comparingByKey())
+							   .forEachOrdered(e->sortedMap.put(e.getKey(), e.getValue()));
+
+		Course course = cservice.findCourseById(id);
 	
+		model.addAttribute("course", course);
+		model.addAttribute("stdmap", sortedMap);
+		
+		return "students-of-course";
 	}
 	
 }

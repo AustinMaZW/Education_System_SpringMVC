@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sg.edu.iss.caps.course.Course;
 import sg.edu.iss.caps.course.CourseRepository;
 import sg.edu.iss.caps.model.Status;
+import sg.edu.iss.caps.model.StudentEnrolmentDTO;
 import sg.edu.iss.caps.student.Student;
 import sg.edu.iss.caps.student.StudentRepository;
 
@@ -166,8 +167,7 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	}
 
 	@Override
-	public List<Integer> getStudentsByCourse(int id) {
-		return erepo.findStudentsByCourse(id);
+	public List<StudentEnrolmentDTO> getStudentsByCourse(int courseId) {
+		return erepo.findStudentsByCourse(courseId);
 	}
-
 }
