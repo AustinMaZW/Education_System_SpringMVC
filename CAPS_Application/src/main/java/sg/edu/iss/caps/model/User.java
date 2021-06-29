@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,8 +35,10 @@ public class User {
 	@Column(nullable = false)
 	private int id;
 	@Column(nullable = false)
+	@NotBlank(message = "Enter username")
 	private String username;
 	@Column(nullable = false)
+	@Length(min = 5, message = "Password should contain at least 5 digits")
 	private String password;
 	private String sessionId;
 	@Column(nullable = false)

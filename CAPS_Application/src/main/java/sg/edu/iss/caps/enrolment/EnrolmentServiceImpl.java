@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import sg.edu.iss.caps.model.*;
+import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.model.CourseEnrolment;
+import sg.edu.iss.caps.model.Status;
+import sg.edu.iss.caps.model.Student;
 import sg.edu.iss.caps.student.StudentRepository;
 import sg.edu.iss.caps.viewcourse.CourseRepository;
 
@@ -22,15 +25,15 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	CourseRepository crepo;
 
 	@Transactional
-	public void openEnrolment(CourseEnrolment enrolment) {erepo.save(enrolment);}
+	public void openEnrolment(CourseEnrolment enrolment) {
+		erepo.save(enrolment);
+	}
 
 	@Transactional
 	public void closeEnrolment(CourseEnrolment enrolment) {
 		enrolment.setStatus(Status.NOTAVAILABLE);
 		erepo.save(enrolment);
 	}
-
-
 
 	@Override
 	@Transactional
@@ -148,5 +151,17 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	public void cancelEnrol(CourseEnrolment enrol) {
 		enrol.setStatus(Status.NOTAVAILABLE);
 		erepo.save(enrol);
+	}
+
+	@Override
+	public List<Student> findStudentsByEnrol(CourseEnrolment enrol) {
+		List<Student> stus = srepo.findAll();
+		List<Student> newList = new ArrayList<>();
+		stus.stream().forEach(x -> {
+			if (x.getGrades().keySet().contains(enrol)) {
+				newList.add(x);
+			}
+		});
+		return newList;
 	}
 }
