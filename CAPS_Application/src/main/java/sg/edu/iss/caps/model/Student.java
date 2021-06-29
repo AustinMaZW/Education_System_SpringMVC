@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.MapKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,12 +24,14 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+//@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class Student extends User {
-	private LocalDate matriculation_date;
+
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private LocalDate matriculationDate;
 	private double gpa;
 
 	@ElementCollection(fetch = FetchType.EAGER)
@@ -36,19 +40,22 @@ public class Student extends User {
 	@Column(name = "grade")
 	private Map<CourseEnrolment, Double> grades;
 
-	public Student(String username, String password, String firstName, String lastName, LocalDate matriculation_date,
-			double gpa) {
+	public Student(String username, String password, String firstName, String lastName, LocalDate matriculationDate, double gpa) {
 		super(username, password, firstName, lastName);
-		this.matriculation_date = matriculation_date;
+		this.matriculationDate = matriculationDate;
 		this.gpa = gpa;
 	}
 
-	public Student(LocalDate matric_date, double gpa, @NotEmpty String username, @NotEmpty String password,
-			String sessionId, String firstName, String secondName) {
-		super(username, password, sessionId, firstName, secondName);
-		this.matriculation_date = matric_date;
+	public Student(LocalDate matriculationDate, double gpa, @NotEmpty String username, @NotEmpty String password,
+			String sessionId, String firstName, String lastName) {
+		super(username, password, sessionId, firstName, lastName);
+		this.matriculationDate = matriculationDate;
 		this.gpa = gpa;
-		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "Student [id=" + getId() + ", pwd=" + getPassword() + ", firstName=" + getFirstName() + ", lastName=" + getLastName() + ", username=" + getUsername() + ", matriculationDate=" + matriculationDate + ", gpa=" + gpa + ", grades=" + grades + "]";
 	}
 
 	public List<Course> courseList() {
