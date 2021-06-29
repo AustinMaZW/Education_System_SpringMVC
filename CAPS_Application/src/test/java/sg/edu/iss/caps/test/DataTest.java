@@ -93,9 +93,13 @@ public class DataTest {
 	public void test_2() {
 		LocalDate start = LocalDate.of(2021, 6, 10);
 		LocalDate end = LocalDate.of(2021, 6, 20);
+		LocalDate start2 = LocalDate.of(2022, 6, 10);
+		LocalDate end2 = LocalDate.of(2022, 6, 20);
 		List<Course> cList = crepo.findAll();
 		cList.stream()
 				.forEach(x -> erepo.save(new CourseEnrolment(x, start, end, 50, Status.AVAILABLE)));
+		cList.stream()
+		.forEach(x -> erepo.save(new CourseEnrolment(x, start2, end2, 10, Status.AVAILABLE)));
 		List<CourseEnrolment> enrols = erepo.findAll();
 		List<Student> students = srepo.findAll();
 		students.stream().forEach(x -> {

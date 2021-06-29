@@ -19,6 +19,8 @@ public interface EnrolmentService {
 	List<CourseEnrolment> findEnrolmentByCourse(Course course);
 
 	List<CourseEnrolment> findEnrolmentByStudent(Student student);
+	
+	List<CourseEnrolment> findEnrolmentByCourseId(int courseId);
 
 	CourseEnrolment findEnrolmentById(int id);
 

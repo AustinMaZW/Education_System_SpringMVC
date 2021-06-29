@@ -49,6 +49,8 @@ public class ManageEnrolmentController {
     @PostMapping(value="/save")
     public String saveCourse(@ModelAttribute @Valid CourseEnrolment enrol, BindingResult result) {
         if(result.hasErrors()) {return "course-enrol";}
+        Course course = crepo.findCourseByName(enrol.getCourse().getName());
+        enrol.setCourse(course);
         eservice.updateEnrolment(enrol);
 //        if (result.hasErrors()) {
 //            return "course-enrol";

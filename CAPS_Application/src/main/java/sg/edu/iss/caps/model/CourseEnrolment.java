@@ -22,7 +22,7 @@ public class CourseEnrolment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne
 	private Course course;
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private LocalDate startDate;

@@ -33,6 +33,11 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 
 
 	@Override
+	public List<CourseEnrolment> findEnrolmentByCourseId(int courseId) {
+		return erepo.findEnrolmentByCourse(courseId);
+	}
+
+	@Override
 	@Transactional
 	public List<CourseEnrolment> findAllEnrolment() {
 		List<CourseEnrolment> list = erepo.findAll();
