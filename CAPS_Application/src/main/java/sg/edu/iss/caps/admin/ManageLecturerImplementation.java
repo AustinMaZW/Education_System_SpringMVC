@@ -31,8 +31,12 @@ public class ManageLecturerImplementation implements LecturerInterface {
 	@Override
 	public void createLecturer(Lecturer lecturer) {
 		// TODO Auto-generated method stub
-		lecturer.setPassword(encodePassword(lecturer.getPassword()));
-		lrepo.save(lecturer);
+		if(lrepo.existsById(lecturer.getId())){
+			lecturer.setPassword(encodePassword(lecturer.getPassword()));
+			lrepo.save(lecturer);
+		}
+		else
+			return;
 	}
 
 	@Override
@@ -51,7 +55,7 @@ public class ManageLecturerImplementation implements LecturerInterface {
 	@Override
 	public void updateLecturer(Lecturer lecturer) {
 		// TODO Auto-generated method stub
-		lecturer.setPassword(encodePassword(lecturer.getPassword()));
+		lecturer.setPassword(encodePassword(lecturer.getPassword()));		
 		lrepo.save(lecturer);
 	}
 

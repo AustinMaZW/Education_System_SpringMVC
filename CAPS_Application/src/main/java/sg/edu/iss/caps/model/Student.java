@@ -1,6 +1,8 @@
 package sg.edu.iss.caps.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -55,6 +57,14 @@ public class Student extends User {
 	public String toString() {
 		return "Student [id=" + getId() + ", pwd=" + getPassword() + ", firstName=" + getFirstName() + ", lastName=" + getLastName() + ", username=" + getUsername() + ", matriculationDate=" + matriculationDate + ", gpa=" + gpa + ", grades=" + grades + "]";
 	}
+
+	public List<Course> courseList() {
+		List<Course> courses = new ArrayList<>();
+		List<CourseEnrolment> enrols = new ArrayList<>(this.grades.keySet());
+		enrols.stream().forEach(x -> courses.add(x.getCourse()));
+		return courses;
+	}
+
 }
 
 // @ManyToMany

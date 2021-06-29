@@ -2,11 +2,7 @@ package sg.edu.iss.caps.model;
 
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import sg.edu.iss.caps.enrolment.ComPa;
 
 @Getter
 @Setter
@@ -22,24 +19,24 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class CourseEnrolment {
+public class CourseEnrolment implements ComPa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@ManyToOne
 	private Course course;
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
-	private String capacity;
+	private int capacity;
 	private Status status;
 
 	// @ManyToMany
 	// @JoinTable(name = "student_course", joinColumns = @JoinColumn(name =
 	// "enrolment_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
 	// private List<Student> studentList;
-	public CourseEnrolment(Course course, LocalDate startDate, LocalDate endDate, String capacity, Status status) {
+	public CourseEnrolment(Course course, LocalDate startDate, LocalDate endDate, int capacity, Status status) {
 		super();
 		this.course = course;
 		this.startDate = startDate;

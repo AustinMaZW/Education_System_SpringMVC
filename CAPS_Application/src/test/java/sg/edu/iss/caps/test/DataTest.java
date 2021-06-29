@@ -95,7 +95,7 @@ public class DataTest {
 		LocalDate end = LocalDate.of(2021, 6, 20);
 		List<Course> cList = crepo.findAll();
 		cList.stream()
-				.forEach(x -> erepo.save(new CourseEnrolment(x, start, end, x.getDescription(), Status.AVAILABLE)));
+				.forEach(x -> erepo.save(new CourseEnrolment(x, start, end, 50, Status.AVAILABLE)));
 		List<CourseEnrolment> enrols = erepo.findAll();
 		List<Student> students = srepo.findAll();
 		students.stream().forEach(x -> {
