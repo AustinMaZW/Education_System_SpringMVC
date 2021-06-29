@@ -1,8 +1,9 @@
 package sg.edu.iss.caps.model;
 
 public enum Status {
-    AVAILABLE ("Available"), 
-    NOTAVAILABLE ("Not Available");
+    AVAILABLE ("Available"),
+    NOTAVAILABLE ("Not Available"),
+    FULL ("Full");
     
     private final String displayStatus;
     

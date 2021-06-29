@@ -31,7 +31,7 @@
         <tr>
           <th>Id</th>
           <th>Course Name</th>
-          <th>Capacity</th>
+          <th>Students Enrolled</th>
           <th>Status</th>
           <th>Start Date</th>
           <th>End Date</th>
@@ -42,15 +42,15 @@
         <tr th:each="enrol:${elist}">
           <td th:text="${enrol.id}">Id</td>
           <td th:text="${enrol.course.name}">coursename</td>
-          <td th:text="${enrol.capacity}">capacity</td>
-          <td th:text="${enrol.status}">status</td>
+          <td th:text="${numStudents.get(enrol)}+' / '+${enrol.capacity}"/></td>
+          <td th:text="${enrol.status.getDisplayStatus()}">status</td>
           <td th:text="${enrol.startDate}">startDate</td>
           <td th:text="${enrol.endDate}">endDate</td>
 
-          <td>
+          <td nowrap="">
             <a th:href="@{/admin/enrol/edit/}+${enrol.id}" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-            <a th:href="@{/admin/enrol/delete/}+${enrol.id}" class="btn btn-danger" onclick="return confirm('Are you sure you want to close course enrolment?');">
-            <span>Close</span></a>
+            <a th:href="@{/admin/enrol/cancel/}+${enrol.id}" class="cancel"><i class="material-icons" data-toggle="tooltip" title="Cancel">&#xe5cd;</i></a>
+            <a th:if="${numStudents.get(enrol) == 0}" th:href="@{/admin/enrol/delete/}+${enrol.id}" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xe872;</i></a>
           </td>
         </tr>
         </tbody>

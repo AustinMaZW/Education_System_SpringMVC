@@ -94,20 +94,27 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		CourseEnrolment curr = erepo.findById(enrol.getId()).get();
 		if (curr == null)
 			return false;
+		int numOfStudents = findStudentsByEnrol(curr).size();
+
 		curr.setCapacity(enrol.getCapacity());
 		curr.setCourse(crepo.findCourseByName(enrol.getCourse().getName()));
 		curr.setEndDate(enrol.getEndDate());
 		curr.setStartDate(enrol.getStartDate());
-		curr.setStatus(enrol.getStatus());
+
+		if((numOfStudents == curr.getCapacity())){
+			curr.setStatus(Status.NOTAVAILABLE);
+		}
+		else if ((numOfStudents < curr.getCapacity())) {
+			curr.setStatus(enrol.getStatus());
+		}
+		else if((numOfStudents > curr.getCapacity())) {
+			return false;
+		}
+
 		if (erepo.save(curr) == null)
 			return false;
 		return true;
 
-	}
-
-	@Override
-	public void updateEnrolment(CourseEnrolment enrol) {
-		erepo.save(enrol);
 	}
 
 	@Override
