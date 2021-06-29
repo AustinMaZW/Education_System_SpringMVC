@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.caps.lecturer.LecturerInterface;
@@ -18,24 +17,22 @@ public class ManageLecturerImplementation implements LecturerInterface {
 
 	@Autowired
 	LecturerRepository lrepo;
-	
+
 	@Autowired
 	SecurityConfig secConfig;
-	
 
 	public String encodePassword(String password) {
 		String encryptedPwd = secConfig.getPasswordEncoder().encode(password);
 		return encryptedPwd;
 	}
-	
+
 	@Override
 	public void createLecturer(Lecturer lecturer) {
 		// TODO Auto-generated method stub
-		if(lrepo.existsById(lecturer.getId())){
+		if (lrepo.existsById(lecturer.getId())) {
 			lecturer.setPassword(encodePassword(lecturer.getPassword()));
 			lrepo.save(lecturer);
-		}
-		else
+		} else
 			return;
 	}
 
@@ -55,26 +52,24 @@ public class ManageLecturerImplementation implements LecturerInterface {
 	@Override
 	public void updateLecturer(Lecturer lecturer) {
 		// TODO Auto-generated method stub
-		lecturer.setPassword(encodePassword(lecturer.getPassword()));		
+		lecturer.setPassword(encodePassword(lecturer.getPassword()));
 		lrepo.save(lecturer);
 	}
 
 	@Override
 	public Lecturer findLecturerById(int id) {
 		// TODO Auto-generated method stub
-		if(lrepo.existsById(id)) {
+		if (lrepo.existsById(id)) {
 			Lecturer lecturer = lrepo.findById(id).get();
 			return lecturer;
-		}
-		else
+		} else
 			return null;
 	}
 
 	@Override
 	public List<Lecturer> findAllAvailableLecturer() {
 		// TODO Auto-generated method stub
-		List<Lecturer> lecList= lrepo.findAll().stream()
-				.filter(e-> e.getStatus().equals(Status.AVAILABLE))
+		List<Lecturer> lecList = lrepo.findAll().stream().filter(e -> e.getStatus().equals(Status.AVAILABLE))
 				.collect(Collectors.toList());
 		return lecList;
 	}
@@ -87,19 +82,17 @@ public class ManageLecturerImplementation implements LecturerInterface {
 
 	@Override
 	public void removeLecturerById(int id) {
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
 		Lecturer lecturer = findLecturerById(id);
 
-		if(lecturer.getStatus().equals(Status.AVAILABLE)) {
+		if (lecturer.getStatus().equals(Status.AVAILABLE)) {
 			lecturer.setStatus(Status.NOTAVAILABLE);
 			lrepo.save(lecturer);
-		}
-		else {
+		} else {
 			lecturer.setStatus(Status.AVAILABLE);
 			lrepo.save(lecturer);
 		}
 
-		
 	}
 
 	@Override
@@ -108,5 +101,9 @@ public class ManageLecturerImplementation implements LecturerInterface {
 		lrepo.deleteById(id);
 	}
 
+	@Override
+	public Lecturer findLecturerByUsername(String username) {
+		return lrepo.findByUsername(username);
+	}
 
 }
