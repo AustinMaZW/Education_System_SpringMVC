@@ -1,20 +1,12 @@
 package sg.edu.iss.caps;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import sg.edu.iss.caps.admin.Admin;
 import sg.edu.iss.caps.admin.AdminRepository;
-import sg.edu.iss.caps.course.Course;
 import sg.edu.iss.caps.course.CourseRepository;
-import sg.edu.iss.caps.lecturer.Lecturer;
 import sg.edu.iss.caps.lecturer.LecturerRepository;
-import sg.edu.iss.caps.student.Student;
 import sg.edu.iss.caps.student.StudentRepository;
 
 @SpringBootApplication

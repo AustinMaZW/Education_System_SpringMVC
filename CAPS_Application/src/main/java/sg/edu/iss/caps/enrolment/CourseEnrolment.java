@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.Min;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -38,10 +37,6 @@ public class CourseEnrolment implements ComPa {
 	private int capacity;
 	private Status status;
 
-	// @ManyToMany
-	// @JoinTable(name = "student_course", joinColumns = @JoinColumn(name =
-	// "enrolment_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-	// private List<Student> studentList;
 	public CourseEnrolment(Course course, LocalDate startDate, LocalDate endDate, int capacity, Status status) {
 		super();
 		this.course = course;
@@ -50,6 +45,4 @@ public class CourseEnrolment implements ComPa {
 		this.capacity = capacity;
 		this.status = status;
 	}
-
-
 }
