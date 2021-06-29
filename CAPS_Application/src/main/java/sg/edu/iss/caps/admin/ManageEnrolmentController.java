@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/enrol")
+@RequestMapping("/admin/enrol")
 public class ManageEnrolmentController {
     @Autowired
     private EnrolmentService eservice;
@@ -55,20 +55,20 @@ public class ManageEnrolmentController {
             return "open-course";
         if (enrol.getId() != 0) {
             eservice.UpdateEnrolment(enrol);
-            return "redirect:/enrol";
+            return "redirect:/admin/enrol";
         }
         System.out.println(enrol.getId());
         Course course = crepo.findCourseByName(enrol.getCourse().getName());
         if (eservice.CreateEnrolment(new CourseEnrolment(course, enrol.getStartDate(), enrol.getEndDate(),
                 enrol.getCapacity(), Status.AVAILABLE)))
-            return "redirect:/enrol";
-        return "forward:/enrol";
+            return "redirect:/admin/enrol";
+        return "forward:/admin/enrol";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteMethod(@PathVariable("id") Integer id) {
         eservice.cancelEnrol(eservice.findEnrolmentById(id));
-        return "redirect:/enrol";
+        return "redirect:/admin/enrol";
     }
 
     @RequestMapping("/edit/{id}")
