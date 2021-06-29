@@ -40,14 +40,14 @@
                             <div class="form-group">
                                 <label> Start Date
                                 <input type="date" th:field="*{startDate}" placeholder="yyyy-MM-dd"
-                                                   th:text="${#temporals.format(enrol.startDate, 'yyyy-MM-dd')}" />
+                                                   th:text="${#temporals.format(enrol.startDate, 'yyyy-MM-dd')}" required/>
                                 <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
                                 </label>
                             </div>
                             <div class="form-group">
                                 <label> End Date
                                 <input type="date" th:field="*{endDate}" placeholder="yyyy-MM-dd"
-                                                 th:text="${#temporals.format(enrol.endDate, 'yyyy-MM-dd')}" />
+                                                 th:text="${#temporals.format(enrol.endDate, 'yyyy-MM-dd')}" required/>
                                 <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
                                 </label>
                             </div>
@@ -69,7 +69,6 @@
         <div class="col-md-8 mx-auto">
             <div class="contact-form">
                 <h1>Course Enrolment Details</h1>
-                <p class="hint-text">Please fill up all the below fields</p>
                 <form th:action="@{/admin/enrol/save}" th:object="${enrol}" method="post">
                     <div class="row">
                         <div class="col-sm-6">

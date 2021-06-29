@@ -13,10 +13,14 @@ import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolmentService;
 import sg.edu.iss.caps.enrolment.EnrolmentServiceImpl;
 import sg.edu.iss.caps.model.Status;
+import sg.edu.iss.caps.student.Student;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/enrol")
@@ -38,6 +42,14 @@ public class ManageEnrolmentController {
     public String listCourseEnrol(Model model) {
     List<CourseEnrolment> elist = eservice.findAllEnrolment();
     model.addAttribute("elist", elist);
+
+    Map<CourseEnrolment, Integer> list = new HashMap<CourseEnrolment, Integer>();
+    elist.stream().forEach(x -> {
+        List<Student> students = eservice.findStudentsByEnrol(x);
+        int numStudents = students.size();
+        list.put(x,numStudents);
+    });
+    model.addAttribute("numStudents", list);
     return "course-enrol";
     }
 
@@ -60,17 +72,31 @@ public class ManageEnrolmentController {
         }
         System.out.println(enrol.getId());
         Course course = crepo.findCourseByName(enrol.getCourse().getName());
-        if (eservice.CreateEnrolment(new CourseEnrolment(course, enrol.getStartDate(), enrol.getEndDate(),
-                enrol.getCapacity(), Status.AVAILABLE)))
-            return "redirect:/admin/enrol";
-        return "forward:/admin/enrol";
+
+        if(enrol.getCapacity() == 0) {
+            eservice.CreateEnrolment(new CourseEnrolment(course, enrol.getStartDate(), enrol.getEndDate(),
+                    enrol.getCapacity(), Status.NOTAVAILABLE));
+        }
+
+        if(enrol.getCapacity() > 0) {
+            eservice.CreateEnrolment(new CourseEnrolment(course, enrol.getStartDate(), enrol.getEndDate(),
+                    enrol.getCapacity(), Status.AVAILABLE));
+        }
+
+        return "redirect:/admin/enrol";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteMethod(@PathVariable("id") Integer id) {
+    @GetMapping("/cancel/{id}")
+    public String cancel(@PathVariable("id") Integer id) {
         eservice.cancelEnrol(eservice.findEnrolmentById(id));
         return "redirect:/admin/enrol";
     }
+
+    @GetMapping("/delete/{id}")
+	public String removeEnrol(@PathVariable("id") int id) {
+		eservice.DeleteEnrolment(id);
+		return "redirect:/admin/enrol";
+	}
 
     @RequestMapping("/edit/{id}")
     public String edit(@PathVariable("id") int id, Model model) {

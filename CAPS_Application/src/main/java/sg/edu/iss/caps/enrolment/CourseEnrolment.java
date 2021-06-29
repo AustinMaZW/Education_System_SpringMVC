@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -49,4 +50,6 @@ public class CourseEnrolment implements ComPa {
 		this.capacity = capacity;
 		this.status = status;
 	}
+
+
 }

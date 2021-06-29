@@ -109,6 +109,9 @@ table.table td a.edit {
 table.table td a.delete {
 	color: #F44336;
 }
+table.table td a.cancel {
+	color: #566787;
+}
 table.table td i {
 	font-size: 19px;
 }
