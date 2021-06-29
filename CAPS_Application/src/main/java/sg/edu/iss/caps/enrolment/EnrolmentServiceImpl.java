@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import sg.edu.iss.caps.model.Course;
-import sg.edu.iss.caps.model.CourseEnrolment;
+import sg.edu.iss.caps.course.Course;
+import sg.edu.iss.caps.course.CourseRepository;
 import sg.edu.iss.caps.model.Status;
-import sg.edu.iss.caps.model.Student;
+import sg.edu.iss.caps.student.Student;
 import sg.edu.iss.caps.student.StudentRepository;
-import sg.edu.iss.caps.viewcourse.CourseRepository;
 
+//check for unnecessary methods to remove
 @Service
 public class EnrolmentServiceImpl implements EnrolmentService {
 	@Autowired

@@ -2,7 +2,7 @@ package sg.edu.iss.caps.admin;
 
 import java.util.List;
 
-import sg.edu.iss.caps.model.Student;
+import sg.edu.iss.caps.student.Student;
 
 public interface AdminInterface {
 	public void createAdmin(Admin admin);

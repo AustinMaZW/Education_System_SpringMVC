@@ -1,4 +1,4 @@
-package sg.edu.iss.caps.enrolment;
+package sg.edu.iss.caps.lecturer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,13 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import sg.edu.iss.caps.lecturer.LecturerInterface;
-import sg.edu.iss.caps.model.Course;
-import sg.edu.iss.caps.model.CourseEnrolment;
-import sg.edu.iss.caps.model.Lecturer;
-import sg.edu.iss.caps.model.Student;
-import sg.edu.iss.caps.viewcourse.CourseInterface;
+import sg.edu.iss.caps.course.Course;
+import sg.edu.iss.caps.course.CourseInterface;
+import sg.edu.iss.caps.enrolment.CourseEnrolment;
+import sg.edu.iss.caps.enrolment.EnrolmentService;
+import sg.edu.iss.caps.student.Student;
 
+//add authorization for path
 @Controller
 @RequestMapping("/lecture/courses")
 public class ViewCourseTaughtController {

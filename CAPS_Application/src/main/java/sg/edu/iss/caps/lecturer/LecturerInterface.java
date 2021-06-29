@@ -2,8 +2,6 @@ package sg.edu.iss.caps.lecturer;
 
 import java.util.List;
 
-import sg.edu.iss.caps.model.Lecturer;
-
 public interface LecturerInterface {
 	public void createLecturer(Lecturer lecturer);
 

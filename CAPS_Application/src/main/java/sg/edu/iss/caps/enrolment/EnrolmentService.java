@@ -3,10 +3,10 @@ package sg.edu.iss.caps.enrolment;
 import java.time.LocalDate;
 import java.util.List;
 
-import sg.edu.iss.caps.model.Course;
-import sg.edu.iss.caps.model.CourseEnrolment;
-import sg.edu.iss.caps.model.Student;
+import sg.edu.iss.caps.course.Course;
+import sg.edu.iss.caps.student.Student;
 
+//check all the methods to remove unnecessary ones
 public interface EnrolmentService {
 	List<CourseEnrolment> findAllEnrolment();
 

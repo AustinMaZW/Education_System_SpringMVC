@@ -1,4 +1,4 @@
-package sg.edu.iss.caps.admin;
+package sg.edu.iss.caps.lecturer;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,14 +6,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sg.edu.iss.caps.lecturer.LecturerInterface;
-import sg.edu.iss.caps.lecturer.LecturerRepository;
-import sg.edu.iss.caps.model.Lecturer;
 import sg.edu.iss.caps.model.Status;
 import sg.edu.iss.caps.security.SecurityConfig;
 
 @Service
-public class ManageLecturerImplementation implements LecturerInterface {
+public class LecturerImplementation implements LecturerInterface {
 
 	@Autowired
 	LecturerRepository lrepo;

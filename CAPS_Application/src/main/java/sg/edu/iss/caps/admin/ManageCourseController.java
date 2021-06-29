@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import sg.edu.iss.caps.model.Course;
-import sg.edu.iss.caps.viewcourse.CourseInterface;
+import sg.edu.iss.caps.course.Course;
+import sg.edu.iss.caps.course.CourseInterface;
 
 @Controller
 @RequestMapping("/admin/course")
-public class AdminCourseController {
+public class ManageCourseController {
 	@Autowired
 	CourseInterface cservice;
 	
-	public AdminCourseController() {
+	public ManageCourseController() {
 		//empty constructor
 	}
 	

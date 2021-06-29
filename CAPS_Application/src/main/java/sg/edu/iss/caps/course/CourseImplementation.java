@@ -1,4 +1,4 @@
-package sg.edu.iss.caps.viewcourse;
+package sg.edu.iss.caps.course;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import sg.edu.iss.caps.model.Course;
 
 @Service
 public class CourseImplementation implements CourseInterface {

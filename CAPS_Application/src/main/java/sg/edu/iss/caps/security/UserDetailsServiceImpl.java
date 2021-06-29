@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 import sg.edu.iss.caps.admin.Admin;
 import sg.edu.iss.caps.admin.AdminRepository;
+import sg.edu.iss.caps.lecturer.Lecturer;
 import sg.edu.iss.caps.lecturer.LecturerRepository;
-import sg.edu.iss.caps.model.Lecturer;
-import sg.edu.iss.caps.model.Student;
+import sg.edu.iss.caps.student.Student;
 import sg.edu.iss.caps.student.StudentRepository;
 
 @Service

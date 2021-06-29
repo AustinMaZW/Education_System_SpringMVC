@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import sg.edu.iss.caps.model.Student;
+import sg.edu.iss.caps.student.Student;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class ManageStudentController {
 
 	@Autowired
 	AdminInterface aservice;

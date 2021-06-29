@@ -20,17 +20,17 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import sg.edu.iss.caps.CapsApplication;
 import sg.edu.iss.caps.admin.Admin;
 import sg.edu.iss.caps.admin.AdminRepository;
+import sg.edu.iss.caps.course.Course;
+import sg.edu.iss.caps.course.CourseRepository;
+import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolRepository;
 import sg.edu.iss.caps.enrolment.EnrolmentServiceImpl;
+import sg.edu.iss.caps.lecturer.Lecturer;
 import sg.edu.iss.caps.lecturer.LecturerRepository;
-import sg.edu.iss.caps.model.Course;
-import sg.edu.iss.caps.model.CourseEnrolment;
-import sg.edu.iss.caps.model.Lecturer;
 import sg.edu.iss.caps.model.Level;
 import sg.edu.iss.caps.model.Status;
-import sg.edu.iss.caps.model.Student;
+import sg.edu.iss.caps.student.Student;
 import sg.edu.iss.caps.student.StudentRepository;
-import sg.edu.iss.caps.viewcourse.CourseRepository;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = CapsApplication.class)
