@@ -1,6 +1,7 @@
 package sg.edu.iss.caps.student;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import sg.edu.iss.caps.model.CourseEnrolment;
 import sg.edu.iss.caps.model.Student;
@@ -17,4 +18,11 @@ public interface StudentService {
 	public void setEnrol(CourseEnrolment enrol, Student stu);
 
 	public void cancel(Student stu, CourseEnrolment enrol);
+	
+	public Double getCAP(Student stu);
+
+	Map<CourseEnrolment, String> getGradesAlphabet(Student s);
+	
+	public Double getMC(Student s); 
+
 }

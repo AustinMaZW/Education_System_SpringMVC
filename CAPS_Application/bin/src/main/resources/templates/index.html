@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<title>Home Page</title>
+</head>
+
+<body>
+	<header th:insert="layout/layout.html :: header"></header>
+  	
+  	<h1>i hate html</h1>
+  	<a th:href="@{/courseview/courselist}">course list</a>
+  	<br/>
+  	<a th:href="@{/courseview/list}">student enrol list</a>
+  	<br/>
+  	<a th:href="@{/courseview/list/enrol}">enrols</a>
+
+</body>
+</html>

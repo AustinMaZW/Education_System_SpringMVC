@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+</head>
+<body>
+	<header th:insert="layout/layout.html :: header"></header>
+	<h1>Admin module here only</h1>
+
+<table class="p-3">
+<tr>
+<td>
+<a class="btn btn-lg btn-outline-primary container-fluid" th:href="@{/admin/lecturer-list}">Manage Lecturers</a>
+</td>
+</tr>
+<tr>
+<td>
+<a class="btn btn-lg btn-outline-primary container-fluid" href="#">Manage Students</a>
+</td>
+</tr>
+<tr>
+<td>
+<a class="btn btn-lg btn-outline-primary container-fluid" href="#">Manage Courses</a>
+</td>
+</tr>
+</table>
+
+
+
+</body>
+</html>

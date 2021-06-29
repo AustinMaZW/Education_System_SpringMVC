@@ -33,12 +33,14 @@ public class Course {
 	private List<CourseEnrolment> enrols;
 	@ManyToMany(mappedBy = "courses")
 	private List<Lecturer> lectures;
+	private String modularcredits;
 
-	public Course(String name, String description, String category) {
+	public Course(String name, String description, String category, String modularcredits) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.category = category;
+		this.modularcredits = modularcredits;
 	}
 
 }
