@@ -22,7 +22,7 @@
             <h2>Manage Enrolment of Courses</h2>
           </div>
           <div class="col-sm-6">
-            <a th:href="@{/enrol/add}" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Open Enrolment</span></a>
+            <a th:href="@{/admin/enrol/add}" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Open Enrolment</span></a>
           </div>
         </div>
       </div>
@@ -48,9 +48,9 @@
           <td th:text="${enrol.endDate}">endDate</td>
 
           <td>
-            <a th:href="@{/enrol/edit/}+${enrol.id}" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-            <a th:href="@{/enrol/delete/}+${enrol.id}" class="delete" onclick="return confirm('Are you sure you want to close course enrolment?');">
-            <i class="material-icons" title="Delete">&#xE872;</i></a>
+            <a th:href="@{/admin/enrol/edit/}+${enrol.id}" class="edit"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+            <a th:href="@{/admin/enrol/delete/}+${enrol.id}" class="btn btn-danger" onclick="return confirm('Are you sure you want to close course enrolment?');">
+            <span>Close</span></a>
           </td>
         </tr>
         </tbody>

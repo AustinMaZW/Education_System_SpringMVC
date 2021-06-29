@@ -21,7 +21,7 @@
           <li><a sec:authorize="hasRole('ADMIN')" href="/admin/course" class="nav-link px-2 text-white">Manage Course</a></li>
           <li><a sec:authorize="hasRole('ADMIN')" href="/admin/lecturer-list" class="nav-link px-2 text-white">Manage Lecturer</a></li>
           <li><a sec:authorize="hasRole('ADMIN')" href="#" class="nav-link px-2 text-white">Manage Student</a></li>
-          <li><a sec:authorize="hasRole('ADMIN')" href="/enrol" class="nav-link px-2 text-white">Manage Enrolment</a></li>
+          <li><a sec:authorize="hasRole('ADMIN')" href="/admin/enrol" class="nav-link px-2 text-white">Manage Enrolment</a></li>
           <li><a sec:authorize="hasRole('LECTURER')" th:href="@{/lecture/courses/list}" class="nav-link px-2 text-white">Courses Taught</a></li>
           <li><a sec:authorize="hasRole('LECTURER')" href="#" class="nav-link px-2 text-white">Course Enrolment</a></li>
           <li><a sec:authorize="hasRole('LECTURER')" href="#" class="nav-link px-2 text-white">Manage Grade</a></li>
