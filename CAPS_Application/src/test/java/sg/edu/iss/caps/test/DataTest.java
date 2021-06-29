@@ -56,19 +56,24 @@ public class DataTest {
 		Admin a = new Admin("Admin", PasswordEncoder().encode("Admin"), null, "admin", "admin");
 		arepo.save(a);
 		List<Course> courseList = new ArrayList<Course>();
-		courseList.add(new Course("C#", "Microsoft", "Coding"));
-		courseList.add(new Course("Java", "Oracle", "Coding"));
-		courseList.add(new Course("Python", "shit", "Coding"));
-		courseList.add(new Course("Project Mangement", "NUS", "Management"));
+//		courseList.add(new Course("C#", "Microsoft", "Coding"));
+//		courseList.add(new Course("Java", "Oracle", "Coding"));
+//		courseList.add(new Course("Python", "shit", "Coding"));
+//		courseList.add(new Course("Project Mangement", "NUS", "Management"));
+		courseList.add(new Course("SOFTWARE ANALYSIS AND DESIGN", "SA4101", "", "6.0"));
+		courseList.add(new Course("ENTERPRISE SOLUTIONS DESIGN AND DEVELOPMENT", "SA4102", "Coding", "8.0"));
+		courseList.add(new Course("DIGITAL PRODUCT MANAGEMENT", "SA4104", "Coding", "4.0"));
+		courseList.add(new Course("WEB APPLICATION DEVELOPMENT", "SA4105", "Management", "6.0"));
+		courseList.add(new Course("MOBILE APPLICATION DEVELOPMENT", "SA4106", "Management", "8.0"));
 		courseList.stream().forEach(x -> crepo.save(x));
 		LocalDate mdate = LocalDate.of(2021, 6, 1);
 		List<Student> stuList = new ArrayList<>();
-		stuList.add(new Student("Austin", PasswordEncoder().encode("123"), "ZiWang", "Ma", mdate, 100.0));
-		stuList.add(new Student("YZ", PasswordEncoder().encode("123"), "YaZhen", "Chua", mdate, 100.0));
-		stuList.add(new Student("LJ", PasswordEncoder().encode("123"), "YeeJean", "Lim", mdate, 100.0));
-		stuList.add(new Student("NG", PasswordEncoder().encode("123"), "CheZaw", "NguMay", mdate, 100.0));
-		stuList.add(new Student("CK", PasswordEncoder().encode("123"), "ChorKian", "Tang", mdate, 100.0));
-		stuList.add(new Student("Yue", PasswordEncoder().encode("123"), "PengCheng", "Yue", mdate, 100.0));
+		stuList.add(new Student("Austin", PasswordEncoder().encode("123"), "ZiWang", "Ma", mdate, 00));
+		stuList.add(new Student("YZ", PasswordEncoder().encode("123"), "YaZhen", "Chua", mdate, 00));
+		stuList.add(new Student("LJ", PasswordEncoder().encode("123"), "YeeJean", "Lim", mdate, 00));
+		stuList.add(new Student("NG", PasswordEncoder().encode("123"), "CheZaw", "NguMay", mdate, 00));
+		stuList.add(new Student("CK", PasswordEncoder().encode("123"), "ChorKian", "Tang", mdate, 00));
+		stuList.add(new Student("Yue", PasswordEncoder().encode("123"), "PengCheng", "Yue", mdate, 00));
 		stuList.stream().forEach(x -> srepo.save(x));
 		List<Lecturer> lecList = new ArrayList<>();
 		lecList.add(new Lecturer("TG", PasswordEncoder().encode("123"), "Tin", "Ngu", Level.SENIOR, "Very good teacher",
@@ -100,11 +105,12 @@ public class DataTest {
 		List<Student> students = srepo.findAll();
 		students.stream().forEach(x -> {
 			Map<CourseEnrolment, Double> score = x.getGrades();
-			enrols.stream().forEach(y -> score.put(y, 100.0));
+			enrols.stream().forEach(y -> score.put(y,(double) Math.round(Math.random()*(51) + 50)));
 			x.setGrades(score);
 			srepo.save(x);
 		});
 	}
+
 
 	@Test
 	@Order(2)
