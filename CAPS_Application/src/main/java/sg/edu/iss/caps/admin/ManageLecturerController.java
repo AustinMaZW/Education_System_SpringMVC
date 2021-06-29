@@ -35,12 +35,12 @@ public class ManageLecturerController {
 	LecturerInterface lservice;
 	
 
-	@GetMapping("/admin/lecturer-list")
+	@GetMapping("/admin/lecturer/list")
 	public String listAllLecturer(Model model){
 		List<Lecturer> lecList = lservice.findAllLecturer();
 		Lecturer lecturer = new Lecturer();
 		model.addAttribute("lecList",lecList);
-		model.addAttribute("lec", lecturer);
+		model.addAttribute("lecturer", lecturer);
 		return LECTURER_LIST;
 
 	}	
