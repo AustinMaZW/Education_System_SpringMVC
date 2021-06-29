@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Test View for Edit Student Grades</title>
+</head>
+<body>
+<form th:action="@{/lecture/courses/enrol/savegrades}" method="post">
+	<table>
+		<thead>
+			<tr>ID</tr>
+			<tr>First Name</tr>
+			<tr>Last Name</tr>
+			<tr>Matriculation Date</tr>
+			<tr>Edit Grades</tr>
+		</thead>
+		<tbody>
+		
+			<tr th:each="stu:${students}">
+				<td th:text="${stu.id}"></td>
+				<td th:text="${stu.firstName}"></td>
+				<td th:text="${stu.lastName}"></td>
+				<td th:text="${stu.matriculationDate}"></td>
+				<td><input type="text" name="grades" th:value="${stu.grades.get(enrol)}" placeholder="out of 100"></td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="submit" value="Save"/>
+</form>
+</body>
+</html>
