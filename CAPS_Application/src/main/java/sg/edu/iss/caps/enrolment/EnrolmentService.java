@@ -38,4 +38,5 @@ public interface EnrolmentService {
 
 	List<Student> findStudentsByEnrol(CourseEnrolment enrol);
 
+	List<Integer> getStudentsByCourse(int id);
 }

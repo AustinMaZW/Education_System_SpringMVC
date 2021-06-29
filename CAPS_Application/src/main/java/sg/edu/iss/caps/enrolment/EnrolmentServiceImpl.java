@@ -164,4 +164,10 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		});
 		return newList;
 	}
+
+	@Override
+	public List<Integer> getStudentsByCourse(int id) {
+		return erepo.findStudentsByCourse(id);
+	}
+
 }
