@@ -43,12 +43,13 @@ public class ViewCourseTaughtController {
 	public String enrolList(@PathVariable("id") int id, Model model) {
 		Course course = cservice.findCourseById(id);
 		List<CourseEnrolment> enrols = eservice.findEnrolmentByCourse(course);
-		Map<CourseEnrolment, List<Student>> list = new HashMap<CourseEnrolment, List<Student>>();
-		enrols.stream().forEach(x -> {
-			List<Student> stus = eservice.findStudentsByEnrol(x);
-			list.put(x, stus);
-		});
-		model.addAttribute("enrols", list);
+//		Map<CourseEnrolment, List<Student>> list = new HashMap<CourseEnrolment, List<Student>>();
+//		enrols.stream().forEach(x -> {
+//			List<Student> stus = eservice.findStudentsByEnrol(x);
+//			list.put(x, stus);
+//		});
+//		model.addAttribute("enrols", list);
+		model.addAttribute("enrols", enrols);
 		return "CourseEnrollments";
 	}
 

@@ -112,7 +112,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 	public Double getMC(Student s) {
 		Map<CourseEnrolment, Double> gradeslist = s.getGrades();
-		Double nograde = 999.0; 
+		Double nograde = 101.0;
 		gradeslist.entrySet().removeIf(
 				entry -> (nograde.equals(entry.getValue())));
 		Double unitsTakenTotal = 0.0; 

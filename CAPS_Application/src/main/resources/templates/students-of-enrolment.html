@@ -18,14 +18,17 @@
 		<div class="table-wrapper">
 			<div class="table-title">
 				<div class="row">
+<!-- 				    <div class="col-sm-5" style="width:40px;">
+                         <a th:href="@{/lecture/courses/enrol/}+${course.Id}"><i class="material-icons" data-toggle="tooltip"
+                                    title="Back" style="color: floralwhite;">
+                             		<h2>&#xe5c4;</h2>
+                          </i></a>
+                    </div> -->
 					<div class="col-sm-6">
-						<h2>View Students of Course <b><span th:text="${course.name}"></span></b></h2>
+						<h2>View Students of <b>Enrolment</b></h2>
 					</div>
 				</div>
 			</div>
-			
-			<div th:each="startDate:${stdmap.keySet()}">
-			<h5><span th:text="'Class Start Date = ' + ${startDate}"></span></h5>
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
@@ -39,8 +42,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					
-					<tr th:each="std:${stdmap.get(startDate)}">
+					<tr th:each="std:${stdlist}">
 						<td th:text="${std.id}">id</td>
 						<td th:text="${std.firstName}">first name</td>
 						<td th:text="${std.lastName}">last name</td>
@@ -51,7 +53,6 @@
 					</tr>
 				</tbody>
 			</table>
-			</div>
 		</div>
 	</div>        
 </div>

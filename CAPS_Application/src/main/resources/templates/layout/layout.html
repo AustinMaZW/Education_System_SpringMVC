@@ -18,7 +18,7 @@
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a sec:authorize="hasRole('ADMIN')" href="/admin/course" class="nav-link px-2 text-white">Manage Course</a></li>
-          <li><a sec:authorize="hasRole('ADMIN')" href="/admin/lecturer-list" class="nav-link px-2 text-white">Manage Lecturer</a></li>
+          <li><a sec:authorize="hasRole('ADMIN')" href="/admin/lecturer/list" class="nav-link px-2 text-white">Manage Lecturer</a></li>
           <li><a sec:authorize="hasRole('ADMIN')" href="/admin/std/list" class="nav-link px-2 text-white">Manage Student</a></li>
           <li><a sec:authorize="hasRole('ADMIN')" href="/admin/enrol" class="nav-link px-2 text-white">Manage Enrolment</a></li>
           <li><a sec:authorize="hasRole('LECTURER')" th:href="@{/lecturer/courses/list}" class="nav-link px-2 text-white">Courses Taught</a></li>
@@ -26,18 +26,12 @@
           <li><a sec:authorize="hasRole('LECTURER')" href="#" class="nav-link px-2 text-white">Manage Grade</a></li>
           <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/student/list}" class="nav-link px-2 text-white">My Courses</a></li>
           <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/student/courselist}" class="nav-link px-2 text-white">Enrol Course</a></li>
-          <li><a sec:authorize="hasRole('STUDENT')" href="#" class="nav-link px-2 text-white">Grades</a></li>
+          <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/student/view}" class="nav-link px-2 text-white">Grades</a></li>
         </ul>
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-        </form>
-
+        <div sec:authorize="isAuthenticated()"> Welcome, <span sec:authentication="principal.firstName"></span> &nbsp; &nbsp;</div>
         <div sec:authorize="isAnonymous()"><a class="btn btn-outline-light me-2" href="/login">Login</a></div>
-  		<div sec:authorize="isAuthenticated()"> <a class="btn btn-outline-light me-2" href="/logout">Logout</a>
-  			
-  		</div>
-  		<div sec:authorize="isAuthenticated()"> &nbsp Welcome, <span sec:authentication="principal.firstName"></span></div>
+  		<div sec:authorize="isAuthenticated()"> <a class="btn btn-outline-light me-2" href="/logout">Logout</a></div>
       </div>
     </div>
   </header>
