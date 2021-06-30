@@ -37,6 +37,8 @@ public interface EnrolmentService {
 
 	List<Student> findStudentsByEnrol(CourseEnrolment enrol);
 
+	public List<StudentEnrolmentDTO> getStudentsByCourse(int courseId);
+
 	List<StudentEnrolmentDTO> getStudentsByEnrolment(int enrolId);
-	
+
 }

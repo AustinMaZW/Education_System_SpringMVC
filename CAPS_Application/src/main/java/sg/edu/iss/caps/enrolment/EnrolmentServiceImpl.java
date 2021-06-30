@@ -101,13 +101,11 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		curr.setEndDate(enrol.getEndDate());
 		curr.setStartDate(enrol.getStartDate());
 
-		if((numOfStudents == curr.getCapacity())){
+		if ((numOfStudents == curr.getCapacity())) {
 			curr.setStatus(Status.NOTAVAILABLE);
-		}
-		else if ((numOfStudents < curr.getCapacity())) {
+		} else if ((numOfStudents < curr.getCapacity())) {
 			curr.setStatus(enrol.getStatus());
-		}
-		else if((numOfStudents > curr.getCapacity())) {
+		} else if ((numOfStudents > curr.getCapacity())) {
 			return false;
 		}
 
@@ -176,5 +174,11 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	@Override
 	public List<StudentEnrolmentDTO> getStudentsByEnrolment(int enrolId) {
 		return erepo.findStudentsByEnrolment(enrolId);
+	}
+
+	@Override
+	public List<StudentEnrolmentDTO> getStudentsByCourse(int courseId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
