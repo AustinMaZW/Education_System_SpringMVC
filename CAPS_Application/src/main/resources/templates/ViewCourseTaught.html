@@ -59,7 +59,7 @@
                             <th>Course Name</th>
                             <th>Category</th>
                             <th>Description</th>
-                            <th>Enroled Students</th>
+                            <th>Enrolments</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,14 +68,11 @@
                             <td th:text="${course.name}"></td>
                             <td th:text="${course.category}"></td>
                             <td th:text="${course.description}"></td>
-                            <!-- comment out yue's part and add ngu's link -->
-                            <!-- <td><a th:href="@{/lecture/courses/enrol/}+${course.Id}"><i class="material-icons"
-                                        title="Cancel">
+                            <td><a th:href="@{/lecture/courses/enrol/}+${course.Id}"><i class="material-icons"
+                                        title="Enrolment">
                                         <h2>&#xe614;</h2>
                                     </i></a></td>
-                            </td> -->
-                            <td><a href="students-of-course.html" th:href="@{/lecturer/courses/stdlist/}+${course.id}"><i class="material-icons"
-                                        title="student list">&#xe614;</i></a></td>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

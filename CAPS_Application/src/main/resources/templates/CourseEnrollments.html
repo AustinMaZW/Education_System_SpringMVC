@@ -65,18 +65,18 @@
                             <th>Status</th>
                             <th>Start Date</th>
                             <th>End Date</th>
-                            <th>Student List</th>
+                            <th>Students List</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="enrol:${enrols.keySet()}">
-                            <td th:text="${enrol.Id}"></td>
+                        <tr th:each="enrol:${enrols}">
+                            <td th:text="${enrol.id}"></td>
                             <td th:text="${enrol.course.name}"></td>
                             <td th:text="${enrol.capacity}"></td>
                             <td th:text="${enrol.status}"></td>
                             <td th:text="${enrol.startDate}"></td>
                             <td th:text="${enrol.endDate}"></td>
-                            <td><button class="btn" type="button"><a href="#editCourseModal"
+<!--                             <td><button class="btn" type="button"><a href="#editCourseModal"
                                         th:attrappend="href=${enrol.Id}" class="edit" data-toggle="modal"><i
                                             class="material-icons" data-toggle="tooltip" title="Student List"
                                             style="color: rgb(65, 128, 2);">
@@ -84,7 +84,7 @@
                                         </i></a></button>
                                 <div id="editCourseModal" class="modal fade" th:attrappend="id=${enrol.Id}">
                                     <div class="modal-dialog modal-lg">
-                                        <!-- Modal Content starts here -->
+                                        Modal Content starts here
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Student List</h4>
@@ -120,7 +120,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </td>
+                            </td> -->
+                            <td><a href="students-of-course.html" th:href="@{/lecturer/enrol/stdlist/}+${enrol.id}"><i class="material-icons"
+                                        title="students list">&#xf233;</i></a></td>
                         </tr>
                     </tbody>
                 </table>
