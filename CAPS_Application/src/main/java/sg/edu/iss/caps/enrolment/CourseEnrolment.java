@@ -24,7 +24,7 @@ import sg.edu.iss.caps.model.Status;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class CourseEnrolment implements ComPa, Comparable<CourseEnrolment> {
+public class CourseEnrolment implements ComPa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -44,11 +44,6 @@ public class CourseEnrolment implements ComPa, Comparable<CourseEnrolment> {
 		this.endDate = endDate;
 		this.capacity = capacity;
 		this.status = status;
-	}
-
-	@Override
-	public int compareTo(CourseEnrolment o) {
-		return this.course.getName().compareTo(o.getCourse().getName());
 	}
 
 }
