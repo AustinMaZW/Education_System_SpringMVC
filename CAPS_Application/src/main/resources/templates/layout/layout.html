@@ -11,7 +11,9 @@
 <header class="p-3 bg-dark text-white">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      	<a class="navbar-brand text-light" href="/">Sonic<b>SIX</b></a>
+      	<a class="navbar-brand text-light" href="/">
+      	<img src="/main/resources/images/SonicSix.png">      	
+      	</a>
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
           <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
         </a>
@@ -24,6 +26,7 @@
           <li><a sec:authorize="hasRole('LECTURER')" th:href="@{/lecturer/courses/list}" class="nav-link px-2 text-white">Courses Taught</a></li>
           <li><a sec:authorize="hasRole('LECTURER')" href="#" class="nav-link px-2 text-white">Course Enrolment</a></li>
           <li><a sec:authorize="hasRole('LECTURER')" href="#" class="nav-link px-2 text-white">Manage Grade</a></li>
+          <li><a sec:authorize="hasRole('LECTURER')" th:href="@{/lecturer/enrol/allstudents}" class="nav-link px-2 text-white">View Student Performance</a></li>
           <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/student/list}" class="nav-link px-2 text-white">My Courses</a></li>
           <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/student/courselist}" class="nav-link px-2 text-white">Enrol Course</a></li>
           <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/student/view}" class="nav-link px-2 text-white">Grades</a></li>
