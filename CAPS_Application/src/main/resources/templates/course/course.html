@@ -18,10 +18,16 @@
 		<div class="table-wrapper">
 			<div class="table-title">
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-5" style="width:40px;">
+						<a href="/"><i class="material-icons" data-toggle="tooltip"
+						        title="Back" style="color: floralwhite;">
+						    <h2>&#xe5c4;</h2>
+						</i></a>
+					</div>
+					<div class="col">
 						<h2>Manage <b>Courses</b></h2>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-5">
 						<a href="#addCourseModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Course</span></a>
 							<div id="addCourseModal" class="modal fade">
 								<div class="modal-dialog">
@@ -33,17 +39,20 @@
 													aria-hidden="true">&times;</button>
 											</div>
 											<div class="modal-body">
-												<div class="form-group">
-													<label>Name</label> 
-													<input type="text" class="form-control" th:field="*{name}" required/>
+												<div class="form-floating">
+													
+													<input id="cname" placeholder="Name" type="text" class="form-control" th:field="*{name}" required/>
+													<label for="cname">Name</label>
 												</div>
-												<div class="form-group">
-													<label>Category</label> 
-													<input type="text" class="form-control" th:field="*{category}" required/>
+												<div class="form-floating">
+													
+													<input id="ccategory" placeholder="Category" type="text" class="form-control" th:field="*{category}" required/>
+													<label for="ccategory">Category</label>
 												</div>
-												<div class="form-group">
-													<label>Description</label>
-													<input class="form-control" th:field="*{description}" required/>
+												<div class="form-floating">
+													
+													<input id="cdescription" placeholder="Description" class="form-control" th:field="*{description}" required/>
+													<label for="cdescription">Description</label>
 												</div>
 											</div>
 											<div class="modal-footer">
@@ -93,23 +102,26 @@
 													<input id="id" path="id" name="id" type="hidden"
                                                            placeholder="id" class="form-control input-md"
                                                            th:value="${course.id}"/>
-													<div class="form-group">
-														<label>Name</label> 
+													<div class="form-floating">
+														
 														 <input id="name" path="name" name="name" type="text"
-                                                           placeholder="name" class="form-control input-md"
+                                                           placeholder="Name" class="form-control input-md"
                                                            th:value="${course.name}" required/>
+                                                           <label for="name">Name</label> 
 													</div>
-													<div class="form-group">
-														<label>Category</label> 
+													<div class="form-floating">
+														
 														<input id="category" path="category" name="category" type="text"
-                                                           placeholder="category" class="form-control input-md"
+                                                           placeholder="Category" class="form-control input-md"
                                                            th:value="${course.category}" required/>
+                                                           <label for="category">Category</label>
 													</div>
 													<div class="form-group">
-														<label>Description</label> 
+														
 														<input id="description" path="description" name="description" type="text"
-                                                           placeholder="description" class="form-control input-md"
+                                                           placeholder="Description" class="form-control input-md"
                                                            th:value="${course.description}" required>
+                                                           <label for="description">Description</label>
 													</div>
 												</div>
 												<div class="modal-footer">
