@@ -17,6 +17,6 @@ public interface EnrolRepository extends JpaRepository<CourseEnrolment, Integer>
 
 	public CourseEnrolment findCourseEnrolmentById(int id);
 
-	@Query(value="select s.id as id, s.username as username, s.first_name as firstname, s.last_name as lastname, s.matriculation_date as matriculationDate, s.gpa as gpa from student_course sc, student s where sc.enrolment_id = :id and sc.student_id = s.id", nativeQuery = true)
+	@Query(value="select s.id as id, s.username as username, s.first_name as firstname, s.last_name as lastname, s.matriculation_date as matriculationDate, s.gpa as gpa, sc.grade as grade from student_course sc, student s where sc.enrolment_id = :id and sc.student_id = s.id", nativeQuery = true)
 	public List<StudentEnrolmentDTO> findStudentsByEnrolment(@Param("id") int id);
 }

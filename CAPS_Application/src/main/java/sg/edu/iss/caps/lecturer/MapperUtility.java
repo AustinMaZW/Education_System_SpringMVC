@@ -14,7 +14,7 @@ public class MapperUtility {
 		student.setId(id);
 		student.setUsername(username);
 		student.setFirstName(firstname);
-		student.setFirstName(lastname);
+		student.setLastName(lastname);
 		student.setMatriculationDate(matriculationDate);
 		student.setGpa(gpa);
 		
