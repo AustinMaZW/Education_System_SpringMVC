@@ -7,19 +7,19 @@ public interface LecturerInterface {
 
 //	public Lecturer findLecturerByFirstName(String name);
 
-	public List<Lecturer> findAllLecturer();
+	public List<Lecturer> findAllLecturer(); //ManageLecturerController
 
-	public List<Lecturer> findAllAvailableLecturer();
+//	public List<Lecturer> findAllAvailableLecturer();
 
-	public void updateLecturer(Lecturer lecturer);
+	public void updateLecturer(Lecturer lecturer); // ManageLecturerController
 
-	public Lecturer findLecturerById(int id);
+//	public Lecturer findLecturerById(int id);
 
-	public Boolean isNewLecturer(int id);
+//	public Boolean isNewLecturer(int id);
 
-	public void removeLecturerById(int id);
+//	public void removeLecturerById(int id);
 
-	public void deleteLecturerById(int id);
+	public void deleteLecturerById(int id); // ManageLecturerController
 
-	public Lecturer findLecturerByUsername(String username);
+	public Lecturer findLecturerByUsername(String username); //ViewCourseTaughtController
 }
