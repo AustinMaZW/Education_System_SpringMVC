@@ -41,6 +41,39 @@ public class ManageEnrolmentController {
 
     @GetMapping(value="")
     public String listCourseEnrol(Model model) {
+    List<CourseEnrolment> elist = eservice.findAllEnrolment();
+    //update status if enrolment full
+    elist.stream().forEach(x -> {
+        if(eservice.findStudentsByEnrol(x).size() == x.getCapacity()) {
+            x.setStatus(Status.FULL);
+        }
+    });
+    //update status to ongoing if past start date
+    LocalDate today = LocalDate.now(ZoneId.of("Asia/Singapore")) ;
+    elist.stream().forEach(x -> {
+        if(today.isAfter(x.getStartDate()) && today.isBefore(x.getEndDate())  ) {
+            x.setStatus(Status.ONGOING);
+        }
+    });
+    //update status to complete if past end date
+    elist.stream().forEach(x -> {
+        if(today.isAfter(x.getEndDate())) {
+            x.setStatus(Status.COMPLETE);
+        }
+    });
+    model.addAttribute("elist", elist);
+    Map<CourseEnrolment, Integer> list = new HashMap<CourseEnrolment, Integer>();
+    elist.stream().forEach(x -> {
+        List<Student> students = eservice.findStudentsByEnrol(x);
+        int numStudents = students.size();
+        list.put(x,numStudents);
+    });
+    model.addAttribute("numStudents", list);
+    return "course-enrol/course-enrol";
+
+        ArrayList<String> clist = cservice.findAllCourseNames(); // new added line for modal
+        model.addAttribute("coursenames", clist); // new added line for modal
+        model.addAttribute("courseenrol", new CourseEnrolment()); // new added line for modal
         List<CourseEnrolment> elist = eservice.findAllEnrolment();
         //update status if enrolment full
         elist.stream().forEach(x -> {
@@ -79,6 +112,7 @@ public class ManageEnrolmentController {
 
         CourseEnrolment enrol = new CourseEnrolment();
         return "course-enrol/course-enrol";
+
     }
 
     @GetMapping(value = "/add")
@@ -89,6 +123,9 @@ public class ManageEnrolmentController {
         model.addAttribute("func", "add");
         return "course-enrol/course-enrol-form";
     }
+    
+    
+    
 
     @PostMapping(value="/save")
     public String saveCourseEnrol(@ModelAttribute @Valid CourseEnrolment enrol, BindingResult result) {
