@@ -63,7 +63,7 @@
 					        			</div>
 					    			</div> --> 
     								<input type="text" th:if="*{grades[__${stu.id}__]} == 101.0" 
-    									th:field="*{grades[__${stu.id}__]}" th:value="Null"/>
+    									th:name="'grades['+${stu.id}+']'" th:value="Null"/> 
     								<input type="text" th:if="*{grades[__${stu.id}__]} <= 100.0" 
     									th:field="*{grades[__${stu.id}__]}"/>
 								</td>

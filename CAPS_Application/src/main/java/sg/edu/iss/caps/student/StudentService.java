@@ -24,6 +24,6 @@ public interface StudentService {
 	
 	public Double getMC(Student s); 
 	
-	public Student updateStudent(Student student);
+	public Student updateGradeByStudentId(int studentId, int enrolId, double grade);
 
 }
