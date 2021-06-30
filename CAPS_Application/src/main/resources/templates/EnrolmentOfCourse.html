@@ -42,7 +42,7 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-5" style="width:40px;">
-                            <a th:href="@{/courseview/courselist}"><i class="material-icons" data-toggle="tooltip"
+                            <a th:href="@{/student/courselist}"><i class="material-icons" data-toggle="tooltip"
                                     title="Back" style="color: floralwhite;">
                                     <h2>&#xe5c4;</h2>
                                 </i></a>
@@ -68,12 +68,13 @@
                         <tr th:each="enrol:${validEnrol}">
                             <td th:text="${enrol.Id}"></td>
                             <td th:text="${enrol.course.name}"></td>
-                            <td th:text="${enrol.capacity}"></td>
+                            <td th:text="${numStu.get(enrol)} + ' / ' + ${enrol.capacity}"></td>
                             <td th:text="${enrol.status}"></td>
                             <td th:text="${enrol.startDate}"></td>
                             <td th:text="${enrol.endDate}"></td>
-                            <td><button class="btn" type="button"><a th:href="@{/courseview/add/}+${enrol.Id}"><i
-                                            class="material-icons" data-toggle="tooltip" title="Enrol">
+                            <td><button class="btn" type="button"><a th:href="@{/student/add/}+${enrol.Id}"><i
+                                            class="material-icons" data-toggle="tooltip" title="Enrol"
+                                            style="color: rgb(65, 128, 2);">
                                             <h2>&#xe7f0;</h2>
                                         </i></a></button>
                             </td>

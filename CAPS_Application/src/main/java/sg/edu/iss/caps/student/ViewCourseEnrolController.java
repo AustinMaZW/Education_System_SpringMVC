@@ -1,6 +1,8 @@
 package sg.edu.iss.caps.student;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,11 +21,12 @@ import sg.edu.iss.caps.course.CourseInterface;
 import sg.edu.iss.caps.enrolment.ComPa;
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolmentService;
+import sg.edu.iss.caps.enrolment.MyComparator;
 import sg.edu.iss.caps.model.Status;
 
 //add authorization path
 @Controller
-@RequestMapping("/courseview")
+@RequestMapping("/student")
 public class ViewCourseEnrolController {
 	@Autowired
 	EnrolmentService eservice;
@@ -37,11 +40,16 @@ public class ViewCourseEnrolController {
 	@RequestMapping("/list")
 	public String viewList(Model model) {
 		userName();
-		Map<CourseEnrolment, Double> grades = stu.getGrades();
+		Map<CourseEnrolment, Double> grades = this.stu.getGrades();
+		List<CourseEnrolment> enrols = eservice.findEnrolmentByStudent(this.stu);
+		Map<CourseEnrolment, Integer> numStu = new HashMap<CourseEnrolment, Integer>();
+		enrols.stream().forEach(x -> {
+			numStu.put(x, eservice.findStudentsByEnrol(x).size());
+		});
+		Collections.sort(enrols, new MyComparator());
 		model.addAttribute("grades", grades);
-		model.addAttribute("func", "viewList");
-//		return "course-enrol-list";
-//		return "CourseViewEnrolmentList";
+		model.addAttribute("enrols", enrols);
+		model.addAttribute("numStu", numStu);
 		return "MyCourse";
 	}
 
@@ -61,16 +69,15 @@ public class ViewCourseEnrolController {
 		userName();
 		CourseEnrolment newEnrol = eservice.findEnrolmentById(id);
 		sservice.setEnrol(newEnrol, stu);
-		//set course enrol status as full if student takes up last slot
-		if(eservice.findStudentsByEnrol(newEnrol).size() == newEnrol.getCapacity()) {
+		// set course enrol status as full if student takes up last slot
+		if (eservice.findStudentsByEnrol(newEnrol).size() == newEnrol.getCapacity()) {
 			newEnrol.setStatus(Status.FULL);
 		}
 		Course course = cservice.findCourseById(this.courseId);
 		ArrayList<CourseEnrolment> eList = (ArrayList<CourseEnrolment>) eservice.findEnrolmentByCourse(course);
 		eList = (ArrayList<CourseEnrolment>) validList(eList);
 		model.addAttribute("validEnrol", eList);
-//		return "redirect:/courseview/list/enrol";
-		return "EnrolmentOfCourse";
+		return "redirect:/student/courselist";
 	}
 
 	@RequestMapping("/cancel/{id}")
@@ -78,7 +85,7 @@ public class ViewCourseEnrolController {
 		userName();
 		CourseEnrolment enrol = eservice.findEnrolmentById(id);
 		sservice.cancel(stu, enrol);
-		return "redirect:/courseview/list";
+		return "redirect:/student/list";
 
 	}
 
@@ -117,7 +124,12 @@ public class ViewCourseEnrolController {
 		ArrayList<CourseEnrolment> eList = (ArrayList<CourseEnrolment>) eservice.findEnrolmentByCourse(course);
 		eList = (ArrayList<CourseEnrolment>) validList(eList);
 		eList = (ArrayList<CourseEnrolment>) isAvailable(eList);
+		Map<CourseEnrolment, Integer> numStu = new HashMap<CourseEnrolment, Integer>();
+		eList.stream().forEach(x -> {
+			numStu.put(x, eservice.findStudentsByEnrol(x).size());
+		});
 		model.addAttribute("validEnrol", eList);
+		model.addAttribute("numStu", numStu);
 		model.addAttribute("func", "courseLists");
 //		return "enrolList";
 		return "EnrolmentOfCourse";
