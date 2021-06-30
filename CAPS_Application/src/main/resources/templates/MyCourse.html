@@ -65,16 +65,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="enrol:${grades.keySet()}">
+                        <tr th:each="enrol:${enrols}">
                             <td th:text="${enrol.Id}"></td>
                             <td th:text="${enrol.course.name}"></td>
-                            <td th:text="${enrol.capacity}"></td>
+                            <td th:text="${numStu.get(enrol)} + '/' + ${enrol.capacity}"></td>
                             <td th:text="${enrol.status}"></td>
                             <td th:text="${enrol.startDate}"></td>
                             <td th:text="${enrol.endDate}"></td>
                             <td th:if="${grades.get(enrol)} <= 100.0" th:text="${grades.get(enrol)}"></td>
                             <td th:if="${grades.get(enrol)} == 101.0" th:text="Null"></td>
-                            <td><a th:href="@{/courseview/cancel/}+${enrol.Id}"><i class="material-icons"
+                            <td><a th:href="@{/student/cancel/}+${enrol.Id}"><i class="material-icons"
                                         title="Cancel">
                                         <h2>&#xE872;</h2>
                                     </i></a>

@@ -20,7 +20,7 @@ import sg.edu.iss.caps.student.Student;
 
 //add authorization for path
 @Controller
-@RequestMapping("/lecture/courses")
+@RequestMapping("/lecturer/courses")
 public class ViewCourseTaughtController {
 	@Autowired
 	private CourseInterface cservice;

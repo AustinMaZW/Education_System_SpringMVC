@@ -21,11 +21,11 @@
           <li><a sec:authorize="hasRole('ADMIN')" href="/admin/lecturer-list" class="nav-link px-2 text-white">Manage Lecturer</a></li>
           <li><a sec:authorize="hasRole('ADMIN')" href="/admin/std/list" class="nav-link px-2 text-white">Manage Student</a></li>
           <li><a sec:authorize="hasRole('ADMIN')" href="/admin/enrol" class="nav-link px-2 text-white">Manage Enrolment</a></li>
-          <li><a sec:authorize="hasRole('LECTURER')" th:href="@{/lecture/courses/list}" class="nav-link px-2 text-white">Courses Taught</a></li>
+          <li><a sec:authorize="hasRole('LECTURER')" th:href="@{/lecturer/courses/list}" class="nav-link px-2 text-white">Courses Taught</a></li>
           <li><a sec:authorize="hasRole('LECTURER')" href="#" class="nav-link px-2 text-white">Course Enrolment</a></li>
           <li><a sec:authorize="hasRole('LECTURER')" href="#" class="nav-link px-2 text-white">Manage Grade</a></li>
-          <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/courseview/list}" class="nav-link px-2 text-white">My Courses</a></li>
-          <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/courseview/courselist}" class="nav-link px-2 text-white">Enrol Course</a></li>
+          <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/student/list}" class="nav-link px-2 text-white">My Courses</a></li>
+          <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/student/courselist}" class="nav-link px-2 text-white">Enrol Course</a></li>
           <li><a sec:authorize="hasRole('STUDENT')" href="#" class="nav-link px-2 text-white">Grades</a></li>
         </ul>
 
