@@ -68,11 +68,14 @@
                             <td th:text="${course.name}"></td>
                             <td th:text="${course.category}"></td>
                             <td th:text="${course.description}"></td>
-                            <td><a th:href="@{/lecture/courses/enrol/}+${course.Id}"><i class="material-icons"
+                            <!--  <td><a th:href="@{/lecture/courses/enrol/}+${course.Id}"><i class="material-icons"
+                                        title="Enrolment">
+                                        <h2>&#xe614;</h2>
+                                    </i></a></td>-->
+                            <td><a th:href="@{/lecturer/courses/enrol/}+${course.Id}"><i class="material-icons"
                                         title="Enrolment">
                                         <h2>&#xe614;</h2>
                                     </i></a></td>
-                            </td>
                         </tr>
                     </tbody>
                 </table>
