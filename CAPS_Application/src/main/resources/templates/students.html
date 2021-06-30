@@ -26,10 +26,16 @@
 		<div class="table-wrapper">
 			<div class="table-title">
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-5" style="width:40px;">
+						<a href="/"><i class="material-icons" data-toggle="tooltip"
+						        title="Back" style="color: floralwhite;">
+						    <h2>&#xe5c4;</h2>
+						</i></a>
+					</div>
+					<div class="col">
 						<h2>Manage <b>Students</b></h2>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-5">
 						<a href="#addStudentModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Student</span></a>
 							<div id="addStudentModal" class="modal fade">
 								<div class="modal-dialog">
@@ -41,29 +47,35 @@
 													aria-hidden="true">&times;</button>
 											</div>
 											<div class="modal-body">
-												<div class="form-group">
-													<label>First Name</label> 
-													<input type="text" class="form-control" th:field="*{firstName}" required/>
+												<div class="form-floating">
+													
+													<input id="sfn" placeholder="First Name" type="text" class="form-control" th:field="*{firstName}" required/>
+													<label for="sfn">First Name</label> 
 												</div>
-												<div class="form-group">
-													<label>Last Name</label> 
-													<input type="text" class="form-control" th:field="*{lastName}" required/>
+												<div class="form-floating">
+													 
+													<input id="sln" placeholder="Last Name" type="text" class="form-control" th:field="*{lastName}" required/>
+													<label for="sln">Last Name</label>
 												</div>
-												<div class="form-group">
-													<label>Username</label> 
-													<input type="text" class="form-control" th:field="*{username}" required/>
+												<div class="form-floating">
+													
+													<input id="suname" placeholder="Username" type="text" class="form-control" th:field="*{username}" required/>
+													<label for="suname">Username</label>
 												</div>
-												<div class="form-group">
-													<label>Password</label> 
-													<input type="password" class="form-control" th:field="*{password}" required/>
+												<div class="form-floating">
+													
+													<input id="spwd" placeholder="Password" type="password" class="form-control" th:field="*{password}" required/>
+													<label for="spwd">Password</label> 
 												</div>
-												<div class="form-group">
-													<label>Matriculation Date</label>
-													<input type="text" class="form-control datepicker" th:field="*{matriculationDate}" required/>
+												<div class="form-floating">
+													
+													<input id="smd" placeholder="Matriculation Date" type="text" class="form-control datepicker" th:field="*{matriculationDate}" required/>
+													<label for="smd">Matriculation Date</label>
 												</div>
-												<div class="form-group">
-													<label>Gpa</label> 
-													<input type="text" class="form-control" th:field="*{gpa}" required/>
+												<div class="form-floating">
+													
+													<input id="sgpa" placeholder="Gpa" type="text" class="form-control" th:field="*{gpa}" required/>
+													<label for="sgpa">Gpa</label>
 												</div>
 											</div>
 											<div class="modal-footer">
@@ -117,35 +129,40 @@
 													<input id="id" path="id" name="id" type="hidden"
                                                            placeholder="id" class="form-control input-md"
                                                            th:value="${std.id}"/>
-													<div class="form-group">
-														<label>First Name</label> 
-														 <input id="firstName" path="firstName" name="firstName" type="text"
-                                                           placeholder="first name" class="form-control input-md"
+													<div class="form-floating">
+														
+														 <input id="firstName" placeholder="First Name" path="firstName" name="firstName" type="text"
+                                                            class="form-control input-md"
                                                            th:value="${std.firstName}" required/>
+                                                           <label for="firstName">First Name</label>
 													</div>
-													<div class="form-group">
-														<label>Last Name</label> 
-														 <input id="lastName" path="lastName" name="lastName" type="text"
-                                                           placeholder="last name" class="form-control input-md"
+													<div class="form-floating">
+														
+														 <input id="lastName" placeholder="Last Name" path="lastName" name="lastName" type="text"
+                                                           class="form-control input-md"
                                                            th:value="${std.lastName}" required/>
+                                                           <label for="lastName">Last Name</label>
 													</div>
-													<div class="form-group">
-														<label>Username</label> 
-														 <input id="username" path="username" name="username" type="text"
-                                                           placeholder="username" class="form-control input-md"
+													<div class="form-floating">
+														 
+														 <input id="username" placeholder="Username" path="username" name="username" type="text"
+                                                            class="form-control input-md"
                                                            th:value="${std.username}" required/>
+                                                           <label for="username">Username</label>
 													</div>
-													<div class="form-group">
-														<label>Matriculation Date</label> 
+													<div class="form-floating">
+														
 														<input id="matriculationDate" path="matriculationDate" name="matriculationDate" type="text"
                                                            placeholder="" class="form-control input-md datepicker"
                                                            th:value="${#temporals.format(std.matriculationDate, 'dd-MM-yyyy')}" required>
+                                                           <label for="matriculationDate">Matriculation Date</label> 
 													</div>
-													<div class="form-group">
-														<label>Gpa</label> 
-														 <input id="gpa" path="gpa" name="gpa" type="text"
-                                                           placeholder="gpa" class="form-control input-md"
+													<div class="form-floating">
+														
+														 <input id="gpa" placeholder="Gpa" path="gpa" name="gpa" type="text"
+                                                           class="form-control input-md"
                                                            th:value="${std.gpa}" required/>
+                                                           <label for="gpa">Gpa</label> 
 													</div>
 												</div>
 												<div class="modal-footer">
