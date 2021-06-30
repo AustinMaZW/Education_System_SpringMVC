@@ -5,7 +5,7 @@ import java.util.List;
 public interface LecturerInterface {
 	public void createLecturer(Lecturer lecturer);
 
-	public Lecturer findLecturerByFirstName(String name);
+//	public Lecturer findLecturerByFirstName(String name);
 
 	public List<Lecturer> findAllLecturer();
 
