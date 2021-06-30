@@ -37,10 +37,6 @@ public class CourseEnrolment implements ComPa {
 	private int capacity;
 	private Status status;
 
-	// @ManyToMany
-	// @JoinTable(name = "student_course", joinColumns = @JoinColumn(name =
-	// "enrolment_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-	// private List<Student> studentList;
 	public CourseEnrolment(Course course, LocalDate startDate, LocalDate endDate, int capacity, Status status) {
 		super();
 		this.course = course;

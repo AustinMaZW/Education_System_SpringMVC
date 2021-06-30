@@ -27,7 +27,7 @@ import sg.edu.iss.caps.model.User;
 
 @Getter
 @Setter
-//@ToString
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -54,11 +54,6 @@ public class Student extends User {
 		super(username, password, sessionId, firstName, lastName);
 		this.matriculationDate = matriculationDate;
 		this.gpa = gpa;
-	}
-
-	@Override
-	public String toString() {
-		return "Student [id=" + getId() + ", pwd=" + getPassword() + ", firstName=" + getFirstName() + ", lastName=" + getLastName() + ", username=" + getUsername() + ", matriculationDate=" + matriculationDate + ", gpa=" + gpa + ", grades=" + grades + "]";
 	}
 
 	public List<Course> courseList() {

@@ -1,17 +1,24 @@
 package sg.edu.iss.caps.model;
 
 public enum Status {
-    AVAILABLE ("Available"), 
-    NOTAVAILABLE ("Not Available");
+    AVAILABLE ("Available","Open"),
+    NOTAVAILABLE ("Not Available","Closed"),
+    FULL (null,"Full"),
+    ONGOING (null,"Ongoing"),
+    COMPLETE (null,"Complete");
     
     private final String displayStatus;
+    private final String displayEnrolStatus;
     
-    private Status (String displayStatus) {
+    Status (String displayStatus, String displayEnrolStatus) {
     	this.displayStatus= displayStatus;
+    	this.displayEnrolStatus = displayEnrolStatus;
     }
     
     public String getDisplayStatus() {
     	return displayStatus;
     }
-	
+    public String getDisplayEnrolStatus() {
+        return displayEnrolStatus;
+    }
 }

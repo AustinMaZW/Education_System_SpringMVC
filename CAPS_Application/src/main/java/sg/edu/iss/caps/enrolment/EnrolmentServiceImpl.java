@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sg.edu.iss.caps.course.Course;
 import sg.edu.iss.caps.course.CourseRepository;
 import sg.edu.iss.caps.model.Status;
+import sg.edu.iss.caps.model.StudentEnrolmentDTO;
 import sg.edu.iss.caps.student.Student;
 import sg.edu.iss.caps.student.StudentRepository;
 
@@ -93,20 +94,27 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		CourseEnrolment curr = erepo.findById(enrol.getId()).get();
 		if (curr == null)
 			return false;
+		int numOfStudents = findStudentsByEnrol(curr).size();
+
 		curr.setCapacity(enrol.getCapacity());
 		curr.setCourse(crepo.findCourseByName(enrol.getCourse().getName()));
 		curr.setEndDate(enrol.getEndDate());
 		curr.setStartDate(enrol.getStartDate());
-		curr.setStatus(enrol.getStatus());
+
+		if((numOfStudents == curr.getCapacity())){
+			curr.setStatus(Status.NOTAVAILABLE);
+		}
+		else if ((numOfStudents < curr.getCapacity())) {
+			curr.setStatus(enrol.getStatus());
+		}
+		else if((numOfStudents > curr.getCapacity())) {
+			return false;
+		}
+
 		if (erepo.save(curr) == null)
 			return false;
 		return true;
 
-	}
-
-	@Override
-	public void updateEnrolment(CourseEnrolment enrol) {
-		erepo.save(enrol);
 	}
 
 	@Override
@@ -163,5 +171,10 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 			}
 		});
 		return newList;
+	}
+
+	@Override
+	public List<StudentEnrolmentDTO> getStudentsByCourse(int courseId) {
+		return erepo.findStudentsByCourse(courseId);
 	}
 }
