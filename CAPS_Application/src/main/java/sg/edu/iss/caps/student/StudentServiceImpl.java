@@ -126,4 +126,7 @@ public class StudentServiceImpl implements StudentService {
 		return unitsTakenTotal;
 	}
 
+	public Student updateStudent(Student student) {
+		return srepo.save(student);
+	}
 }

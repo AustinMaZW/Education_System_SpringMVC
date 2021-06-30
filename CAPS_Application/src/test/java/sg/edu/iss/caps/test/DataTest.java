@@ -105,10 +105,17 @@ public class DataTest {
 		List<Student> students = srepo.findAll();
 		students.stream().forEach(x -> {
 			Map<CourseEnrolment, Double> score = x.getGrades();
-			enrols.stream().forEach(y -> score.put(y,(double) Math.round(Math.random()*(51) + 50)));
+			enrols.stream().forEach(y -> score.put(y,null));
 			x.setGrades(score);
 			srepo.save(x);
 		});
+		// test data for null grades
+//		LocalDate mdate = LocalDate.of(2021, 6, 1);
+//		Student niko = srepo.save(new Student("Niko", PasswordEncoder().encode("123"), "Niko", "Something", mdate, 00));
+//		CourseEnrolment enrols2 = erepo.findCourseEnrolmentById(1);
+//		niko.getGrades().put(enrols2, 5.0);
+//		srepo.save(niko);
+		
 	}
 
 

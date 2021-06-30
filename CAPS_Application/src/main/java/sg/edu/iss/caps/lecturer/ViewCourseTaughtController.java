@@ -3,6 +3,7 @@ package sg.edu.iss.caps.lecturer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,8 @@ import sg.edu.iss.caps.course.CourseInterface;
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolmentService;
 import sg.edu.iss.caps.student.Student;
+import sg.edu.iss.caps.student.StudentGradeWrapper;
+import sg.edu.iss.caps.student.StudentService;
 
 //add authorization for path
 @Controller
@@ -30,7 +33,9 @@ public class ViewCourseTaughtController {
 	private LecturerInterface lservice;
 	@Autowired
 	private EnrolmentService eservice;
-
+	@Autowired
+	private StudentService sservice;
+	
 	private Lecturer lecturer;
 
 	@RequestMapping("/list")
@@ -65,16 +70,37 @@ public class ViewCourseTaughtController {
 	public String studentList(@PathVariable("id") int id, Model model) {
 		CourseEnrolment courseEnrolment = eservice.findEnrolmentById(id);
 		List<Student> studentList= eservice.findStudentsByEnrol(courseEnrolment);
-		model.addAttribute("students", studentList);
+		StudentListWrapper slw = new StudentListWrapper(studentList); //wrapper class for list of students
+		
+		//StudentGradeWrapper sgw = new StudentGradeWrapper(); // wrapper for hashmap of grade 
+		for (Student s: studentList) {
+			slw.addGrade(s.getId(), s.getGrades().get(courseEnrolment));
+		}
+		model.addAttribute("students", slw); 
 		model.addAttribute("enrol", courseEnrolment);
+		//model.addAttribute("gradesMap", sgw); 
 		return "/lecturer/ViewStudentEnrolled_Austin";
 	}
 	
-	@PostMapping("/enrol/savegrades")
-	public String saveGrades(@ModelAttribute("Student") List<Student> studentList) {
-		for(Student s: studentList) {
+	@PostMapping("/enrol/savegrades/{id}")
+	public String saveGrades(@ModelAttribute("StudentListWrapper") StudentListWrapper studentList, 
+			@PathVariable("id") int id) {
+		for(Student s: studentList.getStudents()) {
 			System.out.println(s.getId());
+			System.out.println(studentList.getGrades().get(s.getId()));
 		}
-		return "redirect:/lecture/list";
+		CourseEnrolment courseEnrolment = eservice.findEnrolmentById(id);
+		Set<Integer> studentIds = studentList.getGrades().keySet();
+		for(int studentId: studentIds) {
+			Student s = sservice.findStudentById(studentId);
+			s.getGrades().put(courseEnrolment, studentList.getGrades().get(studentId));
+			sservice.updateStudent(s);
+		}
+//		System.out.println(studentGradeWrapper.getGrades().get(1));
+		return "redirect:/lecture/courses/list";
+		
+		// get entrySet from map 
+		// update using the student ID and grades
+		// might need to get enrollment Id as path variable...
 	}
 }

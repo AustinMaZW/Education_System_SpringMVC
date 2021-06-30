@@ -23,5 +23,7 @@ public interface StudentService {
 	Map<CourseEnrolment, String> getGradesAlphabet(Student s);
 	
 	public Double getMC(Student s); 
+	
+	public Student updateStudent(Student student);
 
 }
