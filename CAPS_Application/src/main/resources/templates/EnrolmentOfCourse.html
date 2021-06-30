@@ -72,13 +72,14 @@
                             <td th:text="${enrol.status}"></td>
                             <td th:text="${enrol.startDate}"></td>
                             <td th:text="${enrol.endDate}"></td>
-                            <td th:if="${numStu.get(enrol)} < ${enrol.capacity}"><button class="btn" type="button"><a th:href="@{/student/add/}+${enrol.Id}"><i
-                                            class="material-icons" data-toggle="tooltip" title="Enrol"
-                                            style="color: rgb(65, 128, 2);">
+                            <td th:if="${numStu.get(enrol)} < ${enrol.capacity}"><button class="btn" type="button"><a
+                                        th:href="@{/student/add/}+${enrol.Id}"><i class="material-icons"
+                                            data-toggle="tooltip" title="Enrol" style="color: rgb(65, 128, 2);">
                                             <h2>&#xe7f0;</h2>
                                         </i></a></button>
                             </td>
-                            <td th:if="${numStu.get(enrol)} >= ${enrol.capacity}">Enrollment is Full</td>
+                            <td th:if="${numStu.get(enrol)} >= ${enrol.capacity}" th:text="'Enrollment is Full'">
+                            </td>
                         </tr>
                     </tbody>
                 </table>

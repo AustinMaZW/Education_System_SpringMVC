@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import sg.edu.iss.caps.course.Course;
-import sg.edu.iss.caps.enrolment.ComPa;
 import sg.edu.iss.caps.model.Level;
 import sg.edu.iss.caps.model.Status;
 import sg.edu.iss.caps.model.User;
@@ -25,7 +24,7 @@ import sg.edu.iss.caps.model.User;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Lecturer extends User implements ComPa {
+public class Lecturer extends User {
 	private Level jobLevel;
 	private String description;
 	private Status status;
