@@ -136,6 +136,8 @@ public class StudentServiceImpl implements StudentService {
 		if (s.getGrades().get(courseEnrolment)==null) {return null;}
 		
 		s.getGrades().put(courseEnrolment, grade);
+		Double cap = getCAP(s);
+		s.setGpa(cap);
 		return srepo.save(s);
 		
 	}

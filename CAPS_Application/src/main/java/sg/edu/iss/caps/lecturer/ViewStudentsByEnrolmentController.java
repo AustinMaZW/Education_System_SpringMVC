@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.servlet.ModelAndView;
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolmentService;
 import sg.edu.iss.caps.model.StudentEnrolmentDTO;
@@ -115,4 +116,23 @@ public class ViewStudentsByEnrolmentController {
 		});
 		
 	}
+
+	@GetMapping("/allstudents")
+	public String getAllStudents(Model model){
+		ArrayList<Student> studentList = sservice.findAllStudent();
+
+		model.addAttribute("studentList", studentList);
+		return "lecturer-view-student-enrolment";
+	}
+
+//	@PostMapping("/student/{id}")
+//	public String getAStudentPerformance(@PathVariable("id") Integer id, Model model) {
+//
+//		Set<Integer> studentIds = studentList.getGrades().keySet();
+//		updateGrade(studentList, id, studentIds);
+//
+//		Integer studentId = id;
+//		return new ModelAndView ("redirect:/student/view" + studentId.toString();
+//
+//	}
 }

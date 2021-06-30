@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>View Students of Course</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/tablelist.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<header th:insert="layout/layout.html :: header"></header>
+<div>
+	<div class="table-responsive">
+		<div class="table-wrapper">
+			<div class="table-title">
+				<div class="row">
+					<div class="col-sm-6">
+						<h2>View A Student Performance</b></h2>
+					</div>
+				</div>
+			</div>
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+                		<th>First Name</th>
+                		<th>Last Name</th>
+                		<th>Username</th>
+                		<th>Matriculation Date</th>
+                		<th>GPA</th>
+					</tr>
+				</thead>
+				<tbody>
+						<tr th:each="std:${studentList}">
+						<td th:text="${std.id}">id</td>
+						<td th:text="${std.firstName}">first name</td>
+						<td th:text="${std.lastName}">last name</td>
+						<td th:text="${std.username}">username</td>
+						<td th:text="${#temporals.format(std.matriculationDate, 'dd-MM-yyyy')}">matriculation date</td>
+						<td th:text="${std.gpa}">gpa</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>        
+</div>
+</body>
+</html>
