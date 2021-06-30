@@ -65,8 +65,6 @@ public enum Grade {
 			return D2;
 		else if(mark>=0 && mark <= 39)
 			return F;
-		else if(mark.isNaN())
-			return Empty;
 		else 
 			return Error;
 	}	
