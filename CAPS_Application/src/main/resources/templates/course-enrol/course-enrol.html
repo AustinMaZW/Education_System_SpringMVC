@@ -43,7 +43,7 @@
           <td th:text="${enrol.id}">Id</td>
           <td th:text="${enrol.course.name}">coursename</td>
           <td th:text="${numStudents.get(enrol)}+' / '+${enrol.capacity}"/></td>
-          <td th:text="${enrol.status.getDisplayStatus()}">status</td>
+          <td th:text="${enrol.status.getDisplayEnrolStatus()}">status</td>
           <td th:text="${enrol.startDate}">startDate</td>
           <td th:text="${enrol.endDate}">endDate</td>
 

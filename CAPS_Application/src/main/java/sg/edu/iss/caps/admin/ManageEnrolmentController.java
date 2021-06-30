@@ -15,8 +15,9 @@ import sg.edu.iss.caps.enrolment.EnrolmentServiceImpl;
 import sg.edu.iss.caps.model.Status;
 import sg.edu.iss.caps.student.Student;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,9 +42,23 @@ public class ManageEnrolmentController {
     @GetMapping(value="")
     public String listCourseEnrol(Model model) {
     List<CourseEnrolment> elist = eservice.findAllEnrolment();
+    //update status if enrolment full
     elist.stream().forEach(x -> {
         if(eservice.findStudentsByEnrol(x).size() == x.getCapacity()) {
             x.setStatus(Status.FULL);
+        }
+    });
+    //update status to ongoing if past start date
+    LocalDate today = LocalDate.now(ZoneId.of("Asia/Singapore")) ;
+    elist.stream().forEach(x -> {
+        if(today.isAfter(x.getStartDate()) && today.isBefore(x.getEndDate())  ) {
+            x.setStatus(Status.ONGOING);
+        }
+    });
+    //update status to complete if past end date
+    elist.stream().forEach(x -> {
+        if(today.isAfter(x.getEndDate())) {
+            x.setStatus(Status.COMPLETE);
         }
     });
     model.addAttribute("elist", elist);
@@ -54,7 +69,7 @@ public class ManageEnrolmentController {
         list.put(x,numStudents);
     });
     model.addAttribute("numStudents", list);
-    return "course-enrol";
+    return "course-enrol/course-enrol";
     }
 
     @GetMapping(value = "/add")
@@ -63,13 +78,13 @@ public class ManageEnrolmentController {
         ArrayList<String> clist = cservice.findAllCourseNames();
         model.addAttribute("cnames", clist);
         model.addAttribute("func", "add");
-        return "open-course";
+        return "course-enrol/course-enrol-form";
     }
 
     @PostMapping(value="/save")
     public String saveCourseEnrol(@ModelAttribute @Valid CourseEnrolment enrol, BindingResult result) {
         if (result.hasErrors())
-            return "open-course";
+            return "course-enrol/course-enrol-form";
         if (enrol.getId() != 0) {
             eservice.UpdateEnrolment(enrol);
             return "redirect:/admin/enrol";
@@ -111,6 +126,6 @@ public class ManageEnrolmentController {
         ArrayList<Course> courses = (ArrayList<Course>) crepo.findAll();
         model.addAttribute("courses", courses);
         model.addAttribute("func", "edit");
-        return "open-course";
+        return "course-enrol/course-enrol-form";
     }
 }
