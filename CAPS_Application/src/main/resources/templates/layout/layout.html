@@ -26,7 +26,7 @@
           <li><a sec:authorize="hasRole('LECTURER')" href="#" class="nav-link px-2 text-white">Manage Grade</a></li>
           <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/courseview/list}" class="nav-link px-2 text-white">My Courses</a></li>
           <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/courseview/courselist}" class="nav-link px-2 text-white">Enrol Course</a></li>
-          <li><a sec:authorize="hasRole('STUDENT')" href="#" class="nav-link px-2 text-white">Grades</a></li>
+          <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/student/view}" class="nav-link px-2 text-white">Grades</a></li>
         </ul>
 
         <div sec:authorize="isAuthenticated()"> Welcome, <span sec:authentication="principal.firstName"></span> &nbsp; &nbsp;</div>
