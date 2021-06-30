@@ -1,17 +1,21 @@
 package sg.edu.iss.caps.student;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMethod;
+import sg.edu.iss.caps.course.Course;
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.security.UserDetailsImpl;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/student")
@@ -36,7 +40,6 @@ public class StudentController {
 		Double CAP = sservice.getCAP(s);
 		model.addAttribute("CAP", CAP);
 		
-		return "student-view"; 
+		return "student-view-cgpa";
 	}
-	
 }

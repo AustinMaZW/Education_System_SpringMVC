@@ -41,7 +41,7 @@
 						<td th:text="${std.lastName}">last name</td>
 						<td th:text="${std.username}">username</td>
 						<td th:text="${#temporals.format(std.matriculationDate, 'dd-MM-yyyy')}">matriculation date</td>
-						<td th:text="${std.gpa}">gpa</td>
+						<td><a th:href="@{/lecturer/enrol/student/}+${std.Id}" th:text="${std.gpa}">View Details</td>
 					</tr>
 				</tbody>
 			</table>
