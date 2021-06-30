@@ -11,13 +11,12 @@
 <header class="p-3 bg-dark text-white">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      	<a class="navbar-brand text-secondary" href="/">Sonic Six</a>
+      	<a class="navbar-brand text-light" href="/">Sonic<b>SIX</b></a>
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
           <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
           <li><a sec:authorize="hasRole('ADMIN')" href="/admin/course" class="nav-link px-2 text-white">Manage Course</a></li>
           <li><a sec:authorize="hasRole('ADMIN')" href="/admin/lecturer-list" class="nav-link px-2 text-white">Manage Lecturer</a></li>
           <li><a sec:authorize="hasRole('ADMIN')" href="/admin/std/list" class="nav-link px-2 text-white">Manage Student</a></li>
@@ -28,7 +27,6 @@
           <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/courseview/list}" class="nav-link px-2 text-white">My Courses</a></li>
           <li><a sec:authorize="hasRole('STUDENT')" th:href="@{/courseview/courselist}" class="nav-link px-2 text-white">Enrol Course</a></li>
           <li><a sec:authorize="hasRole('STUDENT')" href="#" class="nav-link px-2 text-white">Grades</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">About</a></li>
         </ul>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
