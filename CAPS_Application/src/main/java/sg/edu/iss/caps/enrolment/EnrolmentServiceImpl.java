@@ -175,4 +175,10 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	public List<StudentEnrolmentDTO> getStudentsByEnrolment(int enrolId) {
 		return erepo.findStudentsByEnrolment(enrolId);
 	}
+
+	@Override
+	public List<StudentEnrolmentDTO> getStudentsByCourse(int courseId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
