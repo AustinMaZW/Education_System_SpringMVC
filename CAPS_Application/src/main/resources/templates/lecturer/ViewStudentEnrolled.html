@@ -53,18 +53,9 @@
 								<td><input class="form-control-plaintext" type="text" readonly="readonly"
 									th:field="*{students[__${stat.index}__].matriculationDate}"/></td>
 								<td>
-									<!-- <input type="text" name="grades"
-									th:value="${stu.grades.get(enrol)}" placeholder="out of 100"> -->
-									<!--  below code iterate all for each row, not what we want
-									<div th:each="grade, stat: ${gradesMap.grades}">
-					        			<div >
-					            			<input type="hidden" name="key" th:value="${grade.key}" >
-					            			<input type="text" name="value" th:field="${gradesMap.grades[__${grade.key}__]}" />
-					        			</div>
-					    			</div> --> 
-    								<input type="text" th:if="*{grades[__${stu.id}__]} == 101.0" 
+    								<input min="0" max="100" step="0.1" type="number" th:if="*{grades[__${stu.id}__]} == 101.0" 
     									th:name="'grades['+${stu.id}+']'" th:value="Null"/> 
-    								<input type="text" th:if="*{grades[__${stu.id}__]} <= 100.0" 
+    								<input min="0" max="100" step="0.1" type="number" th:if="*{grades[__${stu.id}__]} <= 100.0" 
     									th:field="*{grades[__${stu.id}__]}"/>
 								</td>
 							</tr>
