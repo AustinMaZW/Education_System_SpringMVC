@@ -70,7 +70,6 @@ public class ViewCourseEnrolController {
 			eservice.UpdateEnrolment(enrol);
 		}
 		return "redirect:/student/list";
-
 	}
 
 	@RequestMapping("/add/{id}")
@@ -105,7 +104,12 @@ public class ViewCourseEnrolController {
 		List<Course> cList = cservice.listAllCourses();
 		cList = RestCourse(cList); // I don't know whether the course should be filtered or enrolment should be
 									// filtered.
-		model.addAttribute("courseList", cList);
+		List<CourseEnrolment> cEnrols = new ArrayList<>();
+		for(Course c:cList){
+			CourseEnrolment enrol = eservice.findEnrolmentById(c.getId());
+			cEnrols.add(enrol);
+		}
+		model.addAttribute("courseList", cEnrols);
 		return "CourseEnrol";
 	}
 
