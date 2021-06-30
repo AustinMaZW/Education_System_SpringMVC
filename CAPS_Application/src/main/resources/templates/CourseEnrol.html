@@ -64,15 +64,15 @@
                         <tr>
                             <th>Course Name</th>
                             <th>Course Description</th>
-                            <th>Category</th>
+                            <th>Course Status</th>
                             <th>Enrollments</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="course:${courseList}">
-                            <td th:text="${course.name}"></td>
-                            <td th:text="${course.description}"></td>
-                            <td th:text="${course.category}"></td>
+                            <td th:text="${course.course.name}"></td>
+                            <td th:text="${course.course.description}"></td>
+                            <td th:text="${course.getStatus()}"></td>
                             <td>
                                 <button class="btn" type="button"><a
                                         th:href="@{/student/courselist/enrolss/}+${course.id}"><i

@@ -8,4 +8,6 @@ public interface StudentEnrolmentDTO {
 
 	@Value("#{@mapperUtility.buildStudentObj(target.id, target.username, target.firstname, target.lastname, target.matriculationDate, target.gpa)}")
 	Student getStudent();
+	
+	Double getGrade();
 }

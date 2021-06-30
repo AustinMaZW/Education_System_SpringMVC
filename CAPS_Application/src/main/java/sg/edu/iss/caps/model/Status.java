@@ -21,4 +21,8 @@ public enum Status {
     public String getDisplayEnrolStatus() {
         return displayEnrolStatus;
     }
+    
+    public boolean isNull() {
+    	return this.displayStatus==null;
+    }
 }

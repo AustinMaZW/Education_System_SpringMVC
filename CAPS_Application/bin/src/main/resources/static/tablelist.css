@@ -1,12 +1,27 @@
 @charset "ISO-8859-1";
-body {
-	color: #566787;
-	background: #f5f5f5;
-	font-family: 'Varela Round', sans-serif;
-	font-size: 13px;
+
+.close { 
+	float:right;
+	font-size:1.5rem;
+	font-weight:700;
+	line-height:1;
+	color:#000;
+	text-shadow:0 1px 0 #fff;
+	opacity:.5
+}
+.close:hover {
+	color:#000;
+	text-decoration:none
 }
 .table-responsive {
     margin: 30px 0;
+}
+.close:not(:disabled):not(.disabled):focus,.close:not(:disabled):not(.disabled):hover{opacity:.75}
+button.close{
+	padding:0;background-color:transparent;border:0
+}
+a.close.disabled{
+	pointer-events:none
 }
 .table-wrapper {
 	background: #fff;
@@ -93,6 +108,9 @@ table.table td a.edit {
 }
 table.table td a.delete {
 	color: #F44336;
+}
+table.table td a.cancel {
+	color: #566787;
 }
 table.table td i {
 	font-size: 19px;
@@ -226,3 +244,10 @@ table.table .avatar {
 	font-weight: normal;
 }	
 
+.modal select {
+	width: 100%;
+	border-radius: 2px;
+	box-shadow: none;
+	border-color: #dddddd;
+	padding: 10px 10px;
+}
