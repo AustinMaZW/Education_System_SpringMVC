@@ -51,7 +51,7 @@
                             <h2>View <b>Courses</b></h2>
                         </div>
                         <div class="col-sm-7" style="text-align: right;margin-left: -200px;">
-                            <form action="/courseview/course/search" method="POST">
+                            <form action="/student/course/search" method="POST">
                                 <input type="text" name="queryString" th:value="${keyword}" />
                                 <button class="btn" type="submit"><i class="material-icons" data-toggle="tooltip"
                                         title="Enrollments">&#xe8b6;</i></button>
@@ -75,7 +75,7 @@
                             <td th:text="${course.category}"></td>
                             <td>
                                 <button class="btn" type="button"><a
-                                        th:href="@{/courseview/courselist/enrolss/}+${course.id}"><i
+                                        th:href="@{/student/courselist/enrolss/}+${course.id}"><i
                                             class="material-icons" data-toggle="tooltip" title="Enrollments">
                                             <h2>&#xe614;</h2>
                                         </i></a></button>

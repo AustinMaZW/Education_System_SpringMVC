@@ -45,4 +45,5 @@ public class CourseEnrolment implements ComPa {
 		this.capacity = capacity;
 		this.status = status;
 	}
+
 }

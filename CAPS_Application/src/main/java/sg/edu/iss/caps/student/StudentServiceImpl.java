@@ -6,15 +6,19 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
+import sg.edu.iss.caps.enrolment.EnrolRepository;
 import sg.edu.iss.caps.model.Grade;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 	@Autowired
 	StudentRepository srepo;
-
+	@Autowired
+	EnrolRepository erepo;
+	
 	@Override
 	public ArrayList<Student> findAllStudent() {
 		// TODO Auto-generated method stub
@@ -124,5 +128,15 @@ public class StudentServiceImpl implements StudentService {
 				
 		return unitsTakenTotal;
 	}
-
+	@Override
+	@Transactional
+	public Student updateGradeByStudentId(int studentId, int enrolId, double grade) {
+		CourseEnrolment courseEnrolment = erepo.findCourseEnrolmentById(enrolId);
+		Student s = srepo.findStudentById(studentId);
+		if (s.getGrades().get(courseEnrolment)==null) {return null;}
+		
+		s.getGrades().put(courseEnrolment, grade);
+		return srepo.save(s);
+		
+	}
 }
