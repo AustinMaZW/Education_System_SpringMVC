@@ -22,6 +22,7 @@ import sg.edu.iss.caps.enrolment.ComPa;
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolmentService;
 import sg.edu.iss.caps.enrolment.MyComparator;
+import sg.edu.iss.caps.model.Grade;
 import sg.edu.iss.caps.model.Status;
 
 //add authorization path
@@ -41,6 +42,11 @@ public class ViewCourseEnrolController {
 	public String viewList(Model model) {
 		userName();
 		Map<CourseEnrolment, Double> grades = this.stu.getGrades();
+		Map<CourseEnrolment, Grade> _grades = new HashMap<CourseEnrolment, Grade>();
+		List<CourseEnrolment> _enrols = new ArrayList<CourseEnrolment>(grades.keySet());
+		_enrols.stream().forEach(x -> {
+			_grades.put(x, Grade.valueofGradePoint(grades.get(x)));
+		});
 		List<CourseEnrolment> enrols = eservice.findEnrolmentByStudent(this.stu);
 		Map<CourseEnrolment, Integer> numStu = new HashMap<CourseEnrolment, Integer>();
 		enrols.stream().forEach(x -> {
@@ -50,6 +56,7 @@ public class ViewCourseEnrolController {
 		model.addAttribute("grades", grades);
 		model.addAttribute("enrols", enrols);
 		model.addAttribute("numStu", numStu);
+		model.addAttribute("gpa", _grades);
 		return "MyCourse";
 	}
 
@@ -58,6 +65,10 @@ public class ViewCourseEnrolController {
 		userName();
 		CourseEnrolment enrol = eservice.findEnrolmentById(id);
 		sservice.cancel(stu, enrol);
+		if (eservice.findStudentsByEnrol(enrol).size() < enrol.getCapacity()) {
+			enrol.setStatus(Status.AVAILABLE);
+			eservice.UpdateEnrolment(enrol);
+		}
 		return "redirect:/student/list";
 
 	}
