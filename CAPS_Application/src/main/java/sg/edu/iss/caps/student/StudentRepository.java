@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import sg.edu.iss.caps.enrolment.CourseEnrolment;
+
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 	public Student findStudentByUsernameAndPassword(String username, String password);
 
@@ -15,4 +17,5 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	@Query("select e from Student e where e.username = :name")
 	public Student findStudentByUsername(@Param("name") String name);
 
+	public Student findStudentById(int id);
 }

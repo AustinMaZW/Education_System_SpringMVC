@@ -82,6 +82,15 @@
                                             style="color: rgb(65, 128, 2);">
                                             <h2>&#xf233;</h2>
                                         </i></a></button>
+                                        
+                            <!--  extra button for testing grades view, delete later-->
+                            <button class="btn" type="button">
+                            <a th:href="@{/lecture/courses/enrol/students/} + ${enrol.id}" class="edit" >
+                            <i class="material-icons" data-toggle="tooltip" title="Enrol"
+                                            style="color: rgb(10, 10, 128);">
+                                            <h2>&#xe7f0;</h2>
+                                        </i></a></button>
+                                       
                                 <div id="editCourseModal" class="modal fade" th:attrappend="id=${enrol.Id}">
                                     <div class="modal-dialog modal-lg">
                                         Modal Content starts here

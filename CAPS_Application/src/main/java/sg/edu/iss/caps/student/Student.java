@@ -43,6 +43,12 @@ public class Student extends User {
 	@Column(name = "grade")
 	private Map<CourseEnrolment, Double> grades;
 
+	@ElementCollection(fetch = FetchType.EAGER)
+	@JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id"))
+	@MapKeyJoinColumn(name = "enrolment_id")
+	@Column(name = "status")
+	private Map<CourseEnrolment, String> status;
+	
 	public Student(String username, String password, String firstName, String lastName, LocalDate matriculationDate, double gpa) {
 		super(username, password, firstName, lastName);
 		this.matriculationDate = matriculationDate;
