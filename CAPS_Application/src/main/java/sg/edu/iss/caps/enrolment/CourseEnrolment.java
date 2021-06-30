@@ -24,7 +24,7 @@ import sg.edu.iss.caps.model.Status;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class CourseEnrolment implements ComPa {
+public class CourseEnrolment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;

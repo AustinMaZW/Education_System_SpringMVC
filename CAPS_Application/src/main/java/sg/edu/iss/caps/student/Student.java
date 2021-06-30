@@ -43,7 +43,8 @@ public class Student extends User {
 	@Column(name = "grade")
 	private Map<CourseEnrolment, Double> grades;
 
-	public Student(String username, String password, String firstName, String lastName, LocalDate matriculationDate, double gpa) {
+	public Student(String username, String password, String firstName, String lastName, LocalDate matriculationDate,
+			double gpa) {
 		super(username, password, firstName, lastName);
 		this.matriculationDate = matriculationDate;
 		this.gpa = gpa;
