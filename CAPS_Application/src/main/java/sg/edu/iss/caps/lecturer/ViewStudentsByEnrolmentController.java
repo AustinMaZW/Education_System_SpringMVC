@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.servlet.ModelAndView;
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolmentService;
 import sg.edu.iss.caps.model.StudentEnrolmentDTO;
+import sg.edu.iss.caps.security.UserDetailsImpl;
 import sg.edu.iss.caps.student.Student;
 import sg.edu.iss.caps.student.StudentService;
 import sg.edu.iss.caps.course.Course;
@@ -115,4 +118,34 @@ public class ViewStudentsByEnrolmentController {
 		});
 		
 	}
+
+	@GetMapping("/allstudents")
+	public String getAllStudents(Model model){
+		ArrayList<Student> studentList = sservice.findAllStudent();
+
+		model.addAttribute("studentList", studentList);
+		return "lecturer-view-all-student";
+	}
+
+//	@RequestMapping("/student/{id}")
+//	public String getAStudentPerformance(@PathVariable("id") Integer id, Model model) {
+//
+//		return new ModelAndView ("redirect:/student/view" + studentId.toString();
+//	}
+// not sure if can return modelandview instead, the code is same as student controller
+	@RequestMapping("/student/{id}")
+	public String getAStudentPerformance(@PathVariable("id") Integer id, Model model) {
+		Student s = sservice.findStudentById(id);
+
+		model.addAttribute("student",sservice.getGradesAlphabet(s));
+
+		Double totalCredit = sservice.getMC(s);
+		model.addAttribute("totalCredit", totalCredit);
+
+		Double CAP = sservice.getCAP(s);
+		model.addAttribute("CAP", CAP);
+
+		return "student-view-cgpa";
+	}
 }
+
