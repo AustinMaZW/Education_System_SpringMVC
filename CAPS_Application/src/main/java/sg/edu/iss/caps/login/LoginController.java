@@ -1,16 +1,12 @@
 package sg.edu.iss.caps.login;
 
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.model.User;
 
@@ -23,11 +19,15 @@ public class LoginController {
 	}
 	
 	
-	@RequestMapping(value ="/login")
+	@GetMapping(value ="/login")
 	public String login(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth==null || auth instanceof AnonymousAuthenticationToken) {
 		User user = new User();
 		model.addAttribute("user", user);
 		return "login";
+		}
+		return "index";
 	}
 	
 //	@PostMapping("fail_login")
