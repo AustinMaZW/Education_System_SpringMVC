@@ -174,7 +174,7 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	}
 
 	@Override
-	public List<StudentEnrolmentDTO> getStudentsByCourse(int courseId) {
-		return erepo.findStudentsByCourse(courseId);
+	public List<StudentEnrolmentDTO> getStudentsByEnrolment(int enrolId) {
+		return erepo.findStudentsByEnrolment(enrolId);
 	}
 }
