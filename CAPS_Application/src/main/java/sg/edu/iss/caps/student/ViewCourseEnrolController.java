@@ -77,11 +77,11 @@ public class ViewCourseEnrolController {
 	public String takeEnrol(@PathVariable("id") int id, Model model) {
 		userName();
 		CourseEnrolment newEnrol = eservice.findEnrolmentById(id);
-		sservice.setEnrol(newEnrol, stu);
 		// set course enrol status as full if student takes up last slot
 		if (eservice.findStudentsByEnrol(newEnrol).size() == newEnrol.getCapacity()) {
 			newEnrol.setStatus(Status.FULL);
 		}
+		sservice.setEnrol(newEnrol, stu);
 		Course course = cservice.findCourseById(this.courseId);
 		ArrayList<CourseEnrolment> eList = (ArrayList<CourseEnrolment>) eservice.findEnrolmentByCourse(course);
 		eList = (ArrayList<CourseEnrolment>) validList(eList);
