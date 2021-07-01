@@ -124,6 +124,12 @@ public class DataTest {
 			x.setEnrols(enrols);
 			crepo.save(x);
 		});
+		//new lecturer to test delete for courses
+		Lecturer newLecturer = new Lecturer("NP", PasswordEncoder().encode("123"), "New", "Prof", Level.SENIOR,
+				"New", Status.AVAILABLE);
+		crepo.save(new Course("BONUS ENRICHMENT", "SA4106", "BONUS", "0"));
+		List<Course> newAllCourses = crepo.findAll();
+		newLecturer.setCourses(newAllCourses); lrepo.save(newLecturer);
 	}
 
 	@Test

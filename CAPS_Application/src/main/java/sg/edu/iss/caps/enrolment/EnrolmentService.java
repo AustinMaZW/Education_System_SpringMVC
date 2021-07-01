@@ -11,11 +11,11 @@ import sg.edu.iss.caps.student.Student;
 public interface EnrolmentService {
 	List<CourseEnrolment> findAllEnrolment();
 
-	List<CourseEnrolment> findEnrolmentByStartDate(LocalDate start);
-
-	List<CourseEnrolment> findEnrolmentByEndDate(LocalDate end);
-
-	List<CourseEnrolment> findEnrolmentByDuration(LocalDate start, LocalDate end);
+//	List<CourseEnrolment> findEnrolmentByStartDate(LocalDate start);
+//
+//	List<CourseEnrolment> findEnrolmentByEndDate(LocalDate end);
+//
+//	List<CourseEnrolment> findEnrolmentByDuration(LocalDate start, LocalDate end);
 
 	List<CourseEnrolment> findEnrolmentByCourse(Course course);
 
@@ -23,7 +23,7 @@ public interface EnrolmentService {
 
 	CourseEnrolment findEnrolmentById(int id);
 
-	boolean cancelEnrol(int id);
+//	boolean cancelEnrol(int id);
 
 	boolean UpdateEnrolment(CourseEnrolment enrol);
 
@@ -33,11 +33,11 @@ public interface EnrolmentService {
 
 	void cancelEnrol(CourseEnrolment enrol);
 
-	List<CourseEnrolment> findEnrolmentByCourseName(String queryString);
+//	List<CourseEnrolment> findEnrolmentByCourseName(String queryString);
 
 	List<Student> findStudentsByEnrol(CourseEnrolment enrol);
 
-	public List<StudentEnrolmentDTO> getStudentsByCourse(int courseId);
+//	public List<StudentEnrolmentDTO> getStudentsByCourse(int courseId);
 
 	List<StudentEnrolmentDTO> getStudentsByEnrolment(int enrolId);
 

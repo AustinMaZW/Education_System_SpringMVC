@@ -28,4 +28,6 @@ public interface LecturerInterface {
 	public void assignCourse(List<Course> courses, int lecturerId);
 	
 	public List<Course> findCoursesByLecturerId(int lecturerId);
+  
+	public List<Lecturer> findLecturersByCourses(Course course);
 }

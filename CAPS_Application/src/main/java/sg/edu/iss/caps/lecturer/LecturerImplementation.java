@@ -1,13 +1,16 @@
 package sg.edu.iss.caps.lecturer;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.caps.course.Course;
 import sg.edu.iss.caps.course.CourseRepository;
+import sg.edu.iss.caps.model.Status;
 import sg.edu.iss.caps.security.SecurityConfig;
 
 @Service
@@ -124,4 +127,16 @@ public class LecturerImplementation implements LecturerInterface {
 	}
 
 
+	public List<Lecturer> findLecturersByCourses(Course course) {
+		List<Lecturer> allLecturers = findAllLecturer();
+		List<Lecturer> lecturerByCourse = new ArrayList<>();
+		allLecturers.stream().forEach(x -> {
+			x.getCourses().stream().forEach(y->{
+				if (y.getId() == course.getId()) {
+					lecturerByCourse.add(x);
+				}
+			});
+		});
+		return lecturerByCourse;
+	}
 }

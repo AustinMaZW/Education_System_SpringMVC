@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +28,8 @@ public class StudentServiceImpl implements StudentService {
 	EnrolRepository erepo;
 	@Autowired
 	EnrolmentService eservice;
+	@Autowired
+    private JavaMailSender javaMailSender;
 
 	@Override
 	public ArrayList<Student> findAllStudent() {
@@ -74,7 +82,6 @@ public class StudentServiceImpl implements StudentService {
 			enrol.setStatus(Status.AVAILABLE);
 			erepo.save(enrol);
 		}
-
 	}
 
 	@Override
@@ -95,8 +102,10 @@ public class StudentServiceImpl implements StudentService {
 		// get grade point obtained for each course using marks (out of 100)
 		for (Double grade : gradeslist.values()) {
 			Grade gradeEnum = Grade.valueofGradePoint(grade);
-			Double gradepoint = Double.parseDouble(Grade.valueofGrade(gradeEnum));
-			valueList.add(gradepoint);
+			if(gradeEnum != Grade.Empty && gradeEnum != Grade.Error) {
+				Double gradepoint = Double.parseDouble(Grade.valueofGrade(gradeEnum));
+				valueList.add(gradepoint);
+			}
 		}
 
 		// weighted calculation
@@ -108,6 +117,8 @@ public class StudentServiceImpl implements StudentService {
 			}
 		}
 		grades = grades / unitsTakenTotal;
+//		s.setGpa(Math.round(grades * 100.0) / 100.0);
+//		srepo.save(s);
 		return Math.round(grades * 100.0) / 100.0;
 	}
 
@@ -134,7 +145,7 @@ public class StudentServiceImpl implements StudentService {
 
 	public Double getMC(Student s) {
 		Map<CourseEnrolment, Double> gradeslist = s.getGrades();
-		Double nograde = 101.0;
+		Double nograde = -1.0;
 		gradeslist.entrySet().removeIf(entry -> (nograde.equals(entry.getValue())));
 		Double unitsTakenTotal = 0.0;
 
@@ -161,4 +172,44 @@ public class StudentServiceImpl implements StudentService {
 		return srepo.save(s);
 
 	}
+	
+	@Override
+    public void sendSimpleTextMail() {
+
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo("sonicsix.s6@gmail.com");
+
+        msg.setSubject("Testing from Spring Boot");
+        msg.setText("Hello World \n Spring Boot Email");
+
+        javaMailSender.send(msg);
+    }
+	
+	@Override
+	public void sendMimeMail(Student stu, CourseEnrolment enrol) throws MessagingException {
+
+        MimeMessage msg = javaMailSender.createMimeMessage();
+
+        // true = multipart message(can add attachments)
+        MimeMessageHelper helper = new MimeMessageHelper(msg, false);
+        helper.setTo("sonicsix.s6@gmail.com");
+
+        helper.setSubject("Course Enrolment Confirmation");
+
+        // default = text/plain
+        //helper.setText("Check attachment for image!");
+        // true = text/html
+        helper.setText("<h2>Hi " + stu.getLastName() + " " + stu.getFirstName() + "</h2>"
+        		+ "<p>Thank you for your registration in our upcoming course.</p>"
+        		+ "Module: " + enrol.getCourse().getCategory() + "<br/>"
+        		+ "Course: " + enrol.getCourse().getName() + "<br/>"
+        		+ "Start : " + enrol.getStartDate() + "<br/>"
+        		+ "End   : " + enrol.getEndDate() + "<br/>"
+        		+ "<br/>"
+        		+ "<p>We look forward to meeting you in class.</p>"
+        		+ "<br/>"
+        		+ "<p>Best Regards <br/> <b>Sonic Six Team</b></p>", true);
+
+        javaMailSender.send(msg);
+    }
 }

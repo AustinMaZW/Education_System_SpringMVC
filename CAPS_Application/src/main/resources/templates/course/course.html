@@ -71,19 +71,18 @@
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
+					    <th>ID</th>
 						<th>Name</th>
 						<th>Category</th>
 						<th>Description</th>
-						<th>Enrolments</th>
-						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="course:${clist}">
+						<td th:text="${course.id}">ID</td>
 						<td th:text="${course.name}">name</td>
 						<td th:text="${course.category}">category</td>
 						<td th:text="${course.description}">description</td>
-						<td>Enrollment link to be added</td>
 						<td>
 							<a href="#editCourseModal" class="edit" th:attrappend="href=${course.id}" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 							<!-- Edit Modal th:attrappend here just adds that attribute to the tag. Used to reference the data in modal-->
@@ -134,7 +133,7 @@
 									</div>
 								</div> 
 								<!-- Individual Delete Button--> 
-								<a th:href="@{/admin/course/delete/}+${course.id}" class="delete" onclick="return confirm('Are you sure you want to delete this item?');">
+								<a th:if="${course.enrols.size() == 0}" th:href="@{/admin/course/delete/}+${course.id}" class="delete" onclick="return confirm('Are you sure you want to delete this item?');">
 								<i class="material-icons" title="Delete">&#xE872;</i></a>
 						</td>
 					</tr>

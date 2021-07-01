@@ -77,9 +77,14 @@
                             <td th:if="${grades.get(enrol)} <= 100.0 and ${grades.get(enrol)} >= 40.0"
                                 th:text="${gpa.get(enrol)} + ' / ('+${grades.get(enrol)} +') / PASSED'"></td>
                             <td th:if="${grades.get(enrol)} == -1.0" th:text="OnGoing"></td>
-                            <td><a th:href="@{/student/cancel/}+${enrol.Id}"><i class="material-icons" title="Cancel">
+                            <td th:if="${enrol.status.getDisplayEnrolStatus()} ne 'Complete'"><a
+                                    th:href="@{/student/cancel/}+${enrol.Id}"><i class="material-icons" title="Cancel">
                                         <h2>&#xE872;</h2>
                                     </i></a>
+                            </td>
+                            <td th:if="${enrol.status.getDisplayEnrolStatus()} eq 'Complete'"
+                                th:text="'This course has ended'">
+
                             </td>
                         </tr>
                     </tbody>

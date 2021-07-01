@@ -16,13 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.course.Course;
 import sg.edu.iss.caps.course.CourseInterface;
+import sg.edu.iss.caps.lecturer.Lecturer;
+import sg.edu.iss.caps.lecturer.LecturerInterface;
 
 @Controller
 @RequestMapping("/admin/course")
 public class ManageCourseController {
 	@Autowired
 	CourseInterface cservice;
-	
+	@Autowired
+	LecturerInterface lservice;
 	public ManageCourseController() {
 		//empty constructor
 	}
@@ -62,6 +65,8 @@ public class ManageCourseController {
 	@GetMapping("/delete/{id}")
 	public String deleteMethod(@PathVariable("id") Integer id) {
 		Course course = cservice.findCourseById(id);
+		//List<Lecturer> lecturers = lservice.findLecturersByCourses(course);
+		//System.out.println(lecturers.get(0).getId());
 		cservice.deleteCourse(course);
 		return "redirect:/admin/course";
 	}

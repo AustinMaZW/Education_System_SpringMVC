@@ -101,6 +101,14 @@ public class ViewStudentsByEnrolmentController {
 
 		Set<Integer> studentIds = studentList.getGrades().keySet();
 		updateGrade(studentList, id, studentIds);
+
+//		List<Student> students = new ArrayList<Student>();
+//		for(Integer sid:studentIds){
+//			students.add(sservice.findStudentById(sid));
+//		}
+//		for(Student s:students){
+//			s.setGpa(sservice.getCAP(s));
+//		}
 		// add code to check course completion by student
 //		studentIds.stream().forEach(x -> {
 //			if()

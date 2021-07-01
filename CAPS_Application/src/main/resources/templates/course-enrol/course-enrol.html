@@ -25,7 +25,7 @@
 				</i></a>
 			</div>
 			<div class="col">
-			  <h2>Manage Enrolment of Courses</h2>
+			  <h2>Manage <b>Enrolment of Courses</b></h2>
 			</div>
           <div class="col-sm-5">
             <a href="#openEnrolment" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Open Enrolment</span></a>
@@ -35,7 +35,8 @@
             				<form th:action="@{/admin/enrol/save}" th:object="${courseenrol}" method="post">
             					<div class="modal-header">
             						<h4 class="modal-title">New Course Enrolment Details</h4>
-            						<button type="button" class="close" data-dimiss="modal" aria-hidden="true">&times;</button>
+									<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button>
             					</div>
             					<div class="modal-body">
             						<input type="hidden" th:field="*{id}">
@@ -47,13 +48,13 @@
             							<label for="ocn">Course Name</label>
             						</div>
             						<div class="form-floating">
-            							<input id="osd" placeholder="Start Date" type="date" th:field="*{startDate}" class="form-select input-md datepicker"
+            							<input id="osd" placeholder="Start Date" type="date" th:field="*{startDate}" class="form-control input-md datepicker"
             							th:text="${#temporals.format(courseenrol.startDate, 'yyyy-MM-dd')}" required/>
             							<p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
             							<label for="osd">Start Date</label>
             						</div>
             						<div class="form-floating">
-            							<input id="oed" placeholder="End Date" type="date" th:field="*{endDate}" class="form-select input-md datepicker"
+            							<input id="oed" placeholder="End Date" type="date" th:field="*{endDate}" class="form-control input-md datepicker"
             							th:text="${#temporals.format(courseenrol.endDate, 'yyyy-MM-dd')}" required/>
             							<p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
             							<label for="oed">End Date</label>
@@ -95,7 +96,7 @@
           <td th:text="${enrol.startDate}">startDate</td>
           <td th:text="${enrol.endDate}">endDate</td>
 
-          <td>
+          <td nowrap="">
           
             <a href="#courseInfoModal" class="edit" data-toggle="modal" th:attrappend="href=${enrol.id}"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
             <div class="modal fade" id= "courseInfoModal" th:attrappend="id=${enrol.id}">
@@ -103,8 +104,9 @@
 					<div class="modal-content">
 						<form th:action="@{/admin/enrol/save}" method="post">
 							<div class="modal-header">
-								<h4 class="modal-title">Edit Course Detail</h4>
-								<button type="button" class="close" data-dimiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title">Edit Course Enrolment Detail</h4>
+								<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
 							</div>
 							<div class="modal-body">
 								<input name="id" id="id" type="hidden" placeholder="id" class="form-control" th:value="${enrol.id}"/>
@@ -116,7 +118,7 @@
 									<label for="ecn">Course Name</label>
 								</div>
 								<div class="form-floating">
-									<input id="esd" placeholder="Start Date" type="date" name="startDate" class="form-select input-md datepicker"
+									<input id="esd" placeholder="Start Date" type="date" name="startDate" class="form-control input-md datepicker"
             							th:text="${#temporals.format(courseenrol.startDate, 'yyyy-MM-dd')}" th:value="${enrol.startDate}" required/>
             							<!--
             							<p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p> 
@@ -124,7 +126,7 @@
 									<label for="esd">Start Date</label>
 								</div>
 								<div class="form-floating">
-									<input id="eed" placeholder="End Date" type="date" name="endDate" class="form-select input-md datepicker"
+									<input id="eed" placeholder="End Date" type="date" name="endDate" class="form-control input-md datepicker"
             							th:text="${#temporals.format(courseenrol.endDate, 'yyyy-MM-dd')}" th:value="${enrol.endDate}" required/>
             							<!--
             							<p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
@@ -141,7 +143,7 @@
 												th:style="${stat['null']} ? 'display:none' : '' "
 												th:value="${stat}" th:text="${stat.displayEnrolStatus}"></option>
 									</select>
-									<label for="ecn">Course Name</label>
+									<label>Status</label>
 								</div>
 							</div>
 							<div class="modal-footer">
@@ -153,7 +155,50 @@
 				</div>            
             </div>
              <!-- -->
-            <a th:if="${numStudents.get(enrol) == 0}" th:href="@{/admin/enrol/delete/}+${enrol.id}" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xe872;</i></a>
+			  <!--            modal for enrolment info starts here-->
+			  <a href="#enrolInfoModal" class="cancel" data-toggle="modal" th:attrappend="href=${enrol.id}"><i class="material-icons" data-toggle="tooltip" title="Details">&#xe88f;</i></a>
+			  <div class="modal fade" id="enrolInfoModal" th:attrappend="id=${enrol.id}">
+				  <div class="modal-dialog">
+					  <div class="modal-content">
+						  <form th:action="@{/admin/enrol/addstudent/}+${enrol.id}" method="get">
+							  <div class="modal-header">
+								  <h4 class="modal-title">Enrolled Students</h4>
+								  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							  </div>
+							  <div class="modal-body">
+								  <input id="id" path="id" name="id" type="hidden"
+										 placeholder="id" class="form-control input-md"
+										 th:value="${enrol.id}"/>
+								  <div class="form-group">
+									  <table>
+										  <thead>
+										  <tr>
+											  <th>ID</th>
+											  <th>First Name</th>
+											  <th>Last Name</th>
+										  </tr>
+										  </thead>
+										  <tbody>
+										  <tr th:each="student:${studentList.get(enrol)}">
+											  <td th:text="${student.id}"></td>
+											  <td th:text="${student.firstName}"></td>
+											  <td th:text="${student.lastName}"></td>
+										  </tr>
+										  </tbody>
+									  </table>
+								  </div>
+							  </div>
+							  <div class="modal-footer">
+								  <input th:if="${enrol.status==T(sg.edu.iss.caps.model.Status).AVAILABLE}" type="submit" class="btn btn-info" value="Add Student">
+								  <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
+							  </div>
+						  </form>
+					  </div>
+				  </div>
+			  </div>
+			  <!--            modal for enrolment info ends here-->
+
+			  <a th:if="${numStudents.get(enrol) == 0}" th:href="@{/admin/enrol/delete/}+${enrol.id}" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xe872;</i></a>
           </td>
         </tr>
         </tbody>
