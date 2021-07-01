@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.iss.caps.course.Course;
 import sg.edu.iss.caps.course.CourseInterface;
+import sg.edu.iss.caps.email.EmailService;
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolmentService;
 import sg.edu.iss.caps.enrolment.MyComparator;
@@ -33,6 +34,9 @@ public class ViewCourseEnrolController {
 	StudentService sservice;
 	@Autowired
 	CourseInterface cservice;
+	@Autowired
+	EmailService emailService;
+
 	private Student stu;
 
 	@RequestMapping("/list")
@@ -66,6 +70,7 @@ public class ViewCourseEnrolController {
 		userName();
 		CourseEnrolment newEnrol = eservice.findEnrolmentById(id);
 		if (sservice.setEnrol(newEnrol, this.stu)) {
+			emailService.send("javaca.caps@gmail.com","javaca.caps@gmail.com","Hello","email!");
 			return "redirect:/student/courselist";
 		}
 		return "redirect:/student/courselist/enrolss/" + newEnrol.getCourse().getId();

@@ -42,6 +42,7 @@ public class Student extends User {
 	@MapKeyJoinColumn(name = "enrolment_id")
 	@Column(name = "grade")
 	private Map<CourseEnrolment, Double> grades;
+	private String email;
 
 	public Student(String username, String password, String firstName, String lastName, LocalDate matriculationDate,
 			double gpa) {
