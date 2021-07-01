@@ -47,10 +47,6 @@ public class ManageLecturerController {
 		List<Lecturer> lecList = lservice.findAllLecturer();
 		Lecturer lecturer = new Lecturer();		
 		List<Course> cl = cservice.listAllCourses();
-		
-		
-		
-		
 		AssignLecturerCourse clist = new AssignLecturerCourse(cl);
 		model.addAttribute("lecList",lecList);
 		model.addAttribute("lecturer", lecturer);

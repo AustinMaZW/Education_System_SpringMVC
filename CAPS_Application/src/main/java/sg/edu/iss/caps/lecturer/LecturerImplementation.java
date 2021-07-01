@@ -120,7 +120,7 @@ public class LecturerImplementation implements LecturerInterface {
 		// TODO Auto-generated method stub
 		List<Course> clist = lrepo.findById(lecturerId).get().getCourses();
 		
-		return null;
+		return clist;
 	}
 
 
