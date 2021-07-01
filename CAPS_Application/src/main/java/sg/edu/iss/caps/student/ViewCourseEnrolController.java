@@ -1,10 +1,6 @@
 package sg.edu.iss.caps.student;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -70,7 +66,10 @@ public class ViewCourseEnrolController {
 		userName();
 		CourseEnrolment newEnrol = eservice.findEnrolmentById(id);
 		if (sservice.setEnrol(newEnrol, this.stu)) {
-			emailService.send("javaca.caps@gmail.com","javaca.caps@gmail.com","Hello","email!");
+			String student = this.stu.getFirstName()+" " +this.stu.getLastName();
+			String course = newEnrol.getCourse().getName();
+			String msg = "Congratulations " + student +"!\nYou are successfully enrolled in " + course;
+			emailService.send("javaca.caps@gmail.com","javaca.caps@gmail.com","Successful enrolment",msg);
 			return "redirect:/student/courselist";
 		}
 		return "redirect:/student/courselist/enrolss/" + newEnrol.getCourse().getId();
