@@ -106,7 +106,14 @@ public class ViewCourseEnrolController {
 		userName();
 		System.out.println(queryString);
 		List<Course> list = cservice.findCoursesByName(queryString);
-		model.addAttribute("courseList", list);
+		List<CourseEnrolment> cEnrols = new ArrayList<>();
+		list = RestCourse(list);
+		for (Course c : list) {
+
+			CourseEnrolment enrol = eservice.findEnrolmentById(c.getId());
+			cEnrols.add(enrol);
+		}
+		model.addAttribute("courseList", cEnrols);
 		model.addAttribute("keyword", queryString);
 		return "CourseEnrol";
 	}
