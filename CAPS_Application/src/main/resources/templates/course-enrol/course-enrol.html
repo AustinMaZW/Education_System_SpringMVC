@@ -135,6 +135,14 @@
 									<input id="ecap" placeholder="Capacity" class="form-control" type="text" name="capacity" th:value="${enrol.capacity}" required/>
 									<label for="ecap">Capacity</label>
 								</div>
+								<div class="form-floating">
+									<select id="estatus" placeholder="Status" class="form-select" name="status">
+										<option th:each="stat: ${T(sg.edu.iss.caps.model.Status).values()}"
+												th:style="${stat['null']} ? 'display:none' : '' "
+												th:value="${stat}" th:text="${stat.displayEnrolStatus}"></option>
+									</select>
+									<label for="ecn">Course Name</label>
+								</div>
 							</div>
 							<div class="modal-footer">
 								<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel">
@@ -145,7 +153,6 @@
 				</div>            
             </div>
              <!-- -->
-            <a th:href="@{/admin/enrol/cancel/}+${enrol.id}" class="cancel"><i class="material-icons" data-toggle="tooltip" title="Cancel">&#xe5cd;</i></a>
             <a th:if="${numStudents.get(enrol) == 0}" th:href="@{/admin/enrol/delete/}+${enrol.id}" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xe872;</i></a>
           </td>
         </tr>
