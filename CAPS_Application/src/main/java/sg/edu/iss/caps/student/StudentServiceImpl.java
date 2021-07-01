@@ -74,7 +74,6 @@ public class StudentServiceImpl implements StudentService {
 			enrol.setStatus(Status.AVAILABLE);
 			erepo.save(enrol);
 		}
-
 	}
 
 	@Override
