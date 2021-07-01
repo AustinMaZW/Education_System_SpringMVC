@@ -76,7 +76,9 @@ public class ViewCourseEnrolController {
 		List<Course> cList = cservice.listAllCourses();
 		cList = RestCourse(cList);
 		List<CourseEnrolment> cEnrols = new ArrayList<>();
+
 		for (Course c : cList) {
+
 			CourseEnrolment enrol = eservice.findEnrolmentById(c.getId());
 			cEnrols.add(enrol);
 		}

@@ -41,6 +41,11 @@ public class ManageEnrolmentController {
 
     @GetMapping(value="")
     public String listCourseEnrol(Model model) {
+    	
+    ArrayList<String> clist = cservice.findAllCourseNames(); // new added line for modal
+    model.addAttribute("coursenames", clist); // new added line for modal
+    model.addAttribute("courseenrol", new CourseEnrolment()); // new added line for modal
+    
     List<CourseEnrolment> elist = eservice.findAllEnrolment();
     //update status if enrolment full
     elist.stream().forEach(x -> {
