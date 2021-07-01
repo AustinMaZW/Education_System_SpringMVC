@@ -25,16 +25,16 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	@Autowired
 	CourseRepository crepo;
 
-	@Transactional
-	public void openEnrolment(CourseEnrolment enrolment) {
-		erepo.save(enrolment);
-	}
-
-	@Transactional
-	public void closeEnrolment(CourseEnrolment enrolment) {
-		enrolment.setStatus(Status.NOTAVAILABLE);
-		erepo.save(enrolment);
-	}
+//	@Transactional
+//	public void openEnrolment(CourseEnrolment enrolment) {
+//		erepo.save(enrolment);
+//	}
+//
+//	@Transactional
+//	public void closeEnrolment(CourseEnrolment enrolment) {
+//		enrolment.setStatus(Status.NOTAVAILABLE);
+//		erepo.save(enrolment);
+//	}
 
 	@Override
 	@Transactional
@@ -43,35 +43,35 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		return list;
 	}
 
-	@Override
-	@Transactional
-	public List<CourseEnrolment> findEnrolmentByStartDate(LocalDate start) {
-		List<CourseEnrolment> list = erepo.findAll();
-		List<CourseEnrolment> query = new ArrayList<>();
-		list.stream().filter(x -> x.getStartDate().isEqual(start)).forEach(x -> query.add(x));
-		return query;
-	}
+//	@Override
+//	@Transactional
+//	public List<CourseEnrolment> findEnrolmentByStartDate(LocalDate start) {
+//		List<CourseEnrolment> list = erepo.findAll();
+//		List<CourseEnrolment> query = new ArrayList<>();
+//		list.stream().filter(x -> x.getStartDate().isEqual(start)).forEach(x -> query.add(x));
+//		return query;
+//	}
+//
+//	@Override
+//	@Transactional
+//	public List<CourseEnrolment> findEnrolmentByEndDate(LocalDate end) {
+//		List<CourseEnrolment> list = erepo.findAll();
+//		List<CourseEnrolment> query = new ArrayList<>();
+//		list.stream().filter(x -> x.getEndDate().isEqual(end)).forEach(x -> query.add(x));
+//		return query;
+//	}
 
-	@Override
-	@Transactional
-	public List<CourseEnrolment> findEnrolmentByEndDate(LocalDate end) {
-		List<CourseEnrolment> list = erepo.findAll();
-		List<CourseEnrolment> query = new ArrayList<>();
-		list.stream().filter(x -> x.getEndDate().isEqual(end)).forEach(x -> query.add(x));
-		return query;
-	}
-
-	@Override
-	@Transactional
-	public List<CourseEnrolment> findEnrolmentByDuration(LocalDate start, LocalDate end) {
-		List<CourseEnrolment> list = erepo.findAll();
-		List<CourseEnrolment> query = new ArrayList<>();
-		list.stream()
-				.filter(x -> (x.getEndDate().isBefore(end) || x.getEndDate().isEqual(end))
-						&& (x.getStartDate().isAfter(start) || x.getStartDate().isEqual(start)))
-				.forEach(x -> query.add(x));
-		return query;
-	}
+//	@Override
+//	@Transactional
+//	public List<CourseEnrolment> findEnrolmentByDuration(LocalDate start, LocalDate end) {
+//		List<CourseEnrolment> list = erepo.findAll();
+//		List<CourseEnrolment> query = new ArrayList<>();
+//		list.stream()
+//				.filter(x -> (x.getEndDate().isBefore(end) || x.getEndDate().isEqual(end))
+//						&& (x.getStartDate().isAfter(start) || x.getStartDate().isEqual(start)))
+//				.forEach(x -> query.add(x));
+//		return query;
+//	}
 
 	@Override
 	@Transactional
@@ -137,24 +137,24 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		return erepo.findCourseEnrolmentById(id);
 	}
 
-	@Override
-	@Transactional
-	public boolean cancelEnrol(int id) {
-		CourseEnrolment enrol = erepo.findById(id).get();
-		if (enrol.getStatus() == Status.AVAILABLE)
-			return false;
-		enrol.setStatus(Status.NOTAVAILABLE);
-		erepo.save(enrol);
-		return true;
+//	@Override
+//	@Transactional
+//	public boolean cancelEnrol(int id) {
+//		CourseEnrolment enrol = erepo.findById(id).get();
+//		if (enrol.getStatus() == Status.AVAILABLE)
+//			return false;
+//		enrol.setStatus(Status.NOTAVAILABLE);
+//		erepo.save(enrol);
+//		return true;
+//
+//	}
 
-	}
-
-	@Override
-	@Transactional
-	public List<CourseEnrolment> findEnrolmentByCourseName(String queryString) {
-		List<CourseEnrolment> list = erepo.findEnrolmentByCourseName(queryString);
-		return list;
-	}
+//	@Override
+//	@Transactional
+//	public List<CourseEnrolment> findEnrolmentByCourseName(String queryString) {
+//		List<CourseEnrolment> list = erepo.findEnrolmentByCourseName(queryString);
+//		return list;
+//	}
 
 	@Override
 	@Transactional
@@ -182,11 +182,11 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 		return erepo.findStudentsByEnrolment(enrolId);
 	}
 
-	@Override
-	@Transactional
-	public List<StudentEnrolmentDTO> getStudentsByCourse(int courseId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	@Transactional
+//	public List<StudentEnrolmentDTO> getStudentsByCourse(int courseId) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }

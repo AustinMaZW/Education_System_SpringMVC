@@ -21,11 +21,11 @@ public class CourseImplementation implements CourseInterface {
 	@Autowired
 	LecturerInterface lservice;
 	
-	@Override
-	public void createCourse(Course course) {
-		// TODO Auto-generated method stub
-		crepo.save(course);
-	}
+//	@Override
+//	public void createCourse(Course course) {
+//		// TODO Auto-generated method stub
+//		crepo.save(course);
+//	}
 
 	@Override
 	public List<Course> listAllCourses() {
@@ -61,11 +61,11 @@ public class CourseImplementation implements CourseInterface {
 		return true;
 	}
 
-	@Override
-	public Course findCourseByName(String name) {
-		// TODO Auto-generated method stub
-		return crepo.findCourseByName(name);
-	}
+//	@Override
+//	public Course findCourseByName(String name) {
+//		// TODO Auto-generated method stub
+//		return crepo.findCourseByName(name);
+//	}
 
 	@Override
 	public Course findCourseById(int id) {

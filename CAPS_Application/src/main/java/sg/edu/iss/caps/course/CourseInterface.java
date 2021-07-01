@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface CourseInterface {
-	public void createCourse(Course course);
+//	public void createCourse(Course course);
 
 	public List<Course> listAllCourses();//used by ViewCourseEnrolController ManageCourseController
 
@@ -12,7 +12,7 @@ public interface CourseInterface {
 
 	public boolean deleteCourse(Course course);// ManageCourseController
 
-	public Course findCourseByName(String name);// ViewCourseEnrolController
+//	public Course findCourseByName(String name);// ViewCourseEnrolController
 
 	public Course findCourseById(int id); // ViewCourseTaughtController ViewCourseEnrolController LecturerController
 

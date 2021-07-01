@@ -44,10 +44,11 @@ public class AdminImplementation implements AdminInterface {
 	}
 
 	public Student saveStudent(Student student) {
-		if (student.getId() == 0) { // add new
+		if (student.getId() == 0) {
+			// add new
 			student.setPassword(encodePassword(student.getPassword()));
 		} 
-		else { // edit
+		else {
 			if (student.getPassword() == null) {
 				Student db_std = srepo.findById(student.getId()).get();
 				student.setPassword(db_std.getPassword());
@@ -63,12 +64,5 @@ public class AdminImplementation implements AdminInterface {
 	public void deleteStudent(Student student) {
 		srepo.delete(student);
 	}
-	//old code
-//	public boolean authenticate(Admin admin) {
-//		Admin fromDB = arepo.findAdminByUsernameAndPassword(admin.getUsername(), admin.getPassword());
-//		if (fromDB!=null){
-//			return true;
-//		}
-//		return false;
-//	}
+
 }
