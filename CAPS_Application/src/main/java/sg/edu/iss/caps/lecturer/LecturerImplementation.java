@@ -26,11 +26,11 @@ public class LecturerImplementation implements LecturerInterface {
 	@Override
 	public void createLecturer(Lecturer lecturer) {
 		// TODO Auto-generated method stub
-		if (lrepo.existsById(lecturer.getId())) {
+//		if (lrepo.existsById(lecturer.getId())) {
 			lecturer.setPassword(encodePassword(lecturer.getPassword()));
 			lrepo.save(lecturer);
-		} else
-			return;
+//		} else
+//			return;
 	}
 
 //	@Override
@@ -49,7 +49,8 @@ public class LecturerImplementation implements LecturerInterface {
 	@Override
 	public void updateLecturer(Lecturer lecturer) {
 		// TODO Auto-generated method stub
-		lecturer.setPassword(encodePassword(lecturer.getPassword()));
+		String password = lrepo.findById(lecturer.getId()).get().getPassword();
+		lecturer.setPassword(password);
 		lrepo.save(lecturer);
 	}
 
@@ -71,11 +72,11 @@ public class LecturerImplementation implements LecturerInterface {
 //		return lecList;
 //	}
 
-//	@Override
-//	public Boolean isNewLecturer(int id) {
-//		// TODO Auto-generated method stub
-//		return lrepo.existsById(id);
-//	}
+	@Override
+	public boolean isNewLecturer(int id) {
+		// TODO Auto-generated method stub
+		return lrepo.existsById(id);
+	}
 
 //	@Override
 //	public void removeLecturerById(int id) {
@@ -101,5 +102,7 @@ public class LecturerImplementation implements LecturerInterface {
 	public Lecturer findLecturerByUsername(String username) {
 		return lrepo.findByUsername(username);
 	}
+
+
 
 }
