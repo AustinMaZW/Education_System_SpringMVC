@@ -29,6 +29,7 @@ import sg.edu.iss.caps.lecturer.Lecturer;
 import sg.edu.iss.caps.lecturer.LecturerRepository;
 import sg.edu.iss.caps.model.Level;
 import sg.edu.iss.caps.model.Status;
+import sg.edu.iss.caps.model.StudentCourseStatus;
 import sg.edu.iss.caps.student.Student;
 import sg.edu.iss.caps.student.StudentRepository;
 
@@ -104,9 +105,12 @@ public class DataTest {
 		List<CourseEnrolment> enrols = erepo.findAll();
 		List<Student> students = srepo.findAll();
 		students.stream().forEach(x -> {
-			Map<CourseEnrolment, Double> score = x.getGrades();
+			Map<CourseEnrolment, Double> score = x.getGrades(); 
+			Map<CourseEnrolment, StudentCourseStatus> status = x.getStatus(); //added
 			enrols.stream().forEach(y -> score.put(y,(double) Math.round(Math.random()*(51) + 50)));
+			enrols.stream().forEach(y -> status.put(y, StudentCourseStatus.ONGOING)); //added
 			x.setGrades(score);
+			x.setStatus(status); //added
 			srepo.save(x);
 		});
 	}

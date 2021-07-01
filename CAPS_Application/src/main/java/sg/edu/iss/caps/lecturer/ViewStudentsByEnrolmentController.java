@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolmentService;
+import sg.edu.iss.caps.model.Status;
+import sg.edu.iss.caps.model.StudentCourseStatus;
 import sg.edu.iss.caps.model.StudentEnrolmentDTO;
 import sg.edu.iss.caps.student.Student;
 import sg.edu.iss.caps.student.StudentService;
@@ -98,11 +100,24 @@ public class ViewStudentsByEnrolmentController {
 		
 		Set<Integer> studentIds = studentList.getGrades().keySet();
 		updateGrade(studentList, id, studentIds);
+		
 		//add code to check course completion by student
-//		studentIds.stream().forEach(x -> {
-//			if()
-//		})
-//		
+		CourseEnrolment courseEnrolment = eservice.findEnrolmentById(id);
+		studentIds.stream().forEach(x -> {
+			Student s = sservice.findStudentById(x);
+			if(s.getGrades().get(courseEnrolment)<40) {
+				s.getStatus().get(courseEnrolment);
+				s.getStatus().put(courseEnrolment, StudentCourseStatus.FAIL);
+			}
+			else if(courseEnrolment.getStatus()==Status.COMPLETE) {
+				s.getStatus().put(courseEnrolment, StudentCourseStatus.PASS);
+			}
+			else {
+				s.getStatus().put(courseEnrolment, StudentCourseStatus.ONGOING);
+			}
+			sservice.updateStudent(s);
+		});
+		
 		Integer enrolId = id;
 		return "redirect:/lecturer/enrol/stdlist/" + enrolId.toString();
 

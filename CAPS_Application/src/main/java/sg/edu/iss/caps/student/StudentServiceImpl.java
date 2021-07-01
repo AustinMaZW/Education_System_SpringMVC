@@ -139,4 +139,10 @@ public class StudentServiceImpl implements StudentService {
 		return srepo.save(s);
 		
 	}
+	
+	@Override
+	@Transactional
+	public Student updateStudent(Student student) {
+		return srepo.save(student);
+	}
 }

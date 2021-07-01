@@ -23,6 +23,7 @@ import lombok.Setter;
 import lombok.ToString;
 import sg.edu.iss.caps.course.Course;
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
+import sg.edu.iss.caps.model.StudentCourseStatus;
 import sg.edu.iss.caps.model.User;
 
 @Getter
@@ -42,6 +43,13 @@ public class Student extends User {
 	@MapKeyJoinColumn(name = "enrolment_id")
 	@Column(name = "grade")
 	private Map<CourseEnrolment, Double> grades;
+
+	//adding additional map column for studentcoursestatus
+	@ElementCollection(fetch = FetchType.EAGER)
+	@JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id"))
+	@MapKeyJoinColumn(name = "enrolment_id")
+	@Column(name = "status")
+	private Map<CourseEnrolment, StudentCourseStatus> status;
 
 	public Student(String username, String password, String firstName, String lastName, LocalDate matriculationDate, double gpa) {
 		super(username, password, firstName, lastName);
