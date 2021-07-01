@@ -14,6 +14,7 @@ import sg.edu.iss.caps.enrolment.EnrolmentService;
 import sg.edu.iss.caps.enrolment.EnrolmentServiceImpl;
 import sg.edu.iss.caps.model.Status;
 import sg.edu.iss.caps.student.Student;
+import sg.edu.iss.caps.student.StudentService;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -28,6 +29,9 @@ import java.util.Map;
 public class ManageEnrolmentController {
     @Autowired
     private EnrolmentService eservice;
+
+    @Autowired
+    private StudentService sservice;
 
     @Autowired
     CourseRepository crepo;
@@ -74,6 +78,14 @@ public class ManageEnrolmentController {
         list.put(x,numStudents);
     });
     model.addAttribute("numStudents", list);
+
+        Map<CourseEnrolment, List<Student>> studentList = new HashMap<CourseEnrolment, List<Student>>();
+        elist.stream().forEach(x -> {
+            List<Student> students = eservice.findStudentsByEnrol(x);
+            studentList.put(x, students);
+        });
+        model.addAttribute("studentList", studentList);
+
     return "course-enrol/course-enrol";
     }
 
@@ -92,7 +104,7 @@ public class ManageEnrolmentController {
     @PostMapping(value="/save")
     public String saveCourseEnrol(@ModelAttribute @Valid CourseEnrolment enrol, BindingResult result) {
         if (result.hasErrors())
-            return "course-enrol/course-enrol-form";
+            return "redirect:/admin/enrol";
         if (enrol.getId() != 0) {
             eservice.UpdateEnrolment(enrol);
             return "redirect:/admin/enrol";
@@ -135,5 +147,35 @@ public class ManageEnrolmentController {
         model.addAttribute("courses", courses);
         model.addAttribute("func", "edit");
         return "course-enrol/course-enrol-form";
+    }
+
+    @GetMapping("/addstudent/{id}")
+    public String addStudent(@PathVariable("id") int id, Model model) {
+        CourseEnrolment enrol = eservice.findEnrolmentById(id);
+        model.addAttribute("coursename",enrol.getCourse().getName());
+        model.addAttribute("enrolid", id);
+        List<Student> students = sservice.findAllStudent();
+        List<Student> existingstudents = eservice.findStudentsByEnrol(enrol);
+
+
+        List<String> studentnames = new ArrayList<String>();
+        for(Student student:students){
+            if(!existingstudents.contains(student)) {
+                studentnames.add(student.getFirstName());
+            }
+        }
+        model.addAttribute("studentnames", studentnames);
+        return "course-enrol/enrol-student-form";
+    }
+
+    @GetMapping(value="/addstudent/save")
+    public String enrolStudent(@RequestParam("studentname") String studentname, @RequestParam int enrolid) {
+//        if (result.hasErrors())
+//            return "redirect:/admin/enrol";
+
+        Student student = sservice.findStudentByFirstName(studentname);
+        CourseEnrolment enrol = eservice.findEnrolmentById(enrolid);
+        sservice.setEnrol(enrol, student);
+        return "redirect:/admin/enrol";
     }
 }
