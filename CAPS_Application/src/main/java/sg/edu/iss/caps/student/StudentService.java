@@ -14,15 +14,15 @@ public interface StudentService {
 
 	public Student findStudentByUsername(String username);
 
-	public void setEnrol(CourseEnrolment enrol, Student stu);
+	public boolean setEnrol(CourseEnrolment enrol, Student stu);
 
 	public void cancel(Student stu, CourseEnrolment enrol);
-	
+
 	public Double getCAP(Student stu);
 
 	Map<CourseEnrolment, String> getGradesAlphabet(Student s);
-	
-	public Double getMC(Student s); 
+
+	public Double getMC(Student s);
 
 	public Student updateGradeByStudentId(int studentId, int enrolId, double grade);
 }

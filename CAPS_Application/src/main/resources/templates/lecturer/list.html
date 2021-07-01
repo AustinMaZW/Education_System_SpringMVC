@@ -34,7 +34,7 @@
 							<div class="modal-dialog">
 								<!-- Modal starts here -->
 								<div class="modal-content">
-									<form th:action="@{/admin/lecturer/new}" th:object="${lecturer}" method="post">
+									<form th:action="@{/admin/lecturer/save}" th:object="${lecturer}" method="post">
 										<div class="modal-header">
 											<h4 class="modal-title">Add New Lecturer</h4>
 											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -129,7 +129,7 @@
 						<div class="modal-dialog">
 							<!-- Modal Content starts here -->
 							<div class="modal-content">
-								<form th:action="@{/admin/lecturer-edit}" method="post">
+								<form th:action="@{/admin/lecturer/save}" method="post">
 									<div class="modal-header">
 										<h4 class="modal-title">Lecturer Information</h4>
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -155,12 +155,13 @@
 											
 											<input name="username" type="text" class="form-control input-md" id="lecUsername" placeholder="Username" th:value="${lec.username}"/>
 											<label for="lecUsername">Username</label>
-										</div>	
-										<div class="form-floating">
+										</div>
+										
+									<!--	<div class="form-floating">
 											
 											<input name="password" type="password" class="form-control input-md" id="lecPassword" placeholder="Password" th:value="${lec.password}"/>
 											<label for="lecPassword">Password</label>
-										</div>											
+										</div>	-->											
 										<div class="form-floating">
 											
 											<select id="lecTitle" placeholder="Title" class="form-select" name="jobLevel">

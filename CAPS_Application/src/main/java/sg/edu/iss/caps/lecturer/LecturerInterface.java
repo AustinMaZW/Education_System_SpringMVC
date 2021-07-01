@@ -15,7 +15,7 @@ public interface LecturerInterface {
 
 //	public Lecturer findLecturerById(int id);
 
-//	public Boolean isNewLecturer(int id);
+	public boolean isNewLecturer(int id);
 
 //	public void removeLecturerById(int id);
 

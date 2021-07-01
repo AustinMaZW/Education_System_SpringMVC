@@ -1,13 +1,10 @@
 package sg.edu.iss.caps.lecturer;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,15 +16,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
+import sg.edu.iss.caps.course.CourseInterface;
+
 import org.springframework.web.servlet.ModelAndView;
+
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolmentService;
 import sg.edu.iss.caps.model.StudentEnrolmentDTO;
 import sg.edu.iss.caps.security.UserDetailsImpl;
 import sg.edu.iss.caps.student.Student;
 import sg.edu.iss.caps.student.StudentService;
-import sg.edu.iss.caps.course.Course;
-import sg.edu.iss.caps.course.CourseInterface;
 
 @Controller
 @RequestMapping("/lecturer/enrol")
@@ -35,7 +34,7 @@ public class ViewStudentsByEnrolmentController {
 
 	@Autowired
 	EnrolmentService eservice;
-	
+
 	@Autowired
 	CourseInterface cservice;
 
@@ -62,24 +61,25 @@ public class ViewStudentsByEnrolmentController {
 //		
 //		return "students-of-course";
 //	}
-	
-	@GetMapping(value="/stdlist/{id}")
+
+	@GetMapping(value = "/stdlist/{id}")
 	public String listStudentsByEnrolment(@PathVariable("id") Integer id, Model model) {
 		CourseEnrolment courseEnrolment = eservice.findEnrolmentById(id);
 		List<StudentEnrolmentDTO> list = eservice.getStudentsByEnrolment(id);
 		List<Student> stdlist = new ArrayList<>();
 		list.stream().forEach(x -> stdlist.add(x.getStudent()));
-		Map<Integer, Double> gradelist = new HashMap<>(); 
+		Map<Integer, Double> gradelist = new HashMap<>();
 		list.stream().forEach(x -> gradelist.put(x.getStudent().getId(), x.getGrade()));
 
-		StudentListWrapper slw = new StudentListWrapper(stdlist, gradelist); //wrapper class for list of students
+		StudentListWrapper slw = new StudentListWrapper(stdlist, gradelist); // wrapper class for list of students
 
 		model.addAttribute("students", slw);
 		model.addAttribute("enrol", courseEnrolment);
+		model.addAttribute("course_id", courseEnrolment.getCourse().getId());
 		return "/lecturer/ViewStudentEnrolled";
 	}
-	
-	//Austin test code for manage grades 
+
+	// Austin test code for manage grades
 //	@RequestMapping("/enrol/students/{id}")
 //	public String studentList(@PathVariable("id") int id, Model model) {
 //		CourseEnrolment courseEnrolment = eservice.findEnrolmentById(id);
@@ -94,14 +94,14 @@ public class ViewStudentsByEnrolmentController {
 //		//model.addAttribute("gradesMap", sgw); 
 //		return "/lecturer/ViewStudentEnrolled";
 //	}
-	
+
 	@PostMapping("/savegrades/{id}")
-	public String saveGrades(@ModelAttribute("StudentListWrapper") StudentListWrapper studentList, 
+	public String saveGrades(@ModelAttribute("StudentListWrapper") StudentListWrapper studentList,
 			@PathVariable("id") int id) {
-		
+
 		Set<Integer> studentIds = studentList.getGrades().keySet();
 		updateGrade(studentList, id, studentIds);
-		//add code to check course completion by student
+		// add code to check course completion by student
 //		studentIds.stream().forEach(x -> {
 //			if()
 //		})
@@ -113,10 +113,12 @@ public class ViewStudentsByEnrolmentController {
 
 	private void updateGrade(StudentListWrapper studentList, int id, Set<Integer> studentIds) {
 		studentIds.stream().forEach(x -> {
-			if (studentList.getGrades().get(x)==null) {return;}
+			if (studentList.getGrades().get(x) == null) {
+				return;
+			}
 			sservice.updateGradeByStudentId(x, id, studentList.getGrades().get(x));
 		});
-		
+
 	}
 
 	@GetMapping("/allstudents")

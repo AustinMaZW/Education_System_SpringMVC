@@ -18,12 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.iss.caps.course.Course;
 import sg.edu.iss.caps.course.CourseInterface;
-import sg.edu.iss.caps.enrolment.ComPa;
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolmentService;
 import sg.edu.iss.caps.enrolment.MyComparator;
-import sg.edu.iss.caps.model.Grade;
-import sg.edu.iss.caps.model.Status;
 
 //add authorization path
 @Controller
@@ -36,17 +33,12 @@ public class ViewCourseEnrolController {
 	@Autowired
 	CourseInterface cservice;
 	private Student stu;
-	private int courseId;
 
 	@RequestMapping("/list")
 	public String viewList(Model model) {
 		userName();
 		Map<CourseEnrolment, Double> grades = this.stu.getGrades();
-		Map<CourseEnrolment, Grade> _grades = new HashMap<CourseEnrolment, Grade>();
-		List<CourseEnrolment> _enrols = new ArrayList<CourseEnrolment>(grades.keySet());
-		_enrols.stream().forEach(x -> {
-			_grades.put(x, Grade.valueofGradePoint(grades.get(x)));
-		});
+		Map<CourseEnrolment, String> _grades = sservice.getGradesAlphabet(stu);
 		List<CourseEnrolment> enrols = eservice.findEnrolmentByStudent(this.stu);
 		Map<CourseEnrolment, Integer> numStu = new HashMap<CourseEnrolment, Integer>();
 		enrols.stream().forEach(x -> {
@@ -65,10 +57,6 @@ public class ViewCourseEnrolController {
 		userName();
 		CourseEnrolment enrol = eservice.findEnrolmentById(id);
 		sservice.cancel(stu, enrol);
-		if (eservice.findStudentsByEnrol(enrol).size() < enrol.getCapacity()) {
-			enrol.setStatus(Status.AVAILABLE);
-			eservice.UpdateEnrolment(enrol);
-		}
 		return "redirect:/student/list";
 	}
 
@@ -76,36 +64,21 @@ public class ViewCourseEnrolController {
 	public String takeEnrol(@PathVariable("id") int id, Model model) {
 		userName();
 		CourseEnrolment newEnrol = eservice.findEnrolmentById(id);
-		sservice.setEnrol(newEnrol, stu);
-		// set course enrol status as full if student takes up last slot
-		if (eservice.findStudentsByEnrol(newEnrol).size() == newEnrol.getCapacity()) {
-			newEnrol.setStatus(Status.FULL);
+		if (sservice.setEnrol(newEnrol, this.stu)) {
+			return "redirect:/student/courselist";
 		}
-		Course course = cservice.findCourseById(this.courseId);
-		ArrayList<CourseEnrolment> eList = (ArrayList<CourseEnrolment>) eservice.findEnrolmentByCourse(course);
-		eList = (ArrayList<CourseEnrolment>) validList(eList);
-		model.addAttribute("validEnrol", eList);
-		return "redirect:/student/courselist";
-	}
-
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String search(@RequestParam(value = "queryString") String queryString, Model model) {
-		userName();
-		System.out.println(queryString);
-		List<CourseEnrolment> list = eservice.findEnrolmentByCourseName(queryString);
-		list = validList(list);
-		model.addAttribute("validEnrol", list);
-		return "CourseViewEnrolmentList";
+		return "redirect:/student/courselist/enrolss/" + newEnrol.getCourse().getId();
 	}
 
 	@RequestMapping("/courselist")
 	public String courseList(Model model) {
 		userName();
 		List<Course> cList = cservice.listAllCourses();
-		cList = RestCourse(cList); // I don't know whether the course should be filtered or enrolment should be
-									// filtered.
+		cList = RestCourse(cList);
 		List<CourseEnrolment> cEnrols = new ArrayList<>();
-		for(Course c:cList){
+
+		for (Course c : cList) {
+
 			CourseEnrolment enrol = eservice.findEnrolmentById(c.getId());
 			cEnrols.add(enrol);
 		}
@@ -116,8 +89,6 @@ public class ViewCourseEnrolController {
 	@RequestMapping(value = "/courselist/enrolss/{id}", method = RequestMethod.GET)
 	public String courseLists(@PathVariable("id") int id, Model model) {
 		userName();
-		this.courseId = id;
-		System.out.println(id);
 		Course course = cservice.findCourseById(id);
 		ArrayList<CourseEnrolment> eList = (ArrayList<CourseEnrolment>) eservice.findEnrolmentByCourse(course);
 		eList = (ArrayList<CourseEnrolment>) validList(eList);
@@ -155,12 +126,6 @@ public class ViewCourseEnrolController {
 			}
 		});
 		return list;
-	}
-
-	private <T extends ComPa> List<T> isAvailable(List<T> list) {
-		List<T> newList = new ArrayList<>();
-		list.stream().filter(x -> x.getStatus().compareTo(Status.AVAILABLE) == 0).forEach(x -> newList.add(x));
-		return newList;
 	}
 
 	private List<Course> RestCourse(List<Course> list) {

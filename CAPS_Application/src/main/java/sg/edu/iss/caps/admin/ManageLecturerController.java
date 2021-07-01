@@ -54,12 +54,16 @@ public class ManageLecturerController {
 //	}
 	
 	
-	@PostMapping("/admin/lecturer/new")
+	@PostMapping("/admin/lecturer/save")
 	public String saveLecturerForm(@ModelAttribute @Valid Lecturer lecturer, BindingResult result) {
 		if(result.hasErrors()) {
 			return "redirect:/admin/lecturer/list";
 		}
-		lservice.updateLecturer(lecturer);
+		if(lservice.isNewLecturer(lecturer.getId())) {
+			lservice.updateLecturer(lecturer);
+		}
+		else
+			lservice.createLecturer(lecturer);
 		return ("redirect:/admin/"+ LECTURER_LIST);
 	}
 
@@ -80,15 +84,14 @@ public class ManageLecturerController {
 //		return NEW_LECTURER_FORM;
 //	}
 	
-	@PostMapping("/admin/lecturer-edit")
-	public String updateLecturerForm(@ModelAttribute @Valid Lecturer lecturer, BindingResult result) {
-		if(result.hasErrors()) {
-			return "redirect:/admin/lecturer/list";
-		}
-		lservice.updateLecturer(lecturer);
-		return ("redirect:/admin/" + LECTURER_LIST);
-		
-	}
+//	@PostMapping("/admin/lecturer-edit")
+//	public String updateLecturerForm(@ModelAttribute @Valid Lecturer lecturer, BindingResult result) {
+//		if(result.hasErrors()) {
+//			return "redirect:/admin/lecturer/list";
+//		}
+//		lservice.updateLecturer(lecturer);
+//		return ("redirect:/admin/" + LECTURER_LIST);
+//	}
 
 	@GetMapping("/admin/lecturer-delete/{id}")
 	public String deleteLecturer(@PathVariable("id") int id) {
