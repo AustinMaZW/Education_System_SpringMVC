@@ -33,7 +33,7 @@ import sg.edu.iss.caps.model.User;
 @Entity
 public class Student extends User {
 
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate matriculationDate;
 	private double gpa;
 

@@ -69,7 +69,7 @@
 												</div>
 												<div class="form-floating">
 													
-													<input id="smd" placeholder="Matriculation Date" type="text" class="form-control datepicker" th:field="*{matriculationDate}" required/>
+													<input id="smd" placeholder="Matriculation Date" type="date" class="form-control" th:field="*{matriculationDate}" required/>
 													<label for="smd">Matriculation Date</label>
 												</div>
 												<div class="form-floating">
@@ -109,7 +109,7 @@
 		                <td th:text="${std.firstName}"></td>
 		                <td th:text="${std.lastName}"></td>
 		                <td th:text="${std.username}"></td>
-		                <td th:text="${#temporals.format(std.matriculationDate, 'dd-MM-yyyy')}"></td>
+		                <td th:text="${#temporals.format(std.matriculationDate, 'yyyy-MM-dd')}"></td>
 		                <td th:text="${std.gpa}"></td>
 						<td>
 							<a href="#editStudentModal" class="edit" th:attrappend="href=${std.id}" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
@@ -154,8 +154,8 @@
 														
 
 														<input id="matriculationDate" path="matriculationDate" name="matriculationDate" type="date"
-                                                           placeholder="Matriculation Date" class="form-select input-md datepicker"
-                                                           th:text="${#temporals.format(std.matriculationDate, 'dd-MM-yyyy')}" required>
+                                                           placeholder="Matriculation Date" class="form-select input-md"
+                                                           th:value="${std.matriculationDate}" required>
                                                            <label for="matriculationDate">Matriculation Date</label> 
 													</div>
 													<div class="form-floating">
