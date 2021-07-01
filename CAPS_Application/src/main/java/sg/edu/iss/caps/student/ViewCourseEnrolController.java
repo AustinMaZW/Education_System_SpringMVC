@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -66,6 +68,11 @@ public class ViewCourseEnrolController {
 		userName();
 		CourseEnrolment newEnrol = eservice.findEnrolmentById(id);
 		if (sservice.setEnrol(newEnrol, this.stu)) {
+			try {
+				sservice.sendMimeMail(this.stu, newEnrol);
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
 			return "redirect:/student/courselist";
 		}
 		return "redirect:/student/courselist/enrolss/" + newEnrol.getCourse().getId();
