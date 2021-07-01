@@ -102,8 +102,10 @@ public class StudentServiceImpl implements StudentService {
 		// get grade point obtained for each course using marks (out of 100)
 		for (Double grade : gradeslist.values()) {
 			Grade gradeEnum = Grade.valueofGradePoint(grade);
-			Double gradepoint = Double.parseDouble(Grade.valueofGrade(gradeEnum));
-			valueList.add(gradepoint);
+			if(gradeEnum != Grade.Empty && gradeEnum != Grade.Error) {
+				Double gradepoint = Double.parseDouble(Grade.valueofGrade(gradeEnum));
+				valueList.add(gradepoint);
+			}
 		}
 
 		// weighted calculation
@@ -115,6 +117,8 @@ public class StudentServiceImpl implements StudentService {
 			}
 		}
 		grades = grades / unitsTakenTotal;
+//		s.setGpa(Math.round(grades * 100.0) / 100.0);
+//		srepo.save(s);
 		return Math.round(grades * 100.0) / 100.0;
 	}
 
