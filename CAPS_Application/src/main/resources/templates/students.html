@@ -153,10 +153,10 @@
 													<div class="form-floating">
 														
 
-														<input id="matriculationDate" path="matriculationDate" name="matriculationDate" type="date"
+														<input id="ematriculationDate" name="matriculationDate" type="date"
                                                            placeholder="Matriculation Date" class="form-select input-md datepicker"
-                                                           th:text="${#temporals.format(std.matriculationDate, 'dd-MM-yyyy')}" required>
-                                                           <label for="matriculationDate">Matriculation Date</label> 
+                                                           th:value="${std.matriculationDate}" required>
+                                                           <label for="ematriculationDate">Matriculation Date</label> 
 													</div>
 													<div class="form-floating">
 														

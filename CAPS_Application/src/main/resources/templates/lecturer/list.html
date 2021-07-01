@@ -188,7 +188,42 @@
 							</div>
 							
 						</div>				
-					</div>				
+					</div>
+					<a href="#assigncourses" th:attrappend="href=${lec.id}" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Assign Courses"> &#xe614;</i></a>
+						<div class="modal fade" id="assigncourses" th:attrappend="id=${lec.id}">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<form th:action="@{/admin/lecturer/courses/assign}" method="post">
+										<div class="modal-header">
+											<h4 class="modal-title">Course Assignment</h4>
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										</div>
+										<div class="modal-body" th:object="${clist}">
+											<input name="id" id="id" type="hidden" placeholder="id" class="form-control" th:value="${lec.id}"/>
+											
+											<div class="form-check" name="clist">
+											  	  <input type="checkbox"  class="form-check-input" 
+											  	  th:each="cse,stat :*{courses}"
+											  	  th:text="${cse.name}"
+											  	  th:value="${cse.id}"
+											  	  th:field="*{courses[__${stat.index}__].id}">
+											  	   
+											  	  <!--th:field="${nclist[cseStat]}">
+												  <!--<label class="form-check-label" for="${cse.name}" >
+												    Default checkbox
+												  </label>-->
+											
+											</div>
+										</div>
+										<div class="modal-footer">
+											<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel">
+											<input type="submit" class="btn btn-info" value="Save">
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+									
 					<a th:href="@{/admin/lecturer-delete/}+${lec.id}" class="delete">
 					<i class="material-icons" title="Delete">&#xE872;</i>
 					</a>

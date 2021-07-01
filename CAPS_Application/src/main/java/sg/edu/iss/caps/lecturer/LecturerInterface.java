@@ -2,6 +2,8 @@ package sg.edu.iss.caps.lecturer;
 
 import java.util.List;
 
+import sg.edu.iss.caps.course.Course;
+
 public interface LecturerInterface {
 	public void createLecturer(Lecturer lecturer);
 
@@ -22,4 +24,8 @@ public interface LecturerInterface {
 	public void deleteLecturerById(int id); // ManageLecturerController
 
 	public Lecturer findLecturerByUsername(String username); //ViewCourseTaughtController
+	
+	public void assignCourse(List<Course> courses, int lecturerId);
+	
+	public List<Course> findCoursesByLecturerId(int lecturerId);
 }
