@@ -10,7 +10,7 @@ public interface CourseInterface {
 
 	public void updateCourse(Course course);// ManageCourseController
 
-	public void deleteCourse(Course course);// ManageCourseController
+	public boolean deleteCourse(Course course);// ManageCourseController
 
 	public Course findCourseByName(String name);// ViewCourseEnrolController
 

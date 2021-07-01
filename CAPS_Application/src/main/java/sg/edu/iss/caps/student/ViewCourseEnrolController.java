@@ -23,6 +23,7 @@ import sg.edu.iss.caps.course.CourseInterface;
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolmentService;
 import sg.edu.iss.caps.enrolment.MyComparator;
+import sg.edu.iss.caps.model.Status;
 
 //add authorization path
 @Controller
@@ -82,14 +83,15 @@ public class ViewCourseEnrolController {
 		userName();
 		List<Course> cList = cservice.listAllCourses();
 		cList = RestCourse(cList);
-		List<CourseEnrolment> cEnrols = new ArrayList<>();
-
-		for (Course c : cList) {
-
-			CourseEnrolment enrol = eservice.findEnrolmentById(c.getId());
-			cEnrols.add(enrol);
-		}
-		model.addAttribute("courseList", cEnrols);
+		Map<Course, Integer> numEnrol = new HashMap<Course, Integer>();
+		cList.stream().forEach(x -> {
+			List<CourseEnrolment> enrols = new ArrayList<>();
+			eservice.findEnrolmentByCourse(x).stream().filter(y -> y.getStatus() != Status.NOTAVAILABLE)
+					.forEach(z -> enrols.add(z));
+			numEnrol.put(x, enrols.size());
+		});
+		model.addAttribute("courseList", cList);
+		model.addAttribute("ens", numEnrol);
 		return "CourseEnrol";
 	}
 
@@ -113,6 +115,15 @@ public class ViewCourseEnrolController {
 		userName();
 		System.out.println(queryString);
 		List<Course> list = cservice.findCoursesByName(queryString);
+		list = RestCourse(list);
+		Map<Course, Integer> numEnrol = new HashMap<Course, Integer>();
+		list.stream().forEach(x -> {
+			List<CourseEnrolment> enrols = new ArrayList<>();
+			eservice.findEnrolmentByCourse(x).stream().filter(y -> y.getStatus() != Status.NOTAVAILABLE)
+					.forEach(z -> enrols.add(z));
+			numEnrol.put(x, enrols.size());
+		});
+		model.addAttribute("ens", numEnrol);
 		model.addAttribute("courseList", list);
 		model.addAttribute("keyword", queryString);
 		return "CourseEnrol";

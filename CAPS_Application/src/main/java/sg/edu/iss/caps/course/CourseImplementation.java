@@ -7,12 +7,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sg.edu.iss.caps.lecturer.Lecturer;
+import sg.edu.iss.caps.lecturer.LecturerInterface;
+import sg.edu.iss.caps.lecturer.LecturerRepository;
+
 @Service
 public class CourseImplementation implements CourseInterface {
 
 	@Autowired
 	CourseRepository crepo;
-
+	@Autowired
+	LecturerRepository lrepo;
+	@Autowired
+	LecturerInterface lservice;
+	
 	@Override
 	public void createCourse(Course course) {
 		// TODO Auto-generated method stub
@@ -32,9 +40,25 @@ public class CourseImplementation implements CourseInterface {
 	}
 
 	@Override
-	public void deleteCourse(Course course) {
+	public boolean deleteCourse(Course course) {
 		// TODO Auto-generated method stub
+		if(course.getEnrols().size()!=0) {return false;}
+		List<Lecturer> lecturers = lservice.findLecturersByCourses(course);
+		if(lecturers.size()!=0) {
+			lecturers.stream().forEach(x -> {
+				List<Course> c = new ArrayList<>();
+				x.getCourses().stream().forEach(y-> {
+					if(y.getId()!=course.getId()) {
+						c.add(y);
+					}
+				});
+				x.setCourses(c);
+				lrepo.save(x);
+			});
+		}
+
 		crepo.delete(course);
+		return true;
 	}
 
 	@Override
