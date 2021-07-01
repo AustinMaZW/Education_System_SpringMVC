@@ -31,13 +31,13 @@ public class StudentController {
 	public String listGrades(Model model, Authentication authentication) {
 		UserDetailsImpl userdetails = (UserDetailsImpl) authentication.getPrincipal();
 		Integer id = userdetails.getId();
-		Student s = srepo.findById(id).get();
-		model.addAttribute("student",sservice.getGradesAlphabet(s));
-		
+		Student s = sservice.findStudentById(id);
+
 		Double totalCredit = sservice.getMC(s);
-		model.addAttribute("totalCredit", totalCredit);
-		
 		Double CAP = sservice.getCAP(s);
+
+		model.addAttribute("student",sservice.getGradesAlphabet(s));
+		model.addAttribute("totalCredit", totalCredit);
 		model.addAttribute("CAP", CAP);
 		
 		return "student-view-cgpa";

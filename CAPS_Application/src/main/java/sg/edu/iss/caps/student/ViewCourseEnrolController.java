@@ -121,7 +121,7 @@ public class ViewCourseEnrolController {
 		Course course = cservice.findCourseById(id);
 		ArrayList<CourseEnrolment> eList = (ArrayList<CourseEnrolment>) eservice.findEnrolmentByCourse(course);
 		eList = (ArrayList<CourseEnrolment>) validList(eList);
-		eList = (ArrayList<CourseEnrolment>) isAvailable(eList);
+		//eList = (ArrayList<CourseEnrolment>) isAvailable(eList);
 		Map<CourseEnrolment, Integer> numStu = new HashMap<CourseEnrolment, Integer>();
 		eList.stream().forEach(x -> {
 			numStu.put(x, eservice.findStudentsByEnrol(x).size());

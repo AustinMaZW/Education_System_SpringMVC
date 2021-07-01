@@ -127,22 +127,15 @@ public class ViewStudentsByEnrolmentController {
 		return "lecturer-view-all-student";
 	}
 
-//	@RequestMapping("/student/{id}")
-//	public String getAStudentPerformance(@PathVariable("id") Integer id, Model model) {
-//
-//		return new ModelAndView ("redirect:/student/view" + studentId.toString();
-//	}
-// not sure if can return modelandview instead, the code is same as student controller
 	@RequestMapping("/student/{id}")
 	public String getAStudentPerformance(@PathVariable("id") Integer id, Model model) {
 		Student s = sservice.findStudentById(id);
 
-		model.addAttribute("student",sservice.getGradesAlphabet(s));
-
 		Double totalCredit = sservice.getMC(s);
-		model.addAttribute("totalCredit", totalCredit);
-
 		Double CAP = sservice.getCAP(s);
+
+		model.addAttribute("student",sservice.getGradesAlphabet(s));
+		model.addAttribute("totalCredit", totalCredit);
 		model.addAttribute("CAP", CAP);
 
 		return "student-view-cgpa";
