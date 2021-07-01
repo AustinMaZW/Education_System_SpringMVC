@@ -3,6 +3,8 @@ package sg.edu.iss.caps.student;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
 
 public interface StudentService {
@@ -25,4 +27,8 @@ public interface StudentService {
 	public Double getMC(Student s);
 
 	public Student updateGradeByStudentId(int studentId, int enrolId, double grade);
+	
+	public void sendSimpleTextMail();
+	
+	public void sendMimeMail(Student stu, CourseEnrolment enrol) throws MessagingException;
 }
