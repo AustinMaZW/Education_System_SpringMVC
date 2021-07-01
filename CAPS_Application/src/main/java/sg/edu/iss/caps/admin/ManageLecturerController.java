@@ -59,7 +59,11 @@ public class ManageLecturerController {
 		if(result.hasErrors()) {
 			return "redirect:/admin/lecturer/list";
 		}
-		lservice.updateLecturer(lecturer);
+		if(lservice.isNewLecturer(lecturer.getId())) {
+			lservice.updateLecturer(lecturer);
+		}
+		else
+			lservice.createLecturer(lecturer);
 		return ("redirect:/admin/"+ LECTURER_LIST);
 	}
 
