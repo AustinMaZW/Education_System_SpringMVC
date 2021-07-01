@@ -99,18 +99,16 @@ public class DataTest {
 		LocalDate start = LocalDate.of(2021, 6, 10);
 		LocalDate end = LocalDate.of(2021, 6, 20);
 		List<Course> cList = crepo.findAll();
-		cList.stream()
-				.forEach(x -> erepo.save(new CourseEnrolment(x, start, end, 50, Status.AVAILABLE)));
+		cList.stream().forEach(x -> erepo.save(new CourseEnrolment(x, start, end, 50, Status.AVAILABLE)));
 		List<CourseEnrolment> enrols = erepo.findAll();
 		List<Student> students = srepo.findAll();
 		students.stream().forEach(x -> {
 			Map<CourseEnrolment, Double> score = x.getGrades();
-			enrols.stream().forEach(y -> score.put(y,(double) Math.round(Math.random()*(51) + 50)));
+			enrols.stream().forEach(y -> score.put(y, (double) Math.round(Math.random() * (51) + 50)));
 			x.setGrades(score);
 			srepo.save(x);
 		});
 	}
-
 
 	@Test
 	@Order(2)
@@ -126,6 +124,12 @@ public class DataTest {
 			x.setEnrols(enrols);
 			crepo.save(x);
 		});
+	}
+
+	@Test
+	@Order(2)
+	public void test_4() {
+
 	}
 
 	public PasswordEncoder PasswordEncoder() {

@@ -132,11 +132,13 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	}
 
 	@Override
+	@Transactional
 	public CourseEnrolment findEnrolmentById(int id) {
 		return erepo.findCourseEnrolmentById(id);
 	}
 
 	@Override
+	@Transactional
 	public boolean cancelEnrol(int id) {
 		CourseEnrolment enrol = erepo.findById(id).get();
 		if (enrol.getStatus() == Status.AVAILABLE)
@@ -148,18 +150,21 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	}
 
 	@Override
+	@Transactional
 	public List<CourseEnrolment> findEnrolmentByCourseName(String queryString) {
 		List<CourseEnrolment> list = erepo.findEnrolmentByCourseName(queryString);
 		return list;
 	}
 
 	@Override
+	@Transactional
 	public void cancelEnrol(CourseEnrolment enrol) {
 		enrol.setStatus(Status.NOTAVAILABLE);
 		erepo.save(enrol);
 	}
 
 	@Override
+	@Transactional
 	public List<Student> findStudentsByEnrol(CourseEnrolment enrol) {
 		List<Student> stus = srepo.findAll();
 		List<Student> newList = new ArrayList<>();
@@ -172,13 +177,16 @@ public class EnrolmentServiceImpl implements EnrolmentService {
 	}
 
 	@Override
+	@Transactional
 	public List<StudentEnrolmentDTO> getStudentsByEnrolment(int enrolId) {
 		return erepo.findStudentsByEnrolment(enrolId);
 	}
 
 	@Override
+	@Transactional
 	public List<StudentEnrolmentDTO> getStudentsByCourse(int courseId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

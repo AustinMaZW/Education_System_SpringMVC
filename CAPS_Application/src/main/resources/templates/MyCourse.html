@@ -61,7 +61,7 @@
                             <th>Status</th>
                             <th>Start Date</th>
                             <th>End Date</th>
-                            <th>Grade</th>
+                            <th>Grade(GPA / GRADE / STATUS)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,10 +72,12 @@
                             <td th:text="${enrol.status}"></td>
                             <td th:text="${enrol.startDate}"></td>
                             <td th:text="${enrol.endDate}"></td>
-                            <td th:if="${grades.get(enrol)} <= 100.0" th:text="${gpa.get(enrol)}"></td>
-                            <td th:if="${grades.get(enrol)} == 101.0" th:text="Null"></td>
-                            <td><a th:href="@{/student/cancel/}+${enrol.Id}"><i class="material-icons"
-                                        title="Cancel">
+                            <td th:if="${grades.get(enrol)} <= 40.0 and ${grades.get(enrol)} >= 0.0"
+                                th:text="${gpa.get(enrol)} + ' / ('+${grades.get(enrol)} +') / FAILED'"></td>
+                            <td th:if="${grades.get(enrol)} <= 100.0 and ${grades.get(enrol)} >= 40.0"
+                                th:text="${gpa.get(enrol)} + ' / ('+${grades.get(enrol)} +') / PASSED'"></td>
+                            <td th:if="${grades.get(enrol)} == -1.0" th:text="OnGoing"></td>
+                            <td><a th:href="@{/student/cancel/}+${enrol.Id}"><i class="material-icons" title="Cancel">
                                         <h2>&#xE872;</h2>
                                     </i></a>
                             </td>

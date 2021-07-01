@@ -1,8 +1,6 @@
 package sg.edu.iss.caps.lecturer;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,7 +14,6 @@ import sg.edu.iss.caps.course.Course;
 import sg.edu.iss.caps.course.CourseInterface;
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolmentService;
-import sg.edu.iss.caps.student.Student;
 
 //add authorization for path
 @Controller
@@ -43,12 +40,6 @@ public class ViewCourseTaughtController {
 	public String enrolList(@PathVariable("id") int id, Model model) {
 		Course course = cservice.findCourseById(id);
 		List<CourseEnrolment> enrols = eservice.findEnrolmentByCourse(course);
-//		Map<CourseEnrolment, List<Student>> list = new HashMap<CourseEnrolment, List<Student>>();
-//		enrols.stream().forEach(x -> {
-//			List<Student> stus = eservice.findStudentsByEnrol(x);
-//			list.put(x, stus);
-//		});
-//		model.addAttribute("enrols", list);
 		model.addAttribute("enrols", enrols);
 		return "CourseEnrollments";
 	}
