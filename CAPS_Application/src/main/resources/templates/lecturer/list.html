@@ -201,17 +201,14 @@
 										<div class="modal-body" th:object="${clist}">
 											<input name="id" id="id" type="hidden" placeholder="id" class="form-control" th:value="${lec.id}"/>
 											
-											<div class="form-check" name="clist">
-											  	  <input type="checkbox"  class="form-check-input" 
-											  	  th:each="cse,stat :*{courses}"
-											  	  th:text="${cse.name}"
-											  	  th:value="${cse.id}"
-											  	  th:field="*{courses[__${stat.index}__].id}">
-											  	   
-											  	  <!--th:field="${nclist[cseStat]}">
-												  <!--<label class="form-check-label" for="${cse.name}" >
-												    Default checkbox
-												  </label>-->
+											<div th:each="cse,stat :*{courses}" class="form-check">
+													<input type="checkbox"  class="form-check-input" 
+												  	  th:value="${cse.description}"
+												  	  th:field="*{courses[__${stat.index}__].description}"
+												  	  id="${cse.id}"
+												  	  >
+											  	 
+												  <label class="form-check-label" for="${cse.id}"  th:text="${cse.name}"></label>
 											
 											</div>
 										</div>

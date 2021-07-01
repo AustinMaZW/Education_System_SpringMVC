@@ -51,7 +51,7 @@ public class ManageLecturerController {
 		model.addAttribute("lecList",lecList);
 		model.addAttribute("lecturer", lecturer);
 		model.addAttribute("clist",clist);
-		ArrayList<Course> nclist = new ArrayList<Course>();
+		AssignLecturerCourse nclist = new AssignLecturerCourse();
 		model.addAttribute("nclist", nclist);
 		return LECTURER_LIST;
 
@@ -112,11 +112,13 @@ public class ManageLecturerController {
 	}
 	
 	@RequestMapping("/admin/lecturer/courses/assign")
-	public String assignCourses(@ModelAttribute @Valid AssignLecturerCourse clist, @RequestParam("id") int lecturerId, BindingResult result) {
-		if(result.hasErrors()) {
-			return "redirect:/admin";
+	public String assignCourses(@ModelAttribute @Valid AssignLecturerCourse clist, @RequestParam("id") int lecturerId) {
+		ArrayList<Course> courses = new ArrayList<Course>();
+		for (Course course : clist.getCourses()) {
+			Course actual = cservice.findCourseByDescription(course.getDescription());
+			courses.add(actual);
 		}
-		lservice.assignCourse(clist.getCourses(), lecturerId);
+		lservice.assignCourse((List<Course>) courses, lecturerId);
 		return ("redirect:/admin/"+LECTURER_LIST);
 	}
 }
