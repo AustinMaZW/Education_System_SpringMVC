@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.caps.course.Course;
+import sg.edu.iss.caps.course.CourseRepository;
 import sg.edu.iss.caps.model.Status;
 import sg.edu.iss.caps.security.SecurityConfig;
 
@@ -17,6 +18,9 @@ public class LecturerImplementation implements LecturerInterface {
 
 	@Autowired
 	LecturerRepository lrepo;
+	
+	@Autowired
+	CourseRepository crepo;
 
 	@Autowired
 	SecurityConfig secConfig;
@@ -107,7 +111,22 @@ public class LecturerImplementation implements LecturerInterface {
 	}
 
 	@Override
-	@Transactional
+	public void assignCourse(List<Course> courses, int lecturerId) {
+		// TODO Auto-generated method stub
+		Lecturer lecturer = lrepo.findById(lecturerId).get();
+		lecturer.setCourses(courses);		
+		lrepo.save(lecturer);
+	}
+
+	@Override
+	public List<Course> findCoursesByLecturerId(int lecturerId) {
+		// TODO Auto-generated method stub
+		List<Course> clist = lrepo.findById(lecturerId).get().getCourses();
+		
+		return clist;
+	}
+
+
 	public List<Lecturer> findLecturersByCourses(Course course) {
 		List<Lecturer> allLecturers = findAllLecturer();
 		List<Lecturer> lecturerByCourse = new ArrayList<>();

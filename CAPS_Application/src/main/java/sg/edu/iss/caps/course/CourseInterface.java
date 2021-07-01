@@ -19,4 +19,6 @@ public interface CourseInterface {
 	public ArrayList<String> findAllCourseNames(); // ManageEnrolmentController 
 
 	public List<Course> findCoursesByName(String name); // ViewCourseEnrolController
+	
+	public Course findCourseByDescription(String cdescription);
 }

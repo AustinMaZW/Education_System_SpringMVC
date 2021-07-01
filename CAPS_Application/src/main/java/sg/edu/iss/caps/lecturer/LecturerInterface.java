@@ -25,5 +25,9 @@ public interface LecturerInterface {
 
 	public Lecturer findLecturerByUsername(String username); //ViewCourseTaughtController
 	
+	public void assignCourse(List<Course> courses, int lecturerId);
+	
+	public List<Course> findCoursesByLecturerId(int lecturerId);
+  
 	public List<Lecturer> findLecturersByCourses(Course course);
 }
