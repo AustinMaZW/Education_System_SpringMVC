@@ -30,6 +30,11 @@ public class LoginController {
 		return "index";
 	}
 	
+	@GetMapping("/")
+	public String home() {
+		return ("index");
+	}
+	
 //	@PostMapping("fail_login")
 //	public String handleFailedLogin() {
 //		//logic here
@@ -38,47 +43,12 @@ public class LoginController {
 //		return "redirect:/login?error";
 //	}
 	
-	@GetMapping("/")
-	public String home() {
-		return ("index");
-	}
-	
-	@GetMapping("/student")
-	public String student()  {
-		return ("index");
-	}
-	
-	@GetMapping("/lecturer")
-	public String lecturer()  {
-		return ("lecturer");
-	}
-	
-	@GetMapping("/admin")
-	public String admin()  {
-		return ("admin");
-	}
-	
-	
 	//use @PreAuthorize to set access, below is just test example
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@GetMapping("/testmodule")
-	public String testmodule()  {
-		return ("admin");
-	}
-	
-	//for test demo purpose, below is restricted to admin only because it is mapped under /admin. Check securityconfig for details
-	@GetMapping("/admin/test")
-	public String admintest()  {
-		return ("admin");
-	}
-
-
-//	Old code 
-//	@RequestMapping(value = "/authenticate")
-//	public String authenticate(@ModelAttribute("user") User user, Model model, HttpSession session) {
-//		if(loginservice.authenticate(user)){
-//			return "index";
-//		}
-//		return "login";
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")
+//	@GetMapping("/testmodule")
+//	public String testmodule()  {
+//		return ("admin");
 //	}
+	
+
 }

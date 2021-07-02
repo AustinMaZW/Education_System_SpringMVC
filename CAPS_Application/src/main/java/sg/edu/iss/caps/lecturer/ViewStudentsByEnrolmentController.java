@@ -85,22 +85,6 @@ public class ViewStudentsByEnrolmentController {
 		return "/lecturer/ViewStudentEnrolled";
 	}
 
-	// Austin test code for manage grades
-//	@RequestMapping("/enrol/students/{id}")
-//	public String studentList(@PathVariable("id") int id, Model model) {
-//		CourseEnrolment courseEnrolment = eservice.findEnrolmentById(id);
-//		List<Student> studentList= eservice.findStudentsByEnrol(courseEnrolment);
-//		StudentListWrapper slw = new StudentListWrapper(studentList); //wrapper class for list of students
-//
-//		for (Student s: studentList) {
-//			slw.addGrade(s.getId(), s.getGrades().get(courseEnrolment));
-//		}
-//		model.addAttribute("students", slw); 
-//		model.addAttribute("enrol", courseEnrolment);
-//		//model.addAttribute("gradesMap", sgw); 
-//		return "/lecturer/ViewStudentEnrolled";
-//	}
-
 	@PostMapping("/savegrades/{id}")
 	public String saveGrades(@ModelAttribute("StudentListWrapper") StudentListWrapper studentList,
 			@PathVariable("id") int id) {
@@ -108,18 +92,6 @@ public class ViewStudentsByEnrolmentController {
 		Set<Integer> studentIds = studentList.getGrades().keySet();
 		updateGrade(studentList, id, studentIds);
 
-//		List<Student> students = new ArrayList<Student>();
-//		for(Integer sid:studentIds){
-//			students.add(sservice.findStudentById(sid));
-//		}
-//		for(Student s:students){
-//			s.setGpa(sservice.getCAP(s));
-//		}
-		// add code to check course completion by student
-//		studentIds.stream().forEach(x -> {
-//			if()
-//		})
-//		
 		Integer enrolId = id;
 		return "redirect:/lecturer/enrol/stdlist/" + enrolId.toString();
 

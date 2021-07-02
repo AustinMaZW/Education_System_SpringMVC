@@ -14,5 +14,4 @@ public interface AdminInterface {
 	public Student getStudentById(Integer id);
 	public void deleteStudent(Student student);
 	
-	// use later for admin service
 }
