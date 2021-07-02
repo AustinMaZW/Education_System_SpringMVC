@@ -48,19 +48,6 @@ public class ManageCourseController {
 		
 	}
 	
-//	@PostMapping(value="/save")
-//	public String saveEditCourse(@Valid Course course, BindingResult result) {
-//		if (result.hasErrors()) { return "course/editcourse";}
-//		cservice.updateCourse(course);
-//		return "redirect:/admin/course";
-//	}
-	
-//	@GetMapping(value="/new")
-//	public String addCourse (Model model) {
-//		Course course = new Course();
-//		model.addAttribute("course", course);
-//		return "course/editcourse";
-//	}
 		
 	@GetMapping("/delete/{id}")
 	public String deleteMethod(@PathVariable("id") Integer id) {
