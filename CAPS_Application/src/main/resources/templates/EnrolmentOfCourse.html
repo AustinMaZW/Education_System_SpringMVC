@@ -72,8 +72,10 @@
                             <td th:text="${enrol.status}"></td>
                             <td th:text="${enrol.startDate}"></td>
                             <td th:text="${enrol.endDate}"></td>
-                            <td th:if="${numStu.get(enrol)} < ${enrol.capacity}"><button class="btn" type="button"><a
-                                        th:href="@{/student/add/}+${enrol.Id}"><i class="material-icons"
+                            <td th:if="${numStu.get(enrol)} < ${enrol.capacity}"><button class="btn" type="button">
+                            	<a th:href="@{/student/add/}+${enrol.Id}" 
+                            	onclick="return confirm('Please confirm enrolment. Upon successful enrolment, a confirmation will be sent to you email');">
+                                        <i class="material-icons"
                                             data-toggle="tooltip" title="Enrol" style="color: rgb(65, 128, 2);">
                                             <h2>&#xe7f0;</h2>
                                         </i></a></button>

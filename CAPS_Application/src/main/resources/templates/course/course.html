@@ -133,7 +133,8 @@
 									</div>
 								</div> 
 								<!-- Individual Delete Button--> 
-								<a th:if="${course.enrols.size() == 0}" th:href="@{/admin/course/delete/}+${course.id}" class="delete" onclick="return confirm('Are you sure you want to delete this item?');">
+								<a th:if="${course.enrols.size() == 0}" th:href="@{/admin/course/delete/}+${course.id}" class="delete" 
+								onclick="return confirm('Are you sure you want to delete this item?');">
 								<i class="material-icons" title="Delete">&#xE872;</i></a>
 						</td>
 					</tr>

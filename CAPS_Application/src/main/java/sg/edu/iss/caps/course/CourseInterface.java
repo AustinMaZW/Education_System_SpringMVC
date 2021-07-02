@@ -12,7 +12,7 @@ public interface CourseInterface {
 
 	public boolean deleteCourse(Course course);// ManageCourseController
 
-//	public Course findCourseByName(String name);// ViewCourseEnrolController
+	public Course findCourseByName(String name);// ViewCourseEnrolController
 
 	public Course findCourseById(int id); // ViewCourseTaughtController ViewCourseEnrolController LecturerController
 

@@ -12,12 +12,12 @@ public class StudentListWrapper {
 	private List<Student> students = new ArrayList<>();
 	private Map<Integer, Double> grades = new HashMap<>();
 	
-//	public StudentListWrapper() {}
-//
+	public StudentListWrapper() {}
+
 //	public StudentListWrapper(List<Student> studentList) {
 //		this.students = studentList;
 //	}
-//
+
 	public StudentListWrapper(List<Student> studentList, Map<Integer, Double> grades) {
 		this.students = studentList;
 		this.grades = grades;

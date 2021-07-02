@@ -111,10 +111,12 @@
 							<div class="modal-body">
 								<input name="id" id="id" type="hidden" placeholder="id" class="form-control" th:value="${enrol.id}"/>
 								<div class="form-floating">
+								<!--  
 									<select id="ecn" placeholder="Course Name" class="form-select" name="course.name">
            								<option th:each="cname:${coursenames}" th:value="${enrol.course.name}"
            								th:text="${cname}"></option>
-           							</select>
+           							</select> -->
+           							<input id="ecn" placeholder="Course Name" class="form-control" type="text" name="course.name" th:value="${enrol.course.name}" readonly/>
 									<label for="ecn">Course Name</label>
 								</div>
 								<div class="form-floating">
@@ -189,7 +191,9 @@
 								  </div>
 							  </div>
 							  <div class="modal-footer">
-								  <input th:if="${enrol.status==T(sg.edu.iss.caps.model.Status).AVAILABLE}" type="submit" class="btn btn-info" value="Add Student">
+								  <input th:if="${enrol.status==T(sg.edu.iss.caps.model.Status).AVAILABLE OR
+								  enrol.status==T(sg.edu.iss.caps.model.Status).ONGOING}" 
+								  type="submit" class="btn btn-info" value="Add Student">
 								  <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancel">
 							  </div>
 						  </form>

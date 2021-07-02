@@ -115,7 +115,7 @@ public class ManageLecturerController {
 	public String assignCourses(@ModelAttribute @Valid AssignLecturerCourse clist, @RequestParam("id") int lecturerId) {
 		ArrayList<Course> courses = new ArrayList<Course>();
 		for (Course course : clist.getCourses()) {
-			Course actual = cservice.findCourseByDescription(course.getDescription());
+			Course actual = cservice.findCourseByName(course.getName()); //change to getId because description is not unique
 			courses.add(actual);
 		}
 		lservice.assignCourse((List<Course>) courses, lecturerId);

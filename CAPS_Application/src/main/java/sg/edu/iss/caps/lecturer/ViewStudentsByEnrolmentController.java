@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.iss.caps.enrolment.CourseEnrolment;
 import sg.edu.iss.caps.enrolment.EnrolmentService;
+import sg.edu.iss.caps.model.Status;
 import sg.edu.iss.caps.model.StudentEnrolmentDTO;
 import sg.edu.iss.caps.security.UserDetailsImpl;
 import sg.edu.iss.caps.student.Student;
@@ -72,10 +73,15 @@ public class ViewStudentsByEnrolmentController {
 		list.stream().forEach(x -> gradelist.put(x.getStudent().getId(), x.getGrade()));
 
 		StudentListWrapper slw = new StudentListWrapper(stdlist, gradelist); // wrapper class for list of students
-
+		
+		boolean canEditGrade = false;
+		if (courseEnrolment.getStatus()==Status.COMPLETE) {
+			canEditGrade = true;
+		}
 		model.addAttribute("students", slw);
 		model.addAttribute("enrol", courseEnrolment);
 		model.addAttribute("course_id", courseEnrolment.getCourse().getId());
+		model.addAttribute("canEditGrade", canEditGrade); // to check if course is complete, otherwise cannot edit grade
 		return "/lecturer/ViewStudentEnrolled";
 	}
 
@@ -98,7 +104,7 @@ public class ViewStudentsByEnrolmentController {
 	@PostMapping("/savegrades/{id}")
 	public String saveGrades(@ModelAttribute("StudentListWrapper") StudentListWrapper studentList,
 			@PathVariable("id") int id) {
-
+		
 		Set<Integer> studentIds = studentList.getGrades().keySet();
 		updateGrade(studentList, id, studentIds);
 

@@ -95,8 +95,11 @@ public class StudentServiceImpl implements StudentService {
 
 		// get course weight-age via modular credit
 		for (CourseEnrolment courseEId : gradeslist.keySet()) {
-			Double modularcredit = Double.parseDouble(courseEId.getCourse().getModularcredits());
-			modularCreditList.add(modularcredit);
+			Grade gradeEnum = Grade.valueofGradePoint(gradeslist.get(courseEId));
+			if(gradeEnum != Grade.Empty && gradeEnum != Grade.Error) {
+				Double modularcredit = Double.parseDouble(courseEId.getCourse().getModularcredits());
+				modularCreditList.add(modularcredit);
+			}
 		}
 
 		// get grade point obtained for each course using marks (out of 100)
@@ -162,7 +165,7 @@ public class StudentServiceImpl implements StudentService {
 	public Student updateGradeByStudentId(int studentId, int enrolId, double grade) {
 		CourseEnrolment courseEnrolment = erepo.findCourseEnrolmentById(enrolId);
 		Student s = srepo.findStudentById(studentId);
-		if (s.getGrades().get(courseEnrolment) == null) {
+		if (s.getGrades().get(courseEnrolment) == null || courseEnrolment.getStatus()!= Status.COMPLETE) {
 			return null;
 		}
 

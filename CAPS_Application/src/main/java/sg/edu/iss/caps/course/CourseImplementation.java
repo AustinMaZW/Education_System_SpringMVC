@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.caps.lecturer.Lecturer;
 import sg.edu.iss.caps.lecturer.LecturerInterface;
@@ -61,12 +62,6 @@ public class CourseImplementation implements CourseInterface {
 		return true;
 	}
 
-//	@Override
-//	public Course findCourseByName(String name) {
-//		// TODO Auto-generated method stub
-//		return crepo.findCourseByName(name);
-//	}
-
 	@Override
 	public Course findCourseById(int id) {
 		return crepo.findCourseById(id);
@@ -96,4 +91,9 @@ public class CourseImplementation implements CourseInterface {
 		return course;
 	}
 
+	@Override
+	@Transactional
+	public Course findCourseByName(String name) {
+		return crepo.findCourseByName(name);
+	}
 }
