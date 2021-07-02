@@ -51,8 +51,8 @@ public class Student extends User {
 	}
 
 	public Student(LocalDate matriculationDate, double gpa, @NotEmpty String username, @NotEmpty String password,
-			String sessionId, String firstName, String lastName) {
-		super(username, password, sessionId, firstName, lastName);
+			String firstName, String lastName) {
+		super(username, password, firstName, lastName);
 		this.matriculationDate = matriculationDate;
 		this.gpa = gpa;
 	}

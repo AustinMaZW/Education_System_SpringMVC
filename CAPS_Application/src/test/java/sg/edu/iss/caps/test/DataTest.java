@@ -53,7 +53,7 @@ public class DataTest {
 	@Test
 	@Order(0)
 	public void test_1() {
-		Admin a = new Admin("Admin", PasswordEncoder().encode("Admin"), null, "admin", "admin");
+		Admin a = new Admin("Admin", PasswordEncoder().encode("Admin"), "admin", "admin");
 		arepo.save(a);
 		List<Course> courseList = new ArrayList<Course>();
 //		courseList.add(new Course("C#", "Microsoft", "Coding"));
@@ -99,12 +99,12 @@ public class DataTest {
 		LocalDate start = LocalDate.of(2021, 6, 10);
 		LocalDate end = LocalDate.of(2021, 6, 20);
 		List<Course> cList = crepo.findAll();
-		cList.stream().forEach(x -> erepo.save(new CourseEnrolment(x, start, end, 50, Status.AVAILABLE)));
+		cList.stream().forEach(x -> erepo.save(new CourseEnrolment(x, start, end, 50, Status.COMPLETE)));
 		List<CourseEnrolment> enrols = erepo.findAll();
 		List<Student> students = srepo.findAll();
 		students.stream().forEach(x -> {
 			Map<CourseEnrolment, Double> score = x.getGrades();
-			enrols.stream().forEach(y -> score.put(y, (double) Math.round(Math.random() * (51) + 50)));
+			enrols.stream().forEach(y -> score.put(y, -1.0));
 			x.setGrades(score);
 			srepo.save(x);
 		});

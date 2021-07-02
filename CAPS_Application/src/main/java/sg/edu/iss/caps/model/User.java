@@ -35,19 +35,10 @@ public class User {
 	private String username;
 	@Column(nullable = false)
 	private String password;
-	private String sessionId;
 	@Column(nullable = false)
 	private String firstName;
 	@Column(nullable = false)
 	private String lastName;
-
-	public User(String username, String password, String sessionId, String firstName, String lastName) {
-		this.username = username;
-		this.password = password;
-		this.sessionId = sessionId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
 
 	public boolean isNew() {
 		return (Integer) this.id == null;

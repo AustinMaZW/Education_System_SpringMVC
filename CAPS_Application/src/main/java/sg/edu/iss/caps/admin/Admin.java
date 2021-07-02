@@ -11,11 +11,10 @@ import sg.edu.iss.caps.model.User;
 @NoArgsConstructor
 @Entity
 public class Admin extends User{
-	private String roles = "ADMIN";
 
-	public Admin(@NotEmpty String username, @NotEmpty String password, String sessionId, String firstName,
+	public Admin(@NotEmpty String username, @NotEmpty String password, String firstName,
 			String secondName) {
-		super(username, password, sessionId, firstName, secondName);
+		super(username, password, firstName, secondName);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -42,8 +42,8 @@ public class Lecturer extends User {
 	}
 
 	public Lecturer(Level jobLevel, String description, Status status, @NotEmpty String username,
-			@NotEmpty String password, String sessionId, String firstName, String secondName) {
-		super(username, password, sessionId, firstName, secondName);
+			@NotEmpty String password, String firstName, String secondName) {
+		super(username, password, firstName, secondName);
 		this.jobLevel = jobLevel;
 		this.status = status;
 		this.description = description;
