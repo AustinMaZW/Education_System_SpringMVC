@@ -138,7 +138,7 @@ public class ViewCourseEnrolController {
 	private List<CourseEnrolment> validList(List<CourseEnrolment> list) {
 		List<CourseEnrolment> enrols = new ArrayList<CourseEnrolment>(this.stu.getGrades().keySet());
 		enrols.stream().forEach(x -> {
-			if (list.contains(x)) {
+			if (list.contains(x) || x.getStatus() == Status.COMPLETE) {
 				list.remove(x);
 			}
 		});
