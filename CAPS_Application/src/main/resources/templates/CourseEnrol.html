@@ -73,12 +73,14 @@
                             <td th:text="${course.name}"></td>
                             <td th:text="${course.description}"></td>
                             <td th:text="${ens.get(course)}"></td>
-                            <td>
+                            <td th:if="${ens.get(course)} != 0">
                                 <button class="btn" type="button"><a
                                         th:href="@{/student/courselist/enrolss/}+${course.id}"><i class="material-icons"
                                             data-toggle="tooltip" title="Enrollments">
                                             <h2>&#xe614;</h2>
                                         </i></a></button>
+                            </td>
+                            <td th:if="${ens.get(course)} == 0" th:text="'There is no Available Enrollments, Now.'">
                             </td>
                         </tr>
                     </tbody>

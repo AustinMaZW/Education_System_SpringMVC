@@ -96,10 +96,10 @@ public class DataTest {
 	@Test
 	@Order(1)
 	public void test_2() {
-		LocalDate start = LocalDate.of(2021, 6, 10);
-		LocalDate end = LocalDate.of(2021, 6, 20);
+		LocalDate start = LocalDate.of(2021, 7, 10);
+		LocalDate end = LocalDate.of(2021, 7, 20);
 		List<Course> cList = crepo.findAll();
-		cList.stream().forEach(x -> erepo.save(new CourseEnrolment(x, start, end, 50, Status.COMPLETE)));
+		cList.stream().forEach(x -> erepo.save(new CourseEnrolment(x, start, end, 50, Status.AVAILABLE)));
 		List<CourseEnrolment> enrols = erepo.findAll();
 		List<Student> students = srepo.findAll();
 		students.stream().forEach(x -> {
@@ -124,12 +124,13 @@ public class DataTest {
 			x.setEnrols(enrols);
 			crepo.save(x);
 		});
-		//new lecturer to test delete for courses
-		Lecturer newLecturer = new Lecturer("NP", PasswordEncoder().encode("123"), "New", "Prof", Level.SENIOR,
-				"New", Status.AVAILABLE);
+		// new lecturer to test delete for courses
+		Lecturer newLecturer = new Lecturer("NP", PasswordEncoder().encode("123"), "New", "Prof", Level.SENIOR, "New",
+				Status.AVAILABLE);
 		crepo.save(new Course("BONUS ENRICHMENT", "SA4106", "BONUS", "0"));
 		List<Course> newAllCourses = crepo.findAll();
-		newLecturer.setCourses(newAllCourses); lrepo.save(newLecturer);
+		newLecturer.setCourses(newAllCourses);
+		lrepo.save(newLecturer);
 	}
 
 	@Test
