@@ -72,7 +72,7 @@
                             <td th:text="${enrol.status}"></td>
                             <td th:text="${enrol.startDate}"></td>
                             <td th:text="${enrol.endDate}"></td>
-                            <td th:if="${grades.get(enrol)} <= 40.0 and ${grades.get(enrol)} >= 0.0"
+                            <td th:if="${grades.get(enrol)} < 40.0 and ${grades.get(enrol)} >= 0.0"
                                 th:text="${gpa.get(enrol)} + ' / ('+${grades.get(enrol)} +') / FAILED'"></td>
                             <td th:if="${grades.get(enrol)} <= 100.0 and ${grades.get(enrol)} >= 40.0"
                                 th:text="${gpa.get(enrol)} + ' / ('+${grades.get(enrol)} +') / PASSED'"></td>
